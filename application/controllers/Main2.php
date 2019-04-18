@@ -73,8 +73,8 @@ class Main2 extends CI_Controller {
 	public function savings(){
 		$topBar=$this->authmodel->checkLogin();
 		$this->load->view('include/header3',$topBar);
-		$arrData=$this->needsmodel->showNeedsList();
-		$this->load->view('saving/saveMoney2',$arrData);
+		$arrData=$this->savingsmodel->showSavingsList();
+		$this->load->view('saving/SaveMoney2',$arrData);
 		$this->load->view('include/footer2');
 	}
 

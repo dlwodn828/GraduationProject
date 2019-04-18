@@ -2,10 +2,12 @@
 <html lang="ko">
 <head>
 	<meta charset="UTF-8">
-	<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no">
+    <!-- <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no"> -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no, target-densitydpi=medium-dpi" />
 	<!-- Le styles -->  
     <!-- Bootstrap core CSS -->
   	<link href="/assets/freelancer/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 	<!-- Custom fonts for this template -->
 	<link href="/assets/freelancer/vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
 	<link href="https://fonts.googleapis.com/css?family=Montserrat:400,700" rel="stylesheet" type="text/css">
@@ -36,10 +38,14 @@
 	<!-- <script src="/assets/plugins/pace/pace.min.js"></script> -->
 </head>
 <body>
+<img src="/assets/freelancer/img/login_pig.png"style="max-width:50%; height:auto;position: fixed;top: 15%;left:25%;z-index: 1000;">
+<img src="/assets/freelancer/img/login_sky.png" style="max-width: 100%;height: auto;position:fixed;bottom: 0px;">
+<img id="login_mount"src="/assets/freelancer/img/login_mount.png" style="max-width:100%; height:auto;position: fixed;
+    bottom: 0px;">
     <div class="container">
     <h3 class="text-center">Login</h3>
     <hr>
-    <div class="card">
+    <div class="card" style="top:250px; background-color:rgba( 255, 255, 255, 0 );.; border:0px; width:300px;   margin: 0 auto;">
         <article class="card-body">
         <!-- <h4 class="card-title mb-4 mt-1">Login</h4> -->
             <form id="actForm" action="/auth/loginProc" method="POST">
@@ -47,21 +53,20 @@
 				<?=$this->session->userdata('AdminId')?>
                 <div class="form-group">
                     <label></label>
-                    <input id="AdminId" name="AdminId" class="form-control" placeholder="ID" type="id">
+                    <input id="AdminId" name="AdminId" class="form-control" placeholder="아이디" type="id">
                 </div> <!-- form-group// -->
-               
                 <div class="form-group">
                     <label></label>
-                    <input type="password" id="AdminPwd" name="AdminPwd" class="form-control" placeholder="******" type="password">
+                    <input type="password" id="AdminPwd" name="AdminPwd" class="form-control" placeholder="비밀번호" type="password">
                 </div> <!-- form-group// --> 
-                
-                <div class="form-group"> 
-                    <a href="/auth/signUp" class=" btn btn-outline-primary">Sign up</a>
-                </div> <!-- form-group// -->  
+                <br>
                 <div class="form-group">
-					<button type="submit" class="btn btn-primary btn-block"> Login  </button>
+                    <button type="submit" class="btn btn-primary btn-block"> 시작하기 </button>
 					<!-- <button type="submit" class="btn btn-primary btn-block"> Login  </button> -->
                 </div> <!-- form-group// -->                                                           
+                <div class="form-group"> 
+                    <a href="/auth/signUp" class=" btn btn-outline-primary" style="width:100%;">회원가입</a>
+                </div> <!-- form-group// -->  
             </form>
         </article>
     </div> <!-- card.// -->
@@ -107,7 +112,7 @@
 						data: $(form).serialize(),
 						dataType:"json",
 						success:function(data) {
-							alert(data.sMessage);
+							swal("환영합니다!",{button:false});
 							// $("#csrf").val(data.sToken);
 							if (data.sRetCode=="01") { //로그인 성공시
 								document.location.href=data.sRetUrl;
@@ -123,7 +128,13 @@
 				} else {
 				}
 			}
-	});
-	</script>
+    });
+
+    </script>
+    <script type="text/javascript">
+        window.addEventListener("load",function(){
+        setTimeout(scrollTo,0,0,1);
+        },false);
+    </script>
 </body>
 </html>

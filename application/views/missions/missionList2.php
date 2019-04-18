@@ -17,9 +17,9 @@
   padding: 0.1rem 9.5rem;
   border-color: #18bc9c;
   position: fixed;
-  left: 30;
+  left: 30px;
   z-index: 998;
-  margin-top: 5px;
+
 
 }
 tr{
@@ -43,8 +43,24 @@ td{
 display:none;
 
 }
-
+#mp{
+    width: 70px;
+    margin-left: 190px;
+    height: 100%;
+    position: relative;
+    bottom: 25px;
+    color:white;
+}
+#mp2{
+    width: 70px;
+    margin-left: 220px;
+    height: 100%;
+    position: relative;
+    bottom: 25px;
+    color:white;
+}
 #missionback{
+    top:20px;
   margin-top:30px;  
   margin-top: 30px;
     position: fixed;
@@ -74,6 +90,7 @@ display:none;
       <h4 class="missionment text-center text-secondary mb-0">미션을<br>추가해주세요!</h4>
         <br><br>
         <a href="/Main2/goToAddMissions" onClick="return missionalert();" class="btn-primary btn-lg plusbtn">+</a>
+       
       <!-- </div> -->
       <?if(!$missionsList){?>
         <br><br><h4 class="text-center text-secondary mb-0">아직 미션이 등록되지 않았어요</h4>
@@ -115,9 +132,9 @@ display:none;
                       <input type="hidden" name="midx" value="<?=$row['midx']?>">
                       <input type="hidden" name="mprice" value="<?=$row['price']?>">
                       <?if($row['state']==0){?>
-                        <div class="bottom-popup"><button type="button"  class="start btn-gray">미션 수행 중</button></div>
+                        <div class="bottom-popup"><button type="button"  class="mission_ing start btn-gray">미션 수행 중</button></div>
                       <?}else if($row['state']==1){?>
-                        <div class="bottom-popup"><button type="submit" name="state" value="<?=$row['state']?>"class="start btn-green">용돈 지급</button></div>
+                        <div class="bottom-popup"><button type="submit" name="state" value="<?=$row['state']?>"class="mission_com start btn-green">용돈 지급</button></div>
                       <?}else if($row['state']==2){?>
                         <div class="bottom-popup"><button type="button" class="start btn-blue">용돈 지급 완료</button></div>
                       <?}?>
@@ -183,8 +200,16 @@ display:none;
         <div class="row">
           <div class="col-lg-8 mx-auto">
             <h4 class="missionment text-center text-secondary mb-0">미션을<br>수행해보아요!</h4>
-            <div class="missionList">
+             <!-- -->
             
+
+
+            <!-- -->
+            <div class="missionList">
+            <button id="ssebtn">Close the connection</button>
+
+            <ul id="sseul">
+            </ul>
             <?foreach($missionsList as $index=>$row){?>
               <div class="popup"> 
                 <a href="#" class="close">
@@ -207,6 +232,7 @@ display:none;
                 <h1 class="mission"><?=$row['contents']?></h1>
                   <div class="mpbox">
                     <img class="missionprice" src="/assets/freelancer/img/missionprice.png" style="max-width:40%;height: auto;">
+                    <span id="mp2"><?=$row['price']?></span>
                     <!-- <span class="mp"><?=$row['price']?></span> -->
                   </div>
                 <input id="#state" type="hidden" value="<?=$row['state']?>">
@@ -215,11 +241,11 @@ display:none;
                   <input type="hidden" name="midx" value="<?=$row['midx']?>">
                   <input type="hidden" name="mprice" value="<?=$row['price']?>">
                   <?if($row['state']==0){?>
-                    <div class="bottom-popup"><button type="submit" name="state" value="<?=$row['state']?>" class="start btn-green">다했어요!</button></div>
+                    <div class="bottom-popup bp<?=$row['state']?>"><button type="submit" name="state" value="<?=$row['state']?>" class="start btn-green">다했어요!</button></div>
                   <?}else if($row['state']==1){?>
-                    <div class="bottom-popup"><button type="button" class="start btn-gray">기다려요!</button></div>
+                    <div class="bottom-popup bp<?=$row['state']?>"><span class="">용돈 기다리는 중...</span></div>
                   <?}else if($row['state']==2){?>
-                    <div class="bottom-popup"><button type="button" class="start btn-blue">용돈을 받았어요!</button></div>
+                    <div class="bottom-popup bp<?=$row['state']?>"><button type="button" class="start btn-blue">용돈을 받았어요!</button></div>
                   <?}?>
                 </form>
                 <!-- <div class="bottom-popup"><a class="start" href="#">START</a></div> -->
@@ -278,6 +304,7 @@ display:none;
   <?foreach($nidx as $index=>$row){?>
     <input type="hidden" id="nidx" value="<?=$row['nidx']?>">
   <?}?>
+  <input type="hidden" id="page" value="<?=$page?>">
   <script>
 
   function missionalert(){
@@ -289,3 +316,58 @@ display:none;
     }
   }
   </script>
+   <script>
+   $(document).ready(function(){
+
+    if($('button').html()=="용돈을 받았어요!"){
+        $('')
+    }
+
+
+    var page = $('#page').val();
+        if(page==0){
+            // $('#ntab').css('background-color','#7ba434').css('color','white');
+        }else if(page==1){
+            // $('#mtab').css('background-color','#7ba434').css('color','white');
+            // $('#missiontab').attr('src','/assets/freelancer/img/missionicon_white.png');
+        }
+
+    // var button = document.querySelector('#ssebtn');
+    //         var evtSource = new EventSource('/Sse');
+
+    //         console.log(evtSource.withCredentials);
+    //         console.log(evtSource.readyState);
+    //         console.log(evtSource.url);
+    //         // console.log(evtSource.data+"hihi");
+
+    //         var eventList = document.querySelector('#sseul');
+
+    //         evtSource.onopen = function() {
+    //             console.log("Connection to server opened.");
+    //         };
+
+    //         evtSource.onmessage = function(e) {
+    //             var newElement = document.createElement("li");
+    //             newElement.textContent = "message: " + e.data;
+    //             eventList.appendChild(newElement);
+    //         };
+
+    //         evtSource.onerror = function() {
+    //             console.log("EventSource failed.");
+    //         };
+
+    //         button.onclick = function() {
+    //             console.log('Connection closed');
+    //             evtSource.close();
+    //         };
+   });
+            
+
+            // evtSource.addEventListener("ping", function(e) {
+            //   var newElement = document.createElement("li");
+            //
+            //   var obj = JSON.parse(e.data);
+            //   newElement.innerHTML = "ping at " + obj.time;
+            //   eventList.appendChild(newElement);
+            // }, false);
+ </script>

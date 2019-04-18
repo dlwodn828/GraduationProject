@@ -2,10 +2,9 @@
 <html lang="kr">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1, shrink-to-fit=no, user-scalalbe=no">
     <meta name="description" content="">
     <meta name="author" content="">
     <!-- Sweet Alert -->
@@ -36,22 +35,25 @@
     <link href="/assets/freelancer/vendor/magnific-popup/magnific-popup.css" rel="stylesheet" type="text/css">
 
     <!-- Custom styles for this template -->
-    <link href="https://fonts.googleapis.com/css?family=Jua" rel="stylesheet">
+    <!-- <link href="https://fonts.googleapis.com/css?family=Jua" rel="stylesheet"> -->
     <link href="/assets/freelancer/css/freelancer.min.css" rel="stylesheet">
-    <link href="/assets/ref/timeline/timeline.css" rel="stylesheet">
+    <link href="/assets/ref/timeline/timeline2.css" rel="stylesheet">
     <link href="/assets/ref/missionbox.css" rel="stylesheet">
     <link href="/assets/ref/piggybank.css" rel="stylesheet">
+    <link href="/assets/ref/scroll.css" rel="stylesheet">
     <script src="/assets/ref/piggybank.js"></script>
+    <script src="/assets/ref/addcomma.js"></script>
+    <script src="/assets/ref/timeline/timeline.js"></script>
     <!-- <script src='http://code.jquery.com/jquery-3.3.1.slim.min.js'></script>
     <script src='/assets/jquerykeyframes/jquery.keyframes.js'></script> -->
-    <title>Document</title>
+    <title>Pigmong</title>
     <style>
     
     @import url(https://fonts.googleapis.com/css?family=Bitter:400,400italic,700);
 
         * {
         box-sizing: border-box;
-        font-family:jua;
+        /* font-family:jua; */
         }
 
         html,
@@ -68,8 +70,8 @@
         }
 
         a {
-        text-decoration: none;
-        font-family:jua;
+        text-decoration: none !important ;
+        /* font-family:jua; */
         }
 
 
@@ -86,7 +88,7 @@
             bottom: 0;
             z-index:1000;
             /* box-shadow: 0px 0px 25px #656668; */
-            box-shadow: 0px 0px 20px #656668;
+            box-shadow: 0px 0px 10px #656668;
             
        
             
@@ -126,6 +128,7 @@
 
         .tabs {
             position: relative;
+            color:gray;
         }
         .first-time,
         .tab {
@@ -313,14 +316,57 @@
         padding: 10px 20px;
         }
         #mainNav{
-            background-color:#d9eff4;
+            background-color:#bee1e5;
         }
         .title1{
             color:#e39897;
             font-family:jua;
             margin-left:130px;
+        }
 
-            
+        .badge1{
+            bottom: 55px;
+            position: fixed;
+            display: block;
+            width: 28px;
+            height: 28px;
+            border-radius: 50%;
+            background-color: red;
+            z-index: 1000;
+            box-shadow: 0px 0px 3px 0px #202020;
+        }
+        .badge2{
+            bottom: 55px;
+            position: fixed;
+            display: block;
+            width: 28px;
+            height: 28px;
+            border-radius: 50%;
+            background-color: red;
+            z-index: 1000;
+            box-shadow: 0px 0px 3px 0px #202020;
+        }
+        #mbadge{
+            text-align: center;
+            right: 140px;
+            color:white;
+        }
+        #sbadge{
+            color: white;
+            right: 10px;
+            text-align: center;
+        }
+        .badge1:empty {
+            display: none;
+        }
+        .badge2:empty {
+            display: none;
+        }
+        /* .toggleBadge{
+            display:none;
+        } */
+        .tab_white{
+            display:none;
         }
     </style>
 </head>
@@ -378,28 +424,32 @@
         </li>
         </ul> -->
     </nav>
+    
     <main class="main fixed main_tabs">
       
     <?if($this->session->userdata('AdminType')){?>
         <nav class="nav fixed nav_tabs">
-            <a href="/Main2/missions" class="nav_item_p"><img class="nav_img" id="missiontab" src="/assets/freelancer/img/missiontab.png" height="32px"><br>노력해요</a>
-            <a href="/Main2/needs" class="nav_item_p"><img class="nav_img" id="bear" src="/assets/freelancer/img/needicon.png"  height="32px"><br>필요해요</a>
+            <a href="/Main2/missions" class="tabs nav_item_p"><img class="nav_img" id="missiontab" src="/assets/freelancer/img/nav_mission.png" height="32px"><br>노력해요</a>
+            <a href="/Main2/needs" class="tabs nav_item_p"><img class="nav_img" id="needtab" src="/assets/freelancer/img/nav_need.png"  height="32px"><br>필요해요</a>
         </nav>
     <?}else{?>
         <nav class="nav fixed nav_tabs">
-            <a href="/Main2/needs" class="nav_item"><img class="nav_img" id="bear" src="/assets/freelancer/img/needicon.png"  height="32px"><br>필요해요</a>
-            <a href="/Main2/missions" class="nav_item"><img class="nav_img" id="missiontab" src="/assets/freelancer/img/missiontab.png" height="32px"><br>노력해요</a>
-            <a href="/Main2/savings" class="nav_item"><img class="nav_img" id="savingtab" src="/assets/freelancer/img/savingtab.png" height="32px"><br>저금해요</a>
+            <a id="ntab" href="/Main2/needs" class="tabs nav_item" data-tab="needs"><img class="nav_img" id="needtab" src="/assets/freelancer/img/nav_need.png"  height="32px"><br>필요해요</a>
+            <a id="mtab" href="/Main2/missions" class="tabs nav_item" data-tab="missions"><img class="nav_img" id="missiontab" src="/assets/freelancer/img/nav_mission.png" height="32px"><br>노력해요</a>
+            <a id="stab" href="/Main2/savings" class="tabs nav_item" data-tab="savings"><img class="nav_img" id="savingtab" src="/assets/freelancer/img/nav_saving.png" height="32px"><br>저금해요</a>
+            
         </nav>
+        <div id="mbadge" class="badge2"></div>
+        <div id="sbadge" class="badge1"></div>
     <?}?>
     <script>
     function AddComma(data_value) {
         return Number(data_value).toLocaleString('en');
     }
-        $(document).ready(function(){
-            // menu click event
-            var totalbalance = $("#totalbalance").html();
-            $("#totalbalance").html(AddComma(totalbalance));
+    $(document).ready(function(){
+        // menu click event
+        var totalbalance = $("#totalbalance").html();
+        $("#totalbalance").html(AddComma(totalbalance));
         
         $('.menuBtn').click(function() {
             $(this).toggleClass('act');
@@ -411,7 +461,71 @@
                     
                 }
         });
+
+        
+    // var button = document.querySelector('#ssebtn');
+    
+    
+    
+    
+    // button.onclick = function() {
+        //     console.log('Connection closed');
+        //     evtSource.close();
+        // };
+        
+        
+        
+        // var tab_id = $(this).attr('data-tab');
+        
+        // $('.nav_item').removeClass('current');
+        // // $('.tab-content').removeClass('current');
+        
+        // $(this).addClass('current');
+        // $("#"+tab_id).addClass('current');
+        
     });
+        var evtSource = new EventSource('/Sse/saving');
+        evtSource.onmessage = function(e) {
+            console.log(e.data+"saving");
+            if(e.data!=0){
+                $('.badge1:empty').css('display','block');
+                $('#sbadge').html(e.data);
+            }
+            // else if(e.data>0){
+            //     $('.badge:empty').css('display','block');
+            // }
+            
+
+
+            // var newElement = document.createElement("li");
+            // newElement.textContent = "message: " + e.data;
+            // eventList.appendChild(newElement);
+        };
+
+        evtSource.onerror = function() {
+            // console.log("EventSource failed.");
+        };
+        var newMissionCnt=0;
+
+
+        var evtMissionAlarm = new EventSource('/Sse/mission');
+        evtMissionAlarm.onmessage = function(e) {
+            console.log(e.data+"mission");
+            if(e.data!=0){
+                newMissionCnt++;
+                $('.badge2:empty').css('display','block');
+                $('#mbadge').html(newMissionCnt);
+            }
+            // else if(e.data>0){
+            //     $('.badge:empty').css('display','block');
+            // }
+            
+
+
+            // var newElement = document.createElement("li");
+            // newElement.textContent = "message: " + e.data;
+            // eventList.appendChild(newElement);
+        };
     </script>
       <!-- <section class="section section_tabs">
         <div id="tab1" class="tab">

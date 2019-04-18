@@ -12,8 +12,10 @@ class Needsmodel extends CI_Model{
     }
 
     function showNeedsList(){
+
         // 현재 등록된 needs 
         $this->needs=$this->session->userdata('Needs');
+        $this->bid=$this->session->userdata('AdminBid');
 
         if(!$this->session->userdata('AdminType')){ //아이일 때
             $this->writerid=$this->session->userdata('AdminId');
@@ -54,14 +56,16 @@ class Needsmodel extends CI_Model{
             $needsList['bBalance']=0;
         }
         
-
+        $this->sQuery="SELECT *,DATE_FORMAT(date,'%y.%m.%d %h:%i') as regdate from tbl_transactions where bid='".$this->bid."' and nidx='".$this->needs."' and types=1 order by date DESC";
+        $this->savingInfo=$this->db->query($this->sQuery)->result_array();
+        $needsList['savingInfo']=$this->savingInfo;
         $needsList['isDone']=FALSE;
         if($this->needsPrice==$this->pb){
             $needsList['isDone']=TRUE;
         }else{
             $neeedsList['isDone']=FALSE;
         }
-        
+        $needsList['page']=0;
         return $needsList;        
     }
 

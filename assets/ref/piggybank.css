@@ -1,4 +1,4 @@
-
+/* 
 body {
     overflow-x: hidden;
 
@@ -8,14 +8,7 @@ body {
       top:100px;
       left:100px;
   }
-  /* h1 {
-    font-weight: normal;
-    color: white;
-    position: absolute;
-    left: 50%;
-    margin-left: -180px;
-    top: 15px;
-  } */
+
   .blush1 {
     position: absolute;
     width: 20px;
@@ -26,7 +19,7 @@ body {
     border-radius: 50%;
     box-shadow: 0 0 20px 10px #FF3333;
     z-index: 999;
-    /* display: none; */
+
   }
   .blush2 {
     position: absolute;
@@ -37,7 +30,7 @@ body {
     left: 280px;
     border-radius: 50%;
     box-shadow: 0 0 20px 10px #FF3333;
-    /* display: none; */
+
     z-index: 999;
   }
   #pg1{
@@ -83,17 +76,10 @@ body {
     background: #006600;
     border-radius: 50%;
   }
-  /* img { display: block; margin: 0px auto; } */
+
   .piggy {
     text-align:center;
-    /* width: 300px;
-    height: 300px;
-    background: #FF6666;
-    border-radius: 50%;
-    margin: 0 auto;
-    margin-top: 100px;
-    position: relative; */
-    /* bottom:0; */
+
     position: absolute;
     bottom: 70px;
   }
@@ -131,7 +117,7 @@ body {
     display: block;
     position: relative;
     left: 9px;
-    /* top: 8px; */
+
     width: 50px;
     line-height: 20px;
   }
@@ -143,6 +129,14 @@ body {
       box-shadow: 0 0 10px 10px #FFFF94;
     }
   }
+  @keyframes touch{
+      from{
+          opacity: 0;
+      }
+      to{
+          opacity: 1;
+      }
+  }
   @keyframes smile {
     from {
       border-radius: 0 0 5% 5%;
@@ -151,3 +145,6 @@ body {
       border-radius: 0 0 50% 20%;
     }
   }
+
+   */
+  

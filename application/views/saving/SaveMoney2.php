@@ -1,14 +1,19 @@
 
 <style>
-body {
+ body {
     overflow-x: hidden;
 
   }
   .bbal{
+      font-weight:300;
       position: absolute;
-      top:40px;
-      left:135px;
+      /* top: 100px;
+    left: 80px; */
       font-family:'jua';
+      margin-top: 130px;
+    margin-left: 120px;
+      /* margin-left: 30px;
+        margin-top: 40px; */
   }
   /* h1 {
     font-weight: normal;
@@ -18,44 +23,36 @@ body {
     margin-left: -180px;
     top: 15px;
   } */
-  .blush1 {
+  .blushs{
     position: absolute;
     width: 20px;
     height: 20px;
     background: #FF3333;
     bottom: 20px;
-    left: 80px;
     border-radius: 50%;
     box-shadow: 0 0 20px 10px #FF3333;
-    z-index: 999;
-    /* display: none; */
+    z-index: 1000;
+  }
+  .blush1 {
+    left: 80px;
   }
   .blush2 {
-    position: absolute;
-    width: 20px;
-    height: 20px;
-    background: #FF3333;
-    bottom: 20px;
     left: 280px;
-    border-radius: 50%;
-    box-shadow: 0 0 20px 10px #FF3333;
-    /* display: none; */
-    z-index: 999;
   }
   #pg1{
     position: relative;
   }
   #coin {
-    bottom: 300px;
-    width: 70px;
-    height: 70px;
+    bottom: 270px;
+    width: 90px;
+    height: 90px;
     border-radius: 50%;
-    background: #ccc;
+    background: #fff21d;
 
-    border: #999 solid 2px;
-    left: 41%;
+    border: #9996 solid 2px;
+    left: 140px;
     position: absolute;
-    /* animation: glow 1s alternate infinite; */
+    animation: glow 1s alternate infinite;
     cursor: pointer;
     z-index: 3;
     text-align:center;
@@ -64,9 +61,8 @@ body {
     animation: none;
   }
   #coincover{
-    left: 50%;
-    position: relative;
-    bottom: 103px;
+    position:sticky;
+    bottom: 0px;
     z-index: 100;
   }
   
@@ -97,7 +93,7 @@ body {
     position: relative; */
     /* bottom:0; */
     position: absolute;
-    bottom: 70px;
+    bottom: 0px;
   }
   .piggy .insert {
     width: 120px;
@@ -132,19 +128,21 @@ body {
   #coinprice{
     display: block;
     position: relative;
-    left: 9px;
-    /* top: 0px; */
+    text-align: center;
     width: 50px;
     line-height: 20px;
+    font-size: 1.5rem;
+    margin: auto;
+
   }
-  /* @keyframes glow {
+  @keyframes glow {
     from {
       box-shadow: 0 0 10px#FFFF94;
     }
     to {
       box-shadow: 0 0 10px 10px #FFFF94;
     }
-  } */
+  }
   @keyframes smile {
     from {
       border-radius: 0 0 5% 5%;
@@ -153,40 +151,201 @@ body {
       border-radius: 0 0 50% 20%;
     }
   }
+  @keyframes touch{
+      from{
+          opacity: 0.1;
+      }
+      to{
+          opacity: 1;
+      }
+  }
   
-</style>
-
-<form action="/Main2/saveMoney" method="post" name="savingMoney" id="savingMoney" novalidate="novalidate">
-    <input id="pinmoney1" type="hidden" name="pinmoney" value="<?=$wBalance?>">
-    <input id="pinmoney1" type="hidden" name="pinmoney" value="<?=$wBalance?>">    
-</form>
-<button id="coinbtn"><div id="coin">₩<br><span id="coinprice"><?=$wBalance?></span></div></button>
-<!-- <div class="col-sm-3 tot">
-                <input id="total" class="form-control" type="text" value="₩ 0">
-                <input id="pinmoney" name="pinmoney" type="hidden" value="0">
-                <input id="wBalance" name="wBalance" type="hidden" value="<?=$wBalance?>">
-                <a href="javascript:resetTotal()" class="" >reset</a>
-                <br>
-                <br>
-              </form>
-              <button id="saving" class="btn-primary btn-lg" >저금하기</button>
-            </div> -->
-<!-- <h1>Insert Coin</h1> -->
-<div class="piggy">
-  <!-- <div class="insert"></div>
-  <div class="cover"></div>
-  <div class="coin-cover">
-       -->
-       <h2 class="bbal"><?=$bBalance?></h2>
-    <img id="pg" src="/assets/freelancer/img/piggybank_1.png" style="max-width:90%;height: auto;">
-
-</div>
-<div class="piggy">
-    <img id="pg1" src="/assets/freelancer/img/piggybank_smile.png" style="max-width:90%;height: auto;">
+#saving_cloud{
+    position: absolute;
+    top: 50px;
+    left:20px;
+}
+body{
+    background:#d9eff4;
+}
+#ments{
+    position: absolute;
+    top: 310px;
+    left: 35px;
+    text-align: center;
     
+
+}
+.swal-text{
+    font-size:23px;
+}
+.swal-footer{
+    text-align:center;
+}
+.saving_ment{
+    font-weight:300;
+    font-size:2rem;
+    animation:touch 1s alternate infinite;
+}
+.togglePiggy{
+    display: none;
+}
+
+#won{
+    display: inline-block;
+    margin-top: 15px;
+}
+</style>
+<div id="saving">
+    <form action="/Main2/saveMoney" method="post" name="savingMoney" id="savingMoney" novalidate="novalidate">
+        <input id="pinmoney1" type="hidden" name="pinmoney" value="<?=$wBalance?>">
+        <input id="pinmoney1" type="hidden" name="pinmoney" value="<?=$wBalance?>">    
+    </form>
+    <div id="cloud">
+        <img id="saving_cloud"src="/assets/freelancer/img/saving_cloud.png" style="max-width:90%; height:auto;">
+        <!-- <h4>피그몽에</h4> -->
+        <h2 class="bbal"><?=$bBalance?></h2>
+        <!-- <h4>원을 모았어요!</h4> -->
+    </div>
+    <button id="coinbtn"><div id="coin"><span id="won">₩</span><br><span id="coinprice"><?=$wBalance?></span></div></button>
+    <div id="ments">
+        <h5 class="saving_ment">Touch!</h5>
+        <!-- <h5 class="saving_ment">저금해보아요!</h5> -->
+    </div>
+    <!-- <div class="col-sm-3 tot">
+                    <input id="total" class="form-control" type="text" value="₩ 0">
+                    <input id="pinmoney" name="pinmoney" type="hidden" value="0">
+                    <input id="wBalance" name="wBalance" type="hidden" value="<?=$wBalance?>">
+                    <a href="javascript:resetTotal()" class="" >reset</a>
+                    <br>
+                    <br>
+                </form>
+                <button id="saving" class="btn-primary btn-lg" >저금하기</button>
+                </div> -->
+    <!-- <h1>Insert Coin</h1> -->
+    <div class="piggy">
+        <img id="coincover" src="/assets/freelancer/img/saving_coincover.png" style="max-width:90%;height: auto;">
+        <!-- <div class="blushs blush1 togglePiggy"></div>
+        <div class="blushs blush2 togglePiggy"></div> -->
+    </div>
+    <div class="piggy">
+    <!-- <div class="insert"></div>
+    <div class="cover"></div>
+    <div class="coin-cover">
+        -->
+        
+        
+        <img id="pg"class="" src="/assets/freelancer/img/saving_pig2.png" style="max-width:90%;height: auto;">
+
+    </div>
+    <div class="piggy">
+        <!-- <img id="pg1"class="" src="/assets/freelancer/img/saving_pig2_smile.png" style="max-width:85%;height: auto;"> -->
+        
+    </div>
 </div>
-<div class="piggy">
-    <img id="coincover" src="/assets/freelancer/img/piggybank_2.png" style="max-width:57%;height: auto;">
-    <div class="blush1"></div>
-    <div class="blush2"></div>
-</div>
+<input type="hidden" id="page" value="<?=$page?>">
+<script>
+    function savemoney(){
+    
+    var b = false;
+    if(true){
+        swal("성공");
+        b=true;
+    }
+    if(b){
+        return true;
+    }else{
+        return false;
+    }
+}
+
+$(document).ready(function(){
+    var page = $('#page').val();
+        if(page==0){
+            // $('#ntab').css('background-color','#7ba434').css('color','white');
+        }else if(page==1){
+            // $('#mtab').css('background-color','#7ba434').css('color','white');
+        }else if(page==2){
+            // $('#stab').css('background-color','#7ba434').css('color','white');
+            // $('#savingtab').attr('src','/assets/freelancer/img/savingicon_white.png');
+        }
+    var bbal = $('.bbal').html();
+    $('.bbal').html(AddComma(bbal));
+
+
+
+
+
+// function AddComma(data_value) {
+//     return Number(data_value).toLocaleString('en');
+//   }
+
+
+    // $('#pg1').hide();
+    if($('#coinprice').html()=='0'){
+
+        $('.saving_ment').css('animation','');
+
+    }else{
+        $('.saving_ment').css('animation','touch 1s alternate infinite');
+    }
+
+    $('#pg').removeClass('togglePiggy');
+    // $('#coincover').show();
+    $('.blushs').addClass('togglePiggy');
+
+    var pm = $('#pinmoney1').val();
+
+    $('#coincover').css('display','');
+    $('#coin').click(function() {
+        
+            if($('#coinprice').html()=='0'){
+                swal('저금할 돈이 없습니다!');
+                $('.saving_ment').css('animation','');
+                return false;
+            }else{
+            
+            var pm = $('#pinmoney1').val();
+            $(this).addClass('active');
+            console.log(pm);
+            $('#coincover').css('display','');
+            // $('h1').fadeOut('slow');
+            
+            $(this).animate({
+                bottom: "140px"
+            }, 1000);
+            
+            $('.mouth').addClass('smile');
+            
+            setTimeout(function() {
+                // $('#blush1').fadeIn('slow');
+                // $('.blushs').removeClass('togglePiggy');
+            }, 1000);
+            // setTimeout(function() {
+            // // $('#blush2').fadeIn('slow');
+            // }, 1000);
+            
+            setTimeout(function() {
+                $('#pg1').removeClass('togglePiggy');
+                // $('#pg').addClass('togglePiggy');
+            
+            }, 1100);
+            
+            setTimeout(function() {
+                var a= 10;
+                // alert(pm+"저금이 완료되었어요");
+                
+                // swal(pm+"원이 저금되었어요!");
+                $('#savingMoney').submit();
+                
+            }, 2000);
+        // }
+        // event.preventDefault();
+
+        }
+    });
+      
+
+});
+
+</script>

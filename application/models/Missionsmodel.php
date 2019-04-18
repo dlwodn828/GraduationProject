@@ -11,6 +11,7 @@ class Missionsmodel extends CI_Model{
     }
 
     function showMissionsList(){
+        
       if($this->session->userdata('AdminType')){ // 부모일 때
         $this->writerid=$this->session->userdata('AdminId');
         $this->ptn=$this->session->userdata('AdminPtn');
@@ -36,12 +37,14 @@ class Missionsmodel extends CI_Model{
       // $this->sQuery="SELECT distinct * from tbl_missions where writerid='".$this->writerid."' and nidx='".$this->nidx."' order by regdate desc";
       // $this->missionsList=$this->db->query($this->sQuery)->result_array();
       // $missionsList['missionsList']=$this->missionsList;
+
+
       $missionsList['missionsList']=$this->mList;      
       $missionsList['missionsList_p']=$this->mList_p;      
       $this->sQuery="SELECT * from tbl_needs where writerid='".$this->ptn."'";
       $this->n=$this->db->query($this->sQuery)->result_array();
       $missionsList['nidx']=$this->n;
-      
+      $missionsList['page']=1;
       return $missionsList;  
     }
 
@@ -65,6 +68,7 @@ class Missionsmodel extends CI_Model{
           $this->sQuery="INSERT into tbl_missions(contents, price, writerid, nidx) values ('".$this->contents."', '".$this->price."', '".$this->writerid."', '".$this->nidx."')";
           $this->db->query($this->sQuery);  
         }
+        
         // return json_encode($arrRetMessage);
         redirect('/Main2/missions','refresh');
     }

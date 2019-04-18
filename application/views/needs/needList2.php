@@ -70,6 +70,7 @@ label{
   }
 }
 
+
 .circular-chart.orange .circle {
   stroke: #ff9f00;
 }
@@ -133,12 +134,14 @@ img {
   }  */
   .price{
     color:#e39897;
-    font-size:3rem;
+    font-size:2rem;
   }
-  .contents{
+  #contents{
     /* background-color:white; */
     color:gray;
     font-size:2rem;
+    margin:0px;
+    font-weight:500;
     /* border:2px solid gray; */
   }
 #section{
@@ -190,29 +193,33 @@ img {
 */
 #char{
   position: absolute;
-    top: 225px;
+    top: 200px;
     width: 80px;
     /* animation: show 0.35s forwards ease-in-out 0.5s; */
-    animation: run 1s ease-in-out forwards;
+    /* animation: run 0.1s forwards; */
 }
   .progress-bar {
   width: 0;
   animation: progress 2s ;
   /* //ease-in-out forwards */
-  background:#a9ce49;
-  height:40px;
+  background:#ff9898;
+  height:15px;
   margin:auto 0;
 
 } 
   
 .progress{
-  height:50px;
+  height:15px;
+  background-color: white;
+    border-radius: 10rem;
 }
   
 .title {
+    margin-top:10px;
     opacity: 0;
     font-size:1.5rem;
     animation: show 0.35s forwards ease-in-out 0.5s;
+    float:left;
   }
 @keyframes progress {
   from {
@@ -267,6 +274,295 @@ img {
   font-size:1.5rem;
   font-family: 'jua', sans-serif;
 }
+.needs_pigmong{
+    position: relative;
+    display: block;
+    text-align: center;
+    margin-top: 20px;
+}
+.toggleTimeline{
+    display:none;
+}
+.l-block-spacing{
+    margin-top:10px;
+}
+
+/* .budget-alert {
+  background-color: #424242;
+  color: #fff;
+  padding: 20px 30px;
+  border-radius: 5px;
+  position: relative;
+  width: 80%;
+  font-weight: 100;
+  font-size: 1.5rem;
+}
+.budget-alert:before {
+  content: attr(data-line);
+  font-weight: bold;
+  font-family: rooney-web;
+}
+.budget-alert:after {
+  content: "";
+  position: absolute;
+  bottom: -10px;
+  right: 80px;
+  width: 0;
+  height: 0;
+  border-left: 13px solid transparent;
+  border-right: 13px solid transparent;
+  border-top: 20px solid #424242;
+} */
+
+/* Global resets */
+/* * {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+} */
+
+
+/* Fonts */
+/* h1 {
+  font-family: "rooney-web", 'AmericanTypewriter', Rockwell, serif;
+  font-size: 2.5em;
+  font-weight: bold;
+} */
+/* 
+.container {
+  margin: 2em auto;
+  max-width: 630px;
+  text-align: center;
+} */
+
+/* Your CSS goes here */
+/* FONTS */
+/* Config */
+/* COLORS */
+/*COMMON STYLE*/
+html {
+  /* font-size: 16px; */
+}
+
+.bold {
+  font-weight: bold;
+}
+
+.link {
+  font-family: "rooney-sans";
+  font-style: italic;
+  text-decoration: none;
+  color: #20A1D4;
+}
+
+.p {
+  color: #777;
+  line-height: 2rem;
+  margin: 20px 0;
+  font-weight: 100;
+}
+
+.text-highlighted {
+  color: #EF5F3C;
+}
+
+/* BUTTON */
+/* CUSTOM COMPONENT STYLE*/
+.component-section {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  font-size: 1.4rem;
+  font-family: "rooney-sans";
+  padding-right: 40px;
+  padding-left: 40px;
+}
+.component-section .top-section-wrapper {
+  margin-bottom: 15px;
+  width: 100%;
+  display: flex;
+}
+.component-section .top-section-wrapper .budget-alert {
+  background-color: #424242;
+  color: #fff;
+  padding: 20px 30px;
+  border-radius: 5px;
+  position: relative;
+  width: 100%;
+  font-weight: 100;
+  font-size: 1.5rem;
+}
+.component-section .top-section-wrapper .budget-alert:before {
+  content: attr(data-line);
+  font-weight: bold;
+  font-family: rooney-web;
+}
+.component-section .top-section-wrapper .budget-alert:after {
+  content: "";
+  position: absolute;
+  bottom: -10px;
+  right: 30px;
+  width: 0;
+  height: 0;
+  border-left: 13px solid transparent;
+  border-right: 13px solid transparent;
+  border-top: 20px solid #424242;
+}
+.component-section .middle-section-wrapper {
+  border: 1.5px solid #eaeaea;
+  width: 100%;
+}
+.component-section .middle-section-wrapper .progress-bar {
+  height: 20px;
+  border-bottom: 1.5px solid #eaeaea;
+}
+.component-section .middle-section-wrapper .progress-bar .level-bar {
+  width: 80%;
+  background-color: #EF5F3C;
+  display: block;
+  height: inherit;
+}
+.component-section .middle-section-wrapper .content-section {
+  padding: 15px 50px 30px 50px;
+  text-align: left;
+}
+.component-section .middle-section-wrapper .content-section .button-wrapper {
+  display: flex;
+  justify-content: space-between;
+  padding: 20px 0;
+}
+.component-section .middle-section-wrapper .content-section .button-wrapper .input {
+  position: relative;
+  border: 1.5px solid #eaeaea;
+  padding: 25px 30px;
+  width: 48%;
+  font-size: 1.2rem;
+  outline: none;
+  border-radius: 3px;
+  font-weight: bold;
+}
+.component-section .middle-section-wrapper .content-section .button-wrapper .input:before {
+  content: "$";
+  position: absolute;
+  left: 12px;
+  top: 25px;
+  color: #777;
+  font-weight: 700;
+  font-size: inherit;
+}
+.component-section .middle-section-wrapper .content-section .button-wrapper .button {
+  outline: none;
+  border: 1.5px solid #eaeaea;
+  cursor: pointer;
+  background-color: #fff;
+  color: #777;
+  font-size: 1.5rem;
+  font-weight: 500;
+  width: 48%;
+  padding: 15px 20px;
+  font-family: "rooney-sans";
+  box-shadow: 0px 2px 0px #eaeaea;
+  border-radius: 5px;
+}
+.component-section .middle-section-wrapper .content-section .button-wrapper .button.primary {
+  background-color: #1CBC2C;
+  color: #fff;
+  box-shadow: inset 0px 2px 0px #1CBC2C;
+  padding-top: 20px;
+  padding-bottom: 20px;
+  border: 1.5px solid #1CBC2C;
+}
+.component-section .middle-section-wrapper .content-section .button-wrapper .button.primary:hover {
+  box-shadow: inset 0 0 2px #777;
+}
+.component-section .middle-section-wrapper .content-section .button-wrapper .button:hover {
+  cursor: pointer;
+}
+.component-section .bottom-section-wrapper {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+  padding: 20px 0;
+}
+.component-section .bottom-section-wrapper .button {
+  outline: none;
+  border: 1.5px solid #eaeaea;
+  cursor: pointer;
+  background-color: #fff;
+  color: #777;
+  font-size: 1.5rem;
+  font-weight: 500;
+  width: 48%;
+  padding: 15px 20px;
+  font-family: "rooney-sans";
+  box-shadow: 0px 2px 0px #eaeaea;
+  border-radius: 5px;
+}
+.component-section .bottom-section-wrapper .button.primary {
+  background-color: #1CBC2C;
+  color: #fff;
+  box-shadow: inset 0px 2px 0px #1CBC2C;
+  padding-top: 20px;
+  padding-bottom: 20px;
+  border: 1.5px solid #1CBC2C;
+}
+.component-section .bottom-section-wrapper .button.primary:hover {
+  box-shadow: inset 0 0 2px #777;
+}
+.component-section .bottom-section-wrapper .button:hover {
+  cursor: pointer;
+}
+
+/*media query */
+/* @media only screen and (max-width: 767px) {
+  html {
+    font-size: 14px;
+  }
+
+  .component-section {
+    padding-right: 20px;
+    padding-left: 20px;
+  }
+  .component-section .middle-section-wrapper .content-section {
+    padding: 15px;
+  }
+} */
+.contents{
+    margin:20px;
+}
+.scroll_ment{
+    margin-bottom:0px;
+}
+#needsPrice{
+    float:right;
+    color:white;
+}
+#progressPrice{
+    font-size:1.8rem;
+    color:#ff9898;
+    font-weight:500;
+}
+#piggy_ment{
+    background-color: #ff9898;
+    display: block;
+    border-radius: 5rem;
+    padding: 5px;
+    width: 130px;
+    font-size: 1.5rem;
+    margin: 0 auto;
+    margin-bottom: 20px;
+    color:white;
+}
+.tl_box{
+    margin-top:40px;
+    text-align:center;
+}
+#piggy_balance{
+    display:inline-block;
+    font-size:2rem;
+    margin-bottom:20px;
+}
 </style>
 <section id="section section_tabs">
   <?if(!$needsList){?>
@@ -274,42 +570,11 @@ img {
       <div id="tab" class="tab container">
         <h3 class="text-center text-secondary mb-0">사고 싶은 물건을 입력해 보아요!</h3>
         
-        <!-- <hr class="star-dark mb-5"> -->
         <br>
         <br>
         <div class="row">
           <div class="col-lg-8 mx-auto">
-            <!-- To configure the contact form email address, go to mail/contact_me.php and update the email address in the PHP file on line 19. -->
-            <!-- The form should work on most web servers, but if the form is not working you may need to configure your web server differently. -->
-              <!-- <form action="/Upload/do_upload" mothod="post">
-                <input class="form-group" type="file" name="pic" accept="image/*">
-                <input class="form-group btn-primary"type="submit">
-              </form> -->
-
-              <!-- <?php echo $error; ?> -->
-
-              <?php //echo form_open_multipart('upload/do_upload'); ?>
-              <!-- <form action="/upload/do_upload"> -->
-                <!-- <input type="file" name="userfile" size="20" />
-                <br /><br />
-                <input type="submit" value="upload" />
-              </form> -->
-              <!-- <img src="/uploads/needpic.jpg" alt=""> -->
               <form name="addNeedsForm" action="/Main2/addNeeds" method="post" id="contactForm" novalidate="novalidate">
-                
-                  <!-- <form action='gallery.html' method='POST' enctype='multipart/form-data'> 
-                    <INPUT TYPE=hidden name=mode value=insert> 
-                    <TABLE> 
-                    <TR> 
-                      <TD>이미지</TD> 
-                    </tr>
-                    <tr>
-                      <TD><input type='file' name='image'></TD>
-                    </TR> 
-                    </TABLE> 
-                  </form>  -->
-
-                <!-- <img src="/uploads/needpic.jpg" alt=""> -->
                 
                 <div class="control-group  text-center "id="inputdiv">
                   <div class="form-group mb-0 pb-2" id="inputdiv">
@@ -335,29 +600,56 @@ img {
         </div> 
         <?}else{?>
           <h3 class="text-center text-secondary mb-0">아이가 원하는 물건을 등록할 수 있게 해주세요!</h3>
-          <!-- <hr class="star-dark mb-5"> -->
+
           <br>
           <br>
       <?}?>
       <?} else {?>
-      <!-- <h3 class="text-center text-secondary mb-0">사고 싶어요!</h3> -->
-      <!-- <hr class="star-dark mb-5"> -->
-      <!-- <br> -->
+
       <div>
         <!-- <img id="needback" src="/assets/freelancer/img/needback_375.png" width=""alt=""> -->
-        <img id="needback"  class="needback" src="/assets/freelancer/img/needback_750.png" style="max-width:100%;height: auto;"> 
-        <img id="char" src="/assets/freelancer/img/pigmongicon.png" style="max-width: 50%; height: auto;">
-        <div style="width: auto; margin: auto">
-        <?foreach($needsList as $index=>$row){?>
-          <?$price=$row['price'];?>
-          <div class="progress">
+        <img id="needback"  class="needback" src="/assets/freelancer/img/need_newback_470.png" style="max-width:100%;height: auto;"> 
+        <!-- <img id="char" src="/assets/freelancer/img/needs_bicycle.png" style=" height: auto;"> -->
+        
+        <div class="needs_pigmong">
+            <span id="piggy_ment">저금통</span>
+            <div><span id="piggy_balance"><?=$bBalance?></span><span style="display:inline-block; font-size:1.3rem;"> 원</span></div>
+            <img id="pigmongicon"src="/assets/freelancer/img/newpig.png" onclick="$('body,html').animate({scrollTop:$('body').height()-180},1000);" style="max-width:30%;height:auto;">
+        </div>
+        <div class="header" id="top">
+            <p class="scroll_ment">저금 기록을 확인해보아요!</p>
+            <!-- <br> -->
+            <!-- <p class="scroll_ment">저금 기록을 확인해보아요!</p> -->
+            <i class="fa fa-angle-down animated bounce"></i>
+        </div>
+        <!-- <div class="top-section-wrapper">
+            <span class="budget-alert" data-line="$167"> still needed for this project</span>
+        </div> -->
+        <!-- <div class="main-container container" role="main">
+        <section class="component-section" role="section">
+            <div class="top-section-wrapper">
+                <span class="budget-alert" data-line="$167"> still needed for this project</span>
+                </div>
+                <div class="middle-section-wrapper">
+                <div class="progress">
             <div class="progress-bar" role="progressbar" aria-valuenow="<?=$bBalance/$price*100?>" aria-valuemin="0" aria-valuemax="100" style="max-width: <?=$bBalance/$price*100?>%">
-            <span id="progressPrice" class="title"><?=$bBalance?></span><!--(int)($bBalance/$price*100)-->
+            <span id="progressPrice" class="title"><?=$bBalance?></span>
             </div>
           </div>
-          <?}?>
-        </div>
-        <span class="ment">받은 용돈을 저금해보아요!</span>
+                    <div class="content-section">
+
+
+                    
+                    </div>
+                    
+                </div>
+            </div>
+            
+        </section>
+        </div> -->
+        <script src="//use.typekit.net/rzv2mwh.js"></script>
+        <script>try{Typekit.load();}catch(e){}</script>
+        <!-- <span class="ment">받은 용돈을 저금해보아요!</span>
 
         <div align="center" class="savingInfo">
           <div id="w"class="savingInfo_1">
@@ -372,77 +664,121 @@ img {
           </div>
           <div class="actionbutton">+</div>
         </div>
-      </div>
-      <section class="block-content t-block-teal l-block-spacing">
+      </div> -->
+
+
+
+
+      <!-- <section class="block-content toggleTimeline t-block-teal l-block-spacing">
         <div class="l-contained">
           <header class="heading-group">
-            <h2>Timeline</h2>
+            <h2>저금 기록</h2>
             <p class="subtitle">
             </p>
           </header>
           <ul class="timeline-list">
+            <?foreach($savingInfo as $index=>$row){?>
             <li>
                 <div class="content">
-              <h3>A timeline?</h3>
-          
-              <p>a</p>
-              </div>
+                    <h3><?=$row['amount']?></h3>
+                </div>
             </li>
-            <li>
-                <div class="content">
-              <h3>A railway map?</h3>
-            
-              <p>b</p>
-              </div>
-            </li>
-            <li>
-                <div class="content">
-              <h3>Random dots?</h3>
-              <p>c</p>
-              </div>
-            </li>
-            <li>
-                <div class="content">
-              <h3>Absolutely nothing.</h3>
-              <p>d</p>
-              </div>
-            </li>
+            <?}?>
           </ul>
         </div>
-      </section>
+      </section> -->
+      <!-- <link href='https://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,400,300,600,700' rel='stylesheet'>
+<ol class="timeline toggleTimeline">
+<h2>저금 기록</h2>
+  <li class="event rit">
+    <p class="title_tl">Student</p>
+    <p class="dates">Sept 2011 - Present</p>
+    <p class="company">Rochester Institute of Technology (RIT)</p>
+    <ul class="description">
+      <li>B.S. in Management Information Systems</li>
+      <li>Minor in Computer Science</li>
+      <li>Expected Graduation: Dec 2013</li>
+      <li>GPA: 3.32</li>
+    </ul>
+    <p class="details">
+      In my time out of class, I'm an active member of <a href='https://csh.rit.edu'>Computer Science House </a> (CSH). My first year I was elected Freshman Project President and my second year I was elected as Social Director. My second year I also became webmaster for CSH, creating and maintaing the current website with a friend.
+    </p>
+    <span class="button more">View Details</span>
+  </li>
+  <li class="event csh">
+    <p class="title_tl">Web Master</p>
+    <p class="dates">March 2013 - Present</p>
+    <p class="company">Computer Science House</p>
+    <p class="description">
+      An organization that I am an active participant of, this is the largest website project that I have created to date. The website can be viewed at <a href="https://csh.rit.edu">csh.rit.edu</a>.
+    </p>
+    <p class="details">
+      A lot of time has been invested by a partner and I in making this website work flawlessly on any device. In our testing, the site is fully responsive spanning all resolutions and pixel densities as well as it is fully functional on every major, modern (IE9+) desktop and mobile browser. Progress can be monitored on <a href="https://github.com/myasonik/CSHPublicSite">GitHub</a>.
+    </p>
+    <span class="button more">View Details</span>
+  </li>
+
+
+</ol> -->
+
+<div class="tl_box toggleTimeline">
+    <h1 style="margin-bottom:30px;">저금 기록</h1>
+    <?foreach($savingInfo as $index=>$row){?>
+    <div class="card ">
+        <ul class="timeline">
+            <li class="timeline__item">
+                <div class="timeline__step">
+                    <div class="timeline__step__marker timeline__step__marker--red"></div>
+                </div>
+                <div class="timeline__time">
+                    <?=date("y년 m월 d일\n h시 i분", strtotime($row['date']))?>
+                </div>
+                <div class="timeline__content">
+                    <div class="timeline__title">
+                        + <span class="amount<?=$row['tidx']?>"><?=$row['amount']?></span>원
+                    </div>
+                    <!-- <ul class="timeline__points">
+                    <li></li>
+                    </ul> -->
+                </div>
+            </li>
+        </ul>
+    </div>
+    <script>
+        var amount = $(".amount<?=$row['tidx']?>").html();
+        $(".amount<?=$row['tidx']?>").html(AddComma(amount));    
+    </script>
+    <?}?>
+</div>
+
+
+
       <div id="tab" class="tab container">
         <div class="row">
           <div class="col-lg-8 mx-auto">
             <div class="row">
               <div class="col-lg-8 mx-auto">
-                
+
                   <?foreach($needsList as $index=>$row){?>
                   <?$price=$row['price'];?>
-                  <br>
-                    <h1 class="price"><span id="price"><?=$row['price']?></span>원</h1>
+
+                    
                     <h3 class="contents"><b><span id="contents"><?=$row['contents']?></span></b></h3>
+
                     <!-- <img src="/uploads/needpic.jpg" alt=""> -->
-                    <br>
+
                     <?}?>
-              <!-- <div class="flex-wrapper">
-                <div class="single-chart">
-                  <svg viewBox="0 0 36 36" class="circular-chart orange">
-                    <path class="circle-bg"
-                      d="M18 2.0845
-                        a 15.9155 15.9155 0 0 1 0 31.831
-                        a 15.9155 15.9155 0 0 1 0 -31.831"
-                    />
-                    <path class="circle"
-                      stroke-dasharray="<?=$bBalance/$price*100?>, 100"
-                      d="M18 2.0845
-                        a 15.9155 15.9155 0 0 1 0 31.831
-                        a 15.9155 15.9155 0 0 1 0 -31.831"
-                    />
-                    <text x="18" y="20.35" class="percentage"><?=$bBalance/$price*100?>%</text>
-                    <text x="18" y="25" class="goaltext"><?=$bBalance?>원 / <?=$price?>원</text>
-                  </svg>
-                </div>
-              </div> -->
+                    <div style="width: 300px; margin: auto">
+                        <?foreach($needsList as $index=>$row){?>
+                        <?$price=$row['price'];?>
+                        <div class="progress">
+                            <div class="progress-bar" role="progressbar" aria-valuenow="<?=$bBalance/$price*100?>" aria-valuemin="0" aria-valuemax="100" style="max-width: <?=$bBalance/$price*100?>%">
+                            </div>
+                        </div>
+                        <span id="progressPrice" class="title"><?=$bBalance?></span>
+                        <span id="needsPrice" class="title"><?=$price?></span>
+                        <?}?>
+                    </div>
               
               <?if($isDone){?>
                 <?if(!$this->session->userdata('AdminType')){?>
@@ -466,6 +802,7 @@ img {
       <?}?>
 
   </section>
+  <input type="hidden" id="page" value="<?=$page?>">
   <script>
   function needsalert(){
     var contents = $('#contents').val();
@@ -492,6 +829,18 @@ function AddComma(data_value) {
 
 
 $(document).ready(function(){
+
+    var page = $('#page').val();
+        if(page==0){
+            // $('#ntab').css('background-color','#7ba434').css('color','white');
+            // $('#needtab').attr('src','/assets/freelancer/img/needicon_white.png');
+        }else if(page==1){
+            // $('#mtab').css('background-color','#7ba434').css('color','white');
+        }else{
+            // $('#mtab').css('background-color','#7ba434').css('color','white');
+        }
+
+
   $('[data-toggle="tooltip"]')
       .tooltip({ trigger: "manual" })
       .tooltip("show");
@@ -505,35 +854,41 @@ $(document).ready(function(){
   var walletBalance = $("#walletBalance").html();
   var bankBalance = $("#bankBalance").html();
   var progressPrice = $("#progressPrice").html();
+  var needsPrice = $("#needsPrice").html();
+  var piggybal = $("#piggy_balance").html();
+
   $("#price").html(AddComma(price));
   $("#walletBalance").html(AddComma(walletBalance));
   $("#bankBalance").html(AddComma(bankBalance));
   $("#progressPrice").html(AddComma(progressPrice));
-  $('.block-content *').hide();
-  $('.block-content *').attr('height','0px');
+  $("#needsPrice").html(AddComma(needsPrice));
+  $("#piggy_balance").html(AddComma(piggybal));
+//   $('.block-content').addClass('toggleTimeline');
+//   $('.block-content *').attr('height','0px');
   
   
-  $('.actionbutton').click(function(){
-    $('.block-content *').show(200);
-    $('.block-content *').attr('height','');
+  $('#pigmongicon').click(function(){
+    // $('.timeline').removeClass('toggleTimeline');
+    $('.tl_box').removeClass('toggleTimeline');
+    // $('.block-content *').attr('height','');
   });
 
   var run = <?=$bBalance/$price*100?> *3;
   if(run>290){
     run=290;
   }
-  $("#char").animate({ left : run+'px' },2000)
+  $("#char").animate({ left : run+'px' },1100)
 
 });
     function funLoad(){
         var Cheight = $(window).height();
-        $('#section').css({'height':Cheight+'px'});
+        $('body').css({'height':Cheight+'px'});
     }
     window.onload = funLoad;
     window.onresize = funLoad;
 
-  $(".actionbutton").click(function(){
-        $('html, body').animate({scrollTop:($('body').height())}, 200);
-    }); 
+//   $("#top").click(function(){
+//         $('html, body').animate({scrollTop:($('body').height())}, 200);
+//     }); 
   </script>
  
