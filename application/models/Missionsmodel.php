@@ -94,7 +94,7 @@ class Missionsmodel extends CI_Model{
         $this->db->query($this->sQuery);
         $this->sQuery1="UPDATE tbl_user SET walletbalance = walletbalance-'".$this->pinmoney."' where userid='".$this->userid."'";
         $this->sQuery2="UPDATE tbl_user SET walletbalance = walletbalance+'".$this->pinmoney."' where userid='".$this->ptn."'";
-        $this->sQuery3="INSERT INTO tbl_transactions(cid,pid,bid,amount,types,nidx) values ('".$this->ptn."', '".$this->userid."', '".$this->bid."', '".$this->pinmoney."', 0, '".$this->nidx."')";
+        $this->sQuery3="INSERT INTO tbl_transactions(cid,pid,bid,amount,types,nidx,midx) values ('".$this->ptn."', '".$this->userid."', '".$this->bid."', '".$this->pinmoney."', 0, '".$this->nidx."', '".$this->midx."')";
         // $this->sQuery3="INSERT INTO tbl_transactions  cid='".$this->ptn."', pid='".$this->userid."', bid='".$this->bid."', amount='".$this->price."', types=0, nidx='".$this->nidx."'";
         $this->db->query($this->sQuery1);
         $this->db->query($this->sQuery2);

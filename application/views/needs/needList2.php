@@ -532,6 +532,7 @@ html {
     margin:20px;
 }
 .scroll_ment{
+    font-size:1.2rem;
     margin-bottom:0px;
 }
 #needsPrice{
@@ -563,30 +564,71 @@ html {
     font-size:2rem;
     margin-bottom:20px;
 }
+#need_inputment{
+    display: block;
+
+    font-size: 2rem;
+    font-weight: 400;
+    color:gray;
+    margin-bottom:20px;
+}
+#need_inputment2{
+    display: block;
+    padding: 15px;
+}
+#need_inputbox{
+    margin-top:130px;
+}
+.underline{
+    text-align:center;
+    border-style:none;
+        border-bottom:solid 1px #cacaca;
+        border-collapse:collapse; 
+
+
+}
+.need_input{
+    font-size:1.5rem;
+    font-weight:400;
+    padding-bottom:10px;
+}
+.need_mentbox{
+    margin-top: 40px;
+}
+.keyboard{
+    position:fixed;
+    top:0px;
+    left:0px;
+    width:100%;
+    height:100%;
+}
 </style>
+<div class="keyboard"></div>
 <section id="section section_tabs">
   <?if(!$needsList){?>
     <?if(!$this->session->userdata("AdminType")){?><!-- 아이 -->
+        <img id="needback"  class="needback" src="/assets/freelancer/img/need_newback_470.png" style="max-width:100%;height: auto;"> 
       <div id="tab" class="tab container">
-        <h3 class="text-center text-secondary mb-0">사고 싶은 물건을 입력해 보아요!</h3>
-        
-        <br>
-        <br>
-        <div class="row">
+          <div class="need_mentbox">
+              <h3 id="need_inputment"class="text-center text-secondary mb-0">무엇이 필요해요?</h3>
+              <span id="need_inputment2">필요한 것을 사기 위해 노력하고 저금해요!</span>
+          </div>
+
+        <div id="need_inputbox"class="row">
           <div class="col-lg-8 mx-auto">
               <form name="addNeedsForm" action="/Main2/addNeeds" method="post" id="contactForm" novalidate="novalidate">
                 
                 <div class="control-group  text-center "id="inputdiv">
+                    <label class="need_input">사고 싶은 물건</label>
                   <div class="form-group mb-0 pb-2" id="inputdiv">
-                    <label>사고 싶은 물건</label>
-                    <input class="form-control" name="contents" id="contents" type="text" placeholder="ex) 타요 장난감" required="required" data-validation-required-message="Please enter your name.">
+                    <input class=" underline" name="contents" id="input_contents" type="text" placeholder="ex) 타요 장난감" required="required" data-validation-required-message="필요한 물건을 입력해주세요." autocomplete="off">
                     <p class="help-block text-danger"></p>
                   </div>
                 </div>
                 <div class="control-group  text-center "id="inputdiv">
+                    <label class="need_input">가&nbsp&nbsp&nbsp&nbsp&nbsp격</label>
                   <div class="form-group controls mb-0 pb-2">
-                    <label>가&nbsp&nbsp&nbsp&nbsp&nbsp격</label>
-                    <input class="form-control" name="price" id="price" type="text" placeholder="ex) 20000" required="required" data-validation-required-message="Please enter your email address.">
+                    <input class="underline" name="price" id="price" type="text" placeholder="ex) 20000" required="required" data-validation-required-message="가격을 입력해주세요."autocomplete="off">
                     <p class="help-block text-danger"></p>
                   </div>
                 </div>
@@ -829,7 +871,9 @@ function AddComma(data_value) {
 
 
 $(document).ready(function(){
-
+    $(function(){
+        $('.keyboard').css('height',window.innerHeight);
+    })
     var page = $('#page').val();
         if(page==0){
             // $('#ntab').css('background-color','#7ba434').css('color','white');

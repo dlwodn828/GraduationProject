@@ -53,11 +53,11 @@
 				<?=$this->session->userdata('AdminId')?>
                 <div class="form-group">
                     <label></label>
-                    <input id="AdminId" name="AdminId" class="form-control" placeholder="아이디" type="id">
+                    <input id="AdminId" name="AdminId" class="form-control" placeholder="아이디" type="id" autocomplete="off">
                 </div> <!-- form-group// -->
                 <div class="form-group">
                     <label></label>
-                    <input type="password" id="AdminPwd" name="AdminPwd" class="form-control" placeholder="비밀번호" type="password">
+                    <input type="password" id="AdminPwd" name="AdminPwd" class="form-control" placeholder="비밀번호" type="password" autocomplete="off">
                 </div> <!-- form-group// --> 
                 <br>
                 <div class="form-group">

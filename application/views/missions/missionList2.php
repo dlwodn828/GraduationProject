@@ -17,8 +17,9 @@
   padding: 0.1rem 9.5rem;
   border-color: #18bc9c;
   position: fixed;
-  left: 30px;
+  left: 50px;
   z-index: 998;
+  margin-top:15px;
 
 
 }
@@ -68,8 +69,8 @@ display:none;
     /* box-shadow: 0px 0px 8px #202020; */
 }
 .missionment{
-  float: left;
-    margin-left: 90px;
+
+    margin-left: 110px;
     font-size: 1.8rem;
     color: gray;
     margin-top: -20px;
@@ -78,16 +79,22 @@ display:none;
     position: fixed;
 }
 </style>
+<script>
+var evtMCS = new EventSource('/Sse/missionCheckState');
+var evtMCS2 = new EventSource('/Sse/missionCheckState2');
+
+</script>
 <!-- About Section -->
-<img id="missionback" class="" src="/assets/freelancer/img/missionback2.png" style="max-width:100%;height: auto;"> 
+<img id="missionback" class="" src="/assets/freelancer/img/mission_back.png" style="max-width:100%;height: auto;"> 
 <section id="section section_tabs" >
     
     
     <!-- 부모 -->
     <?if($this->session->userdata("AdminType")){?> 
+        
     <div id="tab" class="tab container">
       <!-- <div class="addmission"> -->
-      <h4 class="missionment text-center text-secondary mb-0">미션을<br>추가해주세요!</h4>
+      <h4 class="missionment text-center text-secondary mb-0">아이의 미션을<br>추가해주세요!</h4>
         <br><br>
         <a href="/Main2/goToAddMissions" onClick="return missionalert();" class="btn-primary btn-lg plusbtn">+</a>
        
@@ -124,6 +131,7 @@ display:none;
                     <div class="mpbox">
                       <img class="missionprice" src="/assets/freelancer/img/missionprice.png" style="max-width:40%;height: auto;">
                       <span id="mp"><?=$row['price']?></span>
+                      <!-- <span style=""><?=date("y년 m월 d일\n h시 i분", strtotime($row['regdate']))?></span> -->
                     </div>
                     <!-- <img src="/assets/freelancer/img/missionprice.png" style="max-width:60%;height: auto;"> -->
                     <input id="#state" type="hidden" value="<?=$row['state']?>">
@@ -132,51 +140,37 @@ display:none;
                       <input type="hidden" name="midx" value="<?=$row['midx']?>">
                       <input type="hidden" name="mprice" value="<?=$row['price']?>">
                       <?if($row['state']==0){?>
-                        <div class="bottom-popup"><button type="button"  class="mission_ing start btn-gray">미션 수행 중</button></div>
-                      <?}else if($row['state']==1){?>
-                        <div class="bottom-popup"><button type="submit" name="state" value="<?=$row['state']?>"class="mission_com start btn-green">용돈 지급</button></div>
-                      <?}else if($row['state']==2){?>
-                        <div class="bottom-popup"><button type="button" class="start btn-blue">용돈 지급 완료</button></div>
-                      <?}?>
+                        <div class="bottom-popup "><button type="button"  class="ms<?=$row['midx']?>  mission_ing start btn-gray"name="state">미션 수행 중</button></div>
+                        <input type="hidden"  value="<?=$row['midx']?>" class="bp<?=$row['midx']?>">
+                        <?}else if($row['state']==1){?>
+                        <div class="bottom-popup" value="<?=$row['midx']?>"><button type="submit" name="state" value="<?=$row['state']?>" class="ms<?=$row['midx']?> mission_com start btn-green">용돈 지급하기</button></div>
+                        <input type="hidden"  value="<?=$row['midx']?>" class="bp<?=$row['midx']?>">
+                        <?}else if($row['state']==2){?>
+                        <div class="bottom-popup " value="<?=$row['midx']?>"><button type="button" class="ms<?=$row['midx']?> start btn-blue"name="state">용돈 지급 완료</button></div>
+                        <input type="hidden"  value="<?=$row['midx']?>" class="bp<?=$row['midx']?>">
+                        <?}?>
                     </form>
                   <!-- <div class="bottom-popup"><a class="start" href="#">START</a></div> -->
                 </div>
+                <script>
+                
+                evtMCS.addEventListener("message", function(event) {
+                    let data = JSON.parse(event.data);
+                    // console.log(data.length);
+                    let midx = $(".bp<?=$row['midx']?>").val();
+                    console.log(midx);
+                    // let missions = $('.ms');
+
+                    for (let i = 0; i < data.length; i++) {
+                        if(data[i]['midx']==midx){
+                            $(".ms<?=$row['midx']?>").css('background-color','#27bbcc').html("용돈 지급하기").attr('type','submit').attr('value','1');
+                        }
+                    }
+                });
+              </script>
                 
                 
                 
-                <!-- <table align="center" id="mtb">
-                  <tr>
-                    <td><?=$i++?></td>
-                    <td class="date"><?=$row['regdate']?></td>
-                    <form action="/Main2/deleteMissions" method="post" >
-                      <td>
-                          <button type="submit" name="midx" value="<?=$row['midx']?>" class="btn-danger btn-sm">x</button>
-                      </td>
-                    </form>
-                  </tr>
-                  <tr>
-                    <td class="contents">미션 내용</td>
-                    <td colspan=2><?=$row['contents']?></td>
-                  </tr>
-                  <tr>
-                    <td class="contents">받을 용돈</td>
-                    <td colspan=2><?=$row['price']?></td>            
-                  </tr>
-                  <tr>
-                    <form action="/Main2/missionState" method="get">
-                      <input type="hidden" name="midx" value="<?=$row['midx']?>">
-                      <input type="hidden" name="mprice" value="<?=$row['price']?>">
-                      <?if($row['state']==0){?>
-                        <td colspan=3><button type="button" class="btn-default btn-sm plusbtn">미션 중</button></td>
-                      <?}else if($row['state']==1){?>
-                        <td colspan=3><button type="submit" name="state" value="<?=$row['state']?>"class="btn-primary btn-sm plusbtn">용돈 주기</button></td>
-                      <?}else if($row['state']==2){?>
-                        <td colspan=3><button type="button" class="btn-success btn-sm plusbtn">용돈 지급 완료</button></td>
-                      <?}?>
-                    </form>
-                  </tr>
-                  <br>
-                </table>   -->
               <?}?> <!-- foreach문 끝 -->
             </div>
           </div>
@@ -233,6 +227,7 @@ display:none;
                   <div class="mpbox">
                     <img class="missionprice" src="/assets/freelancer/img/missionprice.png" style="max-width:40%;height: auto;">
                     <span id="mp2"><?=$row['price']?></span>
+                    <!-- <span style=""><?=date("m월 d일\n h시 i분", strtotime($row['regdate']))?></span> -->
                     <!-- <span class="mp"><?=$row['price']?></span> -->
                   </div>
                 <input id="#state" type="hidden" value="<?=$row['state']?>">
@@ -240,27 +235,30 @@ display:none;
                 <form action="/Main2/missionState" method="get">
                   <input type="hidden" name="midx" value="<?=$row['midx']?>">
                   <input type="hidden" name="mprice" value="<?=$row['price']?>">
-                  <?if($row['state']==0){?>
-                    <div class="bottom-popup bp<?=$row['state']?>"><button type="submit" name="state" value="<?=$row['state']?>" class="start btn-green">다했어요!</button></div>
-                  <?}else if($row['state']==1){?>
-                    <div class="bottom-popup bp<?=$row['state']?>"><span class="">용돈 기다리는 중...</span></div>
-                  <?}else if($row['state']==2){?>
-                    <div class="bottom-popup bp<?=$row['state']?>"><button type="button" class="start btn-blue">용돈을 받았어요!</button></div>
-                  <?}?>
+                    <?if($row['state']==0){?>
+                        <div class="bottom-popup " value="<?=$row['midx']?>"><button type="submit" name="state" value="<?=$row['state']?>" class="ms<?=$row['midx']?> start btn-green">다했어요!</button></div>
+                        <input type="hidden"  value="<?=$row['midx']?>" class="bp<?=$row['midx']?>">
+                    <?}else if($row['state']==1){?>
+                        <div class="bottom-popup " value="<?=$row['midx']?>"><button type="button" class="ms<?=$row['midx']?> start btn-gray">용돈 기다리는 중...</button></div>
+                        <input type="hidden"  value="<?=$row['midx']?>" class="bp<?=$row['midx']?>">
+                    <?}else if($row['state']==2){?>
+                        <div class="bottom-popup " value="<?=$row['midx']?>"><button type="button" class="ms<?=$row['midx']?> start btn-blue">용돈을 받았어요!</button></div>
+                        <input type="hidden"  value="<?=$row['midx']?>" class="bp<?=$row['midx']?>">
+                    <?}?>
                 </form>
                 <!-- <div class="bottom-popup"><a class="start" href="#">START</a></div> -->
               </div>
               <script>
-                // $(document).ready(function(){
-                  var state = <?=$row['state']?>;
-                  console.log(state);
-
-                    if(state==2){
-                      $('svg').show();
+                evtSaving.addEventListener("message", function(event) {
+            
+                    let data = JSON.parse(event.data);
+                    let count = data.length;
+                    
+                    for(let i =0; i<count;i++){
+                        $(".ms"+data[i]['midx']).css('background-color','red').html("용돈을 받았어요!");
                     }
-
-                  
-                // });
+                });
+                
               </script>
 
               <!-- <table align="center" id="mtb">
@@ -306,6 +304,11 @@ display:none;
   <?}?>
   <input type="hidden" id="page" value="<?=$page?>">
   <script>
+
+
+
+
+
 
   function missionalert(){
     var nidx = $('#nidx').val();

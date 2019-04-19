@@ -5,13 +5,14 @@
 
   }
   .bbal{
-      font-weight:300;
-      position: absolute;
-      /* top: 100px;
-    left: 80px; */
-      font-family:'jua';
-      margin-top: 130px;
-    margin-left: 120px;
+    display: block;
+    font-weight: 300;
+    position: relative;
+    font-family: 'jua';
+    top: 130px;
+    text-align: center;
+      
+
       /* margin-left: 30px;
         margin-top: 40px; */
   }
@@ -41,16 +42,18 @@
   }
   #pg1{
     position: relative;
+    margin-left:-12px
+
   }
   #coin {
-    bottom: 270px;
+    bottom: 310px;
     width: 90px;
     height: 90px;
     border-radius: 50%;
     background: #fff21d;
 
     border: #9996 solid 2px;
-    left: 140px;
+    left: 160px;
     position: absolute;
     animation: glow 1s alternate infinite;
     cursor: pointer;
@@ -170,8 +173,8 @@ body{
 }
 #ments{
     position: absolute;
-    top: 310px;
-    left: 35px;
+    bottom: 350px;
+    left: 50px;
     text-align: center;
     
 
@@ -239,7 +242,7 @@ body{
 
     </div>
     <div class="piggy">
-        <!-- <img id="pg1"class="" src="/assets/freelancer/img/saving_pig2_smile.png" style="max-width:85%;height: auto;"> -->
+        <img id="pg1"class="togglePiggy" src="/assets/freelancer/img/saving_pig2_smile.png" style="max-width:94%;height: auto;">
         
     </div>
 </div>
@@ -270,7 +273,11 @@ $(document).ready(function(){
             // $('#savingtab').attr('src','/assets/freelancer/img/savingicon_white.png');
         }
     var bbal = $('.bbal').html();
-    $('.bbal').html(AddComma(bbal));
+    if(bbal==0){
+        $('.bbal').html("저금된 돈이 없어요!").css('font-size','2rem').css('top','150px');
+    }else{
+        $('.bbal').html(AddComma(bbal));
+    }
 
 
 
@@ -285,6 +292,7 @@ $(document).ready(function(){
     if($('#coinprice').html()=='0'){
 
         $('.saving_ment').css('animation','');
+       
 
     }else{
         $('.saving_ment').css('animation','touch 1s alternate infinite');
@@ -297,10 +305,12 @@ $(document).ready(function(){
     var pm = $('#pinmoney1').val();
 
     $('#coincover').css('display','');
+
+
     $('#coin').click(function() {
         
             if($('#coinprice').html()=='0'){
-                swal('저금할 돈이 없습니다!');
+                swal('받은 용돈이 없습니다!');
                 $('.saving_ment').css('animation','');
                 return false;
             }else{
@@ -313,9 +323,8 @@ $(document).ready(function(){
             
             $(this).animate({
                 bottom: "140px"
-            }, 1000);
+            }, 1300);
             
-            $('.mouth').addClass('smile');
             
             setTimeout(function() {
                 // $('#blush1').fadeIn('slow');
@@ -327,7 +336,7 @@ $(document).ready(function(){
             
             setTimeout(function() {
                 $('#pg1').removeClass('togglePiggy');
-                // $('#pg').addClass('togglePiggy');
+                $('#pg').addClass('togglePiggy');
             
             }, 1100);
             

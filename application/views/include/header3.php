@@ -50,7 +50,7 @@
     <style>
     
     @import url(https://fonts.googleapis.com/css?family=Bitter:400,400italic,700);
-
+        button:focus { outline:none; }
         * {
         box-sizing: border-box;
         /* font-family:jua; */
@@ -321,7 +321,8 @@
         .title1{
             color:#e39897;
             font-family:jua;
-            margin-left:130px;
+            margin-left:150px;
+            margin-top:-5px;
         }
 
         .badge1{
@@ -389,7 +390,7 @@
                             <!-- <h3 class="text-center title1">Pigmong </h3> -->
                             <img class="text-center title1" src="/assets/freelancer/img/logo.png" style="max-width:30%;height:auto;"alt="">
                             <a href="#" class="menuBtn">
-                                <img src="/assets/freelancer/img/usericon.png" id="hbg" class="fa fa-bars" aria-hidden="true">
+                                <img src="/assets/freelancer/img/usericon.png" id="hbg" class="fa fa-bars" aria-hidden="true" style="margin-top:5px;">
                                 <!-- <svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
                                 x="0px" y="0px" width="10px" height="10px" viewBox="215.186 215.671 80.802 80.8"
                                 enable-background="new 215.186 215.671 80.802 80.8" xml:space="preserve">
@@ -484,25 +485,19 @@
         // $("#"+tab_id).addClass('current');
         
     });
-        var evtSource = new EventSource('/Sse/saving');
-        evtSource.onmessage = function(e) {
-            console.log(e.data+"saving");
-            if(e.data!=0){
-                $('.badge1:empty').css('display','block');
-                $('#sbadge').html(e.data);
-            }
-            // else if(e.data>0){
-            //     $('.badge:empty').css('display','block');
-            // }
+        var evtSaving = new EventSource('/Sse/saving');
+
+        evtSaving.addEventListener("message", function(event) {
             
+            let data = JSON.parse(event.data);
+            let count = data.length;
+            if(count!=0){
+                $('.badge1:empty').css('display','block');
+                $('#sbadge').html(count);
+            }
+        });
 
-
-            // var newElement = document.createElement("li");
-            // newElement.textContent = "message: " + e.data;
-            // eventList.appendChild(newElement);
-        };
-
-        evtSource.onerror = function() {
+        evtSaving.onerror = function() {
             // console.log("EventSource failed.");
         };
         var newMissionCnt=0;
@@ -511,31 +506,32 @@
         var evtMissionAlarm = new EventSource('/Sse/mission');
         evtMissionAlarm.onmessage = function(e) {
             console.log(e.data+"mission");
+            
             if(e.data!=0){
                 newMissionCnt++;
                 $('.badge2:empty').css('display','block');
                 $('#mbadge').html(newMissionCnt);
             }
-            // else if(e.data>0){
-            //     $('.badge:empty').css('display','block');
-            // }
-            
 
-
-            // var newElement = document.createElement("li");
-            // newElement.textContent = "message: " + e.data;
-            // eventList.appendChild(newElement);
         };
+
+        
+        // evtMCS.onmessage = function(e) {
+        //     console.log(e.data+"gg");
+        //     console.log(e.data[]);
+        // };
+        // evtMCS.onerror = function() {
+        //     console.log("EventSource failed.");
+        // };
+        // var completedMissionCnt=0;
+        // var p_evtMissionAlarm = enw EventSource('/Sse/p_mission');
+        // p_evtMissionAlarm.onmessage = function(e) {
+        //     console.log(e.data+"mission");
+        //     if(e.data!=0){
+        //         completedMissionCnt++;
+        //         // $('.badge2:empty').css('display','block');
+        //         // $('#mbadge').html(newMissionCnt);
+        //     }
+        // };
     </script>
-      <!-- <section class="section section_tabs">
-        <div id="tab1" class="tab">
-          
-        </div>
-        <div id="tab2" class="tab">
-          
-        </div>
-        <div id="tab3" class="tab">
-          
-        </div>
-      </section> -->
-      
+

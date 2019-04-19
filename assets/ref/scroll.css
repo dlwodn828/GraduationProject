@@ -24,7 +24,7 @@ body {
 }
 .header i.fa, .footer i.fa {
   font-size: 2em;
-  margin-top:10px;
+  margin-top: 30px;
 }
 .header .bounce, .footer .bounce {
   -webkit-animation-name: bounce;

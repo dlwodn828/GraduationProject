@@ -2,29 +2,55 @@
 .container{
     text-align:center;
 }
+.missionback{
+    top: 20px;
+    /* margin-top: 30px; */
+    margin-top: 30px;
+    position: fixed;
+    z-index: 994;
+}
+#inputdiv{
+    position: relative;
+    z-index: 1000;
+}
+#inputdiv1{
+margin-top:40px;
+}
+.addmissioninput{
+    margin:0 auto;
+    width:70%;
+    text-align:center;
+}
+.mission_inputment{
+    font-size:1.5rem;
+    font-weight:400;
+    padding-bottom:10px;
+}
 </style>
+<img id="missionback" class="missionback" src="/assets/freelancer/img/mission_back.png" style="max-width:100%;height: auto;top:20px;"> 
 <section class="bg-white primary text-dark mb-0" id="about">
     <div class="container">
     <form name="addMissionsForm" action="/Main2/addMissions" method="post" id="addMissionsForm" novalidate="novalidate">
         <div class="control-group  text-center "id="inputdiv">
             <div class="form-group mb-0 pb-2" id="inputdiv">
-            <br>
-            <h3>미션 등록하기</h3>
-            <br>
+                <br>
+                <h3 class="missionment">미션 등록하기</h3>
+                <br>
+            </div>
+        </div>
+        <div class="control-group  text-center "id="inputdiv1">
             <div>
                 <h5>지급 가능한 용돈</h5>
                 <input type="hidden" name="missionPrice" value="<?=$missionPrice?>">
                 <h5 id="missionPrice"><?=$needsPrice-$missionPrice?></h5>
             </div>
             <br>
-            <input class="form-control" name="contents" id="contents" type="text" placeholder="ex) 일어나서 이불 개기" required="required" data-validation-required-message="미션 내용을 입력해주세요.">
+            <label class="mission_inputment">미&nbsp&nbsp&nbsp&nbsp&nbsp션</label>
+            <input class="form-control addmissioninput" name="contents" id="contents" type="text" placeholder="ex) 일어나서 이불 개기" required="required" data-validation-required-message="미션 내용을 입력해주세요.">
             <p class="help-block text-danger"></p>
-            </div>
-        </div>
-        <div class="control-group  text-center "id="inputdiv">
             <div class="form-group controls mb-0 pb-2">
-            <label>가&nbsp&nbsp&nbsp&nbsp&nbsp격</label>
-            <input class="form-control" name="price" id="price" type="text" placeholder="ex) 1000" required="required" data-validation-required-message="미션 완료시 지급할 용돈을 입력해주세요." value="">
+            <label class="mission_inputment">가&nbsp&nbsp&nbsp&nbsp&nbsp격</label>
+            <input class="form-control addmissioninput" name="price" id="price" type="text" placeholder="ex) 1000" required="required" data-validation-required-message="미션 완료시 지급할 용돈을 입력해주세요." value="">
             <p class="help-block text-danger"></p>
             </div>
         </div>

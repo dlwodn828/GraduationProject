@@ -5,7 +5,7 @@
     
     position: relative;
     left: 50%;
-    top: -2.5rem;
+    top: -1rem;
     transform: translate(-50%, -50%);
     background: #f19495;
     height: 153px;
@@ -106,9 +106,9 @@
 .mission{
     color: white;
     font-family: jua;
-    font-size: 1.3rem;
+    font-size: 1.2rem;
     text-align: center;
-    font-weight: bold;
+    font-weight: 500;
     line-height: 20px;
     display: inline-block;
     word-break: break-all;
