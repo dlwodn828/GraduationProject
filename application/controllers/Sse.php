@@ -57,23 +57,25 @@ class Sse extends CI_Controller {
 public function saving(){
     header("Content-Type: text/event-stream");
     header('Cache-Control: no-cache');
+    header("Connection", "keep-alive");
     // while(1){
 
         // $sCount = $this->savingsmodel->badgeSaving();
         $this->nidx=$this->session->userdata("Needs");
         $this->bid=$this->session->userdata('AdminBid');
         $this->uid=$this->session->userdata('AdminId');
-        $this->sQuery="SELECT midx from tbl_transactions where  bid='".$this->bid."' and types=0 and date > (SELECT date from tbl_transactions where nidx='".$this->nidx."' and types=1 order by date DESC limit 1)";
-        $this->sCount=$this->db->query($this->sQuery)->result_array();
-        if($this->sCount!=0){
-            $this->sQuery="SELECT walletbalance as wb from tbl_user where bankid='".$this->bid."'";
-            $this->wBalance=$this->db->query($this->sQuery)->row()->wb;
+        $this->sQuery="SELECT date from tbl_transactions where nidx='".$this->nidx."' and types=1 order by date DESC limit 1";
+        $this->isFirstMission=$this->db->query($this->sQuery)->row();
+        if(empty($this->isFirstMission)){
+            $this->sQuery="SELECT midx from tbl_transactions where  bid='".$this->bid."' and types=0 and date > (SELECT regdate from tbl_needs where nidx='".$this->nidx."' order by regdate DESC limit 1)";
+            $this->sCount=$this->db->query($this->sQuery)->result_array();
+        }else{
+            $this->sQuery="SELECT midx from tbl_transactions where  bid='".$this->bid."' and types=0 and date > (SELECT date from tbl_transactions where nidx='".$this->nidx."' and types=1 order by date DESC limit 1)";
+            $this->sCount=$this->db->query($this->sQuery)->result_array();
         }
-        $sCount=json_encode($this->sCount);
-        // $result=array('count'=>$this->sCount,'wallet'=>$this->wBalance);
-        
-            echo "data: {$sCount}\n\n";
-        
+
+        $sCount=json_encode($this->sCount);    
+        echo "data: {$sCount}\n\n";
         flush();
         // while (ob_get_level() > 0) {
         //     ob_end_flush();
@@ -88,6 +90,7 @@ public function saving(){
     public function mission(){
         header("Content-Type: text/event-stream");
         header('Cache-Control: no-cache');
+        header("Connection", "keep-alive");
         // while(1){
 
             // $sCount = $this->savingsmodel->badgeSaving();
@@ -95,26 +98,30 @@ public function saving(){
             $this->bid=$this->session->userdata('AdminBid');
             $this->sQuery="SELECT midx as m from tbl_missions where nidx='".$this->nidx."' and state=0 order by regdate DESC limit 1";
             $this->rec_midx=$this->db->query($this->sQuery)->row()->m;
-            
+            $this->m=$this->session->userdata('Mission');
 
+            // 아무것도 없을 때는 아무런 푸시도 하지 않는다.
+            // 미션이 등록되면
+            // 먼저 session값에 mission이 등록된다.
 
             if(!empty($this->rec_midx)){
-                if(empty($this->session->userdata('Mission'))){
-                    $newdata=array('Mission'=>$this->rec_midx);
-                    $this->session->set_userdata($newdata);
-                }
+                // if(empty($this->session->userdata('Mission'))){
+                //     $newdata=array('Mission'=>$this->rec_midx);
+                //     $this->session->set_userdata($newdata);
+                // }
                 if($this->rec_midx > $this->session->userdata('Mission')){
                     // 알림이 울릴 조건 : pre_midx < rec_midx => count해서 보내자.
                     // $this->pre_midx=$this->rec_midx;
                     $newdata=array('Mission'=>$this->rec_midx);
                     $this->session->set_userdata($newdata);
-                    echo "data: {$this->rec_midx}\n\n";
+
+                    $rec_midx=json_encode($newdata);
+                    echo "data: {$rec_midx}\n\n";
+                    
                     flush();
                 }else{
                     // $this->pre_midx=$this->db->query($this->sQuery)->row()->m;
                 }
-            }else{
-                // $this->pre_midx=$this->rec_midx;
             }
 
     }

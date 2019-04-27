@@ -8,7 +8,7 @@
   <meta name="description" content="">
   <meta name="author" content="">
 
-  <title>Freelancer - Start Bootstrap Theme</title>
+  <title>아이의 저축 습관을 길러주는 피그몽</title>
 
   <!-- Bootstrap core CSS -->
   <link href="/assets/freelancer/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
@@ -28,56 +28,44 @@
   <!-- Custom styles for this template -->
   <link href="/assets/freelancer/css/freelancer.min.css" rel="stylesheet">
   <style>
-  #title{
-   font-size: 1.5rem; 
-   text
+  *{
+      text-decoration:none!important
   }
 
-  /* #mainNav{
-    background-color:#2f7ae2
-} */
+  #page-top{
+      background-image:url('/assets/freelancer/img/start_back.png');
+      background-size:100%;
+    }
+.startbtn{
+    text-decoration-line: none;
+    text-align: center;
+    font-size: 1.8rem;
+    background-color: #f3c846;
+    border: 0px;
+    border-radius: 30px;
+    width: 200px;
+    color: white;
+    position: fixed;
+    left: 110px;
+    top: 550px;
+    box-shadow: 0px 5px 1px #656668;
+}
+.ment{
+    position: absolute;
+    top: 450px;
+    text-align: center;
+    left: 130px;
+    color: #3f3f41;
+}
   </style>
 </head>
 
 <body id="page-top">
-
-  <!-- Navigation --><!-- py-3 px-0 px-lg-3-->
-  <!-- <nav class="text-center navbar navbar-expand-lg bg-secondary fixed-top text-uppercase" id="mainNav">
-    <div class="text-center container" > -->
-        <nav class="bg-secondary fixed-top text-uppercase" id="mainNav">
-            <h3 class="text-center text-white" href="#page-top">Pigmong</h3>
-        </nav>
-      <!-- <a id="title" class="text-white js-scroll-trigger" href="#page-top">Pigmong</a> -->
-      <!-- <div class="nav-tabs navbar-expand" id="">
-        <ul class="navbar-nav ml-auto">
-          <li class="nav-item mx-0 mx-lg-1">
-            <a class="nav-link  rounded js-scroll-trigger" href="#portfolio">Needs</a> 
-          </li>
-          <li class="nav-item mx-0 mx-lg-1">
-            <a class="nav-link rounded" href="#about">Missions</a>
-          </li>
-          <li class="nav-item mx-0 mx-lg-1">
-            <a class="nav-link rounded js-scroll-trigger" href="#contact">Savings</a>
-          </li>
-        </ul>
-      </div> -->
-    <!-- </div>
-  </nav> -->
-
-  <!-- Header -->
-  <header class="masthead bg-primary text-white text-center">
-    <div class="container">
-      <img class="img-fluid mb-5 d-block mx-auto" src="/assets/freelancer/img/piggy2.png" alt="">
-      <a class="text-light"href="/Auth"><h1 class="text-uppercase mb-0">Start</h1>
-      <!-- <h4 class="text-uppercase mb-0"> Pigmong</h4></a> -->
-      <!-- <hr class="star-light"> -->
-      <br>
-      <h6 class="font-weight-light "></h6>
-      <!-- <h6 class="font-weight-light mb-0">by. 246</h6> -->
+    <div class="ment">
+        <span>피그몽을 통해 </span>
+        <br><span>저축 습관을 길러보아요</span>
     </div>
-  </header>
-
- 
+    <a href="/Auth"class="startbtn" sytle="text-decoration-line: none;!important">시작하기</a>
 
 </body>
 

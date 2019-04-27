@@ -37,7 +37,15 @@ class Missionsmodel extends CI_Model{
       // $this->sQuery="SELECT distinct * from tbl_missions where writerid='".$this->writerid."' and nidx='".$this->nidx."' order by regdate desc";
       // $this->missionsList=$this->db->query($this->sQuery)->result_array();
       // $missionsList['missionsList']=$this->missionsList;
-
+      //상대방이 처음으로 미션을 등록했을 때
+      if(empty($this->session->userdata('Needs'))){
+        $this->sQuery="SELECT nidx as n from tbl_needs where writerid='".$this->writerid."'";
+        $idx=$this->db->query($this->sQuery)->row();
+        if(!empty($this->nidx)){
+            $newdata=array('Needs'=>$nidx)->n;
+            $this->session->set_userdata($newdata);
+        }
+      }
 
       $missionsList['missionsList']=$this->mList;      
       $missionsList['missionsList_p']=$this->mList_p;      

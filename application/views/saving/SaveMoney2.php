@@ -9,13 +9,11 @@
     font-weight: 300;
     position: relative;
     font-family: 'jua';
-    top: 130px;
+    top: 150px;
     text-align: center;
-      
-
-      /* margin-left: 30px;
-        margin-top: 40px; */
+    font-size:3rem;
   }
+
   /* h1 {
     font-weight: normal;
     color: white;
@@ -201,13 +199,12 @@ body{
 </style>
 <div id="saving">
     <form action="/Main2/saveMoney" method="post" name="savingMoney" id="savingMoney" novalidate="novalidate">
-        <input id="pinmoney1" type="hidden" name="pinmoney" value="<?=$wBalance?>">
-        <input id="pinmoney1" type="hidden" name="pinmoney" value="<?=$wBalance?>">    
+        <input id="pinmoney1" type="hidden" name="pinmoney" value="<?=$wBalance?>">  
     </form>
     <div id="cloud">
         <img id="saving_cloud"src="/assets/freelancer/img/saving_cloud.png" style="max-width:90%; height:auto;">
         <!-- <h4>피그몽에</h4> -->
-        <h2 class="bbal"><?=$bBalance?></h2>
+        <span class="bbal"><?=$bBalance?></span> 
         <!-- <h4>원을 모았어요!</h4> -->
     </div>
     <button id="coinbtn"><div id="coin"><span id="won">₩</span><br><span id="coinprice"><?=$wBalance?></span></div></button>
@@ -270,13 +267,14 @@ $(document).ready(function(){
             // $('#mtab').css('background-color','#7ba434').css('color','white');
         }else if(page==2){
             // $('#stab').css('background-color','#7ba434').css('color','white');
-            // $('#savingtab').attr('src','/assets/freelancer/img/savingicon_white.png');
+            $('#savingtab').attr('src','/assets/freelancer/img/savingicon_white.png');
         }
     var bbal = $('.bbal').html();
-    if(bbal==0){
-        $('.bbal').html("저금된 돈이 없어요!").css('font-size','2rem').css('top','150px');
+    if(bbal=='0'){
+        $('.bbal').html("저금해주세요!").css('font-size','2rem').css('top','150px');
     }else{
-        $('.bbal').html(AddComma(bbal));
+        $('.bbal').html(AddComma(bbal)+"원");
+        console.log(bbal);
     }
 
 

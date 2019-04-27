@@ -12,15 +12,26 @@
 .row{
   text-align:center;
 }
-.plusbtn{
-  background-color: #18bc9c;
-  padding: 0.1rem 9.5rem;
-  border-color: #18bc9c;
+.plusbtn1{
+    box-shadow:0 5px 5px -3px rgba(0, 0, 0, 0.3), 0 3px 5px 2px rgba(0, 0, 0, 0.12);
+  background-color: #48adbc;
+  padding: 0.2rem 11rem;
+  border-color: #48adbc;
   position: fixed;
-  left: 50px;
+  left: 25px;
   z-index: 998;
-  margin-top:15px;
+  top: 270px;
 
+}
+.plusbtn{
+    box-shadow:0 5px 5px -3px rgba(0, 0, 0, 0.3), 0 3px 5px 2px rgba(0, 0, 0, 0.12);
+  background-color: #48adbc;
+  padding: 0.2rem 11rem;
+  border-color: #48adbc;
+  position: fixed;
+  left: 25px;
+  z-index: 998;
+  top: 160px;
 
 }
 tr{
@@ -78,14 +89,67 @@ display:none;
     z-index: 1000;
     position: fixed;
 }
+.btn-blue{
+    background-color: white;
+    color: gray;
+    font-weight: 400;
+}
+.mission_blank{
+    font-size: 2rem;
+    position: relative;
+    top: 180px;
+}
+.mission_blank_p{
+    font-size: 1.8rem;
+    position: relative;
+    top: 120px;
+}
+.blank_pig{
+    max-width: 45%;
+    position: relative;
+    top: 350px;
+}
+.blank_box{
+    
+}
+.mission_chal{
+  position: fixed;
+    z-index: 1000;
+    width: 90%;
+    font-weight: 400;
+    z-index: 1000;
+
+}
+.btn-gray{
+    background-color:white;
+    color:black;
+}
+.swal-footer{
+    text-align:center;
+}
+.popup {
+    box-shadow: 0 5px 5px -3px rgba(0, 0, 0, 0.4), 0 3px 5px 2px rgba(0, 0, 0, 0.3);
+    position: relative;
+    left: 50%;
+    top: -1rem;
+    transform: translate(-50%, -50%);
+    background: #f19495;
+    height: 153px;
+    width: 330px;
+    border-radius: 10px;
+    border: 1px solid #e5e5e5;
+    font-family: 'jua';
+    margin-top: 30px;
+}
+
 </style>
 <script>
 var evtMCS = new EventSource('/Sse/missionCheckState');
 var evtMCS2 = new EventSource('/Sse/missionCheckState2');
-
+var evtSaving = new EventSource('/Sse/saving');
 </script>
 <!-- About Section -->
-<img id="missionback" class="" src="/assets/freelancer/img/mission_back.png" style="max-width:100%;height: auto;"> 
+<img id="missionback" class="" src="/assets/freelancer/img/mission_back.png" style="max-width:100%;height: auto;z-index:1;"> 
 <section id="section section_tabs" >
     
     
@@ -94,16 +158,23 @@ var evtMCS2 = new EventSource('/Sse/missionCheckState2');
         
     <div id="tab" class="tab container">
       <!-- <div class="addmission"> -->
-      <h4 class="missionment text-center text-secondary mb-0">아이의 미션을<br>추가해주세요!</h4>
-        <br><br>
-        <a href="/Main2/goToAddMissions" onClick="return missionalert();" class="btn-primary btn-lg plusbtn">+</a>
+
+
        
       <!-- </div> -->
       <?if(!$missionsList){?>
-        <br><br><h4 class="text-center text-secondary mb-0">아직 미션이 등록되지 않았어요</h4>
+      <div class="blank_box">
+        <span class="text-center mission_blank_p">아이가 미션을 기다리고 있어요!</span>
+        <a href="/Main2/goToAddMissions" onClick="return missionalert();" class="btn-primary btn-lg plusbtn1" >+</a>
+        <img class="blank_pig" src="/assets/freelancer/img/blank_pig.png" alt="">
+    </div> 
       <?}else{?>
         <?$i=1;?>
-          <div class="row">
+        <div class="mission_top">
+          <h3 class="mission_chal">미션을 추가해주세요!</h3>
+          <a href="/Main2/goToAddMissions" onClick="return missionalert();" class="btn-primary btn-lg plusbtn">+</a>
+        </div>
+          <div class="row" style="margin-top: 40px;">
             <div class="col-lg-8 mx-auto">
             <div class="missionList">
               <?foreach($missionsList_p as $index=>$row){?>
@@ -140,13 +211,13 @@ var evtMCS2 = new EventSource('/Sse/missionCheckState2');
                       <input type="hidden" name="midx" value="<?=$row['midx']?>">
                       <input type="hidden" name="mprice" value="<?=$row['price']?>">
                       <?if($row['state']==0){?>
-                        <div class="bottom-popup "><button type="button"  class="ms<?=$row['midx']?>  mission_ing start btn-gray"name="state">미션 수행 중</button></div>
+                        <div class="bottom-popup "><button type="button"  class="ms<?=$row['midx']?>  mission_ing start btn-gray"name="state"style="color:#00b0bf; font-weight:400;">미션 수행 중</button></div>
                         <input type="hidden"  value="<?=$row['midx']?>" class="bp<?=$row['midx']?>">
                         <?}else if($row['state']==1){?>
-                        <div class="bottom-popup" value="<?=$row['midx']?>"><button type="submit" name="state" value="<?=$row['state']?>" class="ms<?=$row['midx']?> mission_com start btn-green">용돈 지급하기</button></div>
+                        <div class="bottom-popup" value="<?=$row['midx']?>"><button type="submit" name="state" value="<?=$row['state']?>" class="ms<?=$row['midx']?> mission_com start btn-green" style="border:1px solid white;box-shadow:0 5px 5px -3px rgba(0, 0, 0, 0.3), 0 3px 5px 2px rgba(0, 0, 0, 0.12); color:white;">용돈 지급하기</button></div>
                         <input type="hidden"  value="<?=$row['midx']?>" class="bp<?=$row['midx']?>">
                         <?}else if($row['state']==2){?>
-                        <div class="bottom-popup " value="<?=$row['midx']?>"><button type="button" class="ms<?=$row['midx']?> start btn-blue"name="state">용돈 지급 완료</button></div>
+                        <div class="bottom-popup " value="<?=$row['midx']?>"><button type="" class="ms<?=$row['midx']?> start btn-gray"name="state" style="color:gray;">용돈 지급 완료</button></div>
                         <input type="hidden"  value="<?=$row['midx']?>" class="bp<?=$row['midx']?>">
                         <?}?>
                     </form>
@@ -158,12 +229,12 @@ var evtMCS2 = new EventSource('/Sse/missionCheckState2');
                     let data = JSON.parse(event.data);
                     // console.log(data.length);
                     let midx = $(".bp<?=$row['midx']?>").val();
-                    console.log(midx);
+                    // console.log(midx);
                     // let missions = $('.ms');
 
                     for (let i = 0; i < data.length; i++) {
                         if(data[i]['midx']==midx){
-                            $(".ms<?=$row['midx']?>").css('background-color','#27bbcc').html("용돈 지급하기").attr('type','submit').attr('value','1');
+                            $(".ms<?=$row['midx']?>").css('background-color','#27bbcc').css('color','white').css('box-shadow','0 5px 5px -3px rgba(0, 0, 0, 0.3), 0 3px 5px 2px rgba(0, 0, 0, 0.12)').css('border','1px solid white').html("용돈 지급하기").attr('type','submit').attr('value','1');
                         }
                     }
                 });
@@ -184,26 +255,25 @@ var evtMCS2 = new EventSource('/Sse/missionCheckState2');
       <?if(!$missionsList){?>
         <div class="row">
           <div class="col-lg-8 mx-auto">
-            <br>
-            <h4 class="text-center text-secondary mb-0">아직 미션이 등록되지 않았어요!</h4>
+            <span class="text-center mission_blank">미션 기다리는 중...</span>
+            <img class="blank_pig" src="/assets/freelancer/img/blank_pig.png" >
           </div>
         </div>
       <!-- 미션 등록되지 않을 때 -->
       <?}else{?>
         <?$i=1;?>
-        <div class="row">
+        <div class="row" style="margin-top: 40px;">
           <div class="col-lg-8 mx-auto">
-            <h4 class="missionment text-center text-secondary mb-0">미션을<br>수행해보아요!</h4>
+            <h3 class="mission_chal" style="top: 120px;">미션 도전하기!</h3>
+
              <!-- -->
             
 
 
             <!-- -->
             <div class="missionList">
-            <button id="ssebtn">Close the connection</button>
-
-            <ul id="sseul">
-            </ul>
+        
+            
             <?foreach($missionsList as $index=>$row){?>
               <div class="popup"> 
                 <a href="#" class="close">
@@ -236,13 +306,13 @@ var evtMCS2 = new EventSource('/Sse/missionCheckState2');
                   <input type="hidden" name="midx" value="<?=$row['midx']?>">
                   <input type="hidden" name="mprice" value="<?=$row['price']?>">
                     <?if($row['state']==0){?>
-                        <div class="bottom-popup " value="<?=$row['midx']?>"><button type="submit" name="state" value="<?=$row['state']?>" class="ms<?=$row['midx']?> start btn-green">다했어요!</button></div>
+                        <div class="bottom-popup " value="<?=$row['midx']?>"><button type="submit" name="state" value="<?=$row['state']?>" class="ms<?=$row['midx']?> start btn-green" style="border:1px solid white;box-shadow:0 5px 5px -3px rgba(0, 0, 0, 0.3), 0 3px 5px 2px rgba(0, 0, 0, 0.12);">다했어요!</button></div>
                         <input type="hidden"  value="<?=$row['midx']?>" class="bp<?=$row['midx']?>">
                     <?}else if($row['state']==1){?>
                         <div class="bottom-popup " value="<?=$row['midx']?>"><button type="button" class="ms<?=$row['midx']?> start btn-gray">용돈 기다리는 중...</button></div>
                         <input type="hidden"  value="<?=$row['midx']?>" class="bp<?=$row['midx']?>">
                     <?}else if($row['state']==2){?>
-                        <div class="bottom-popup " value="<?=$row['midx']?>"><button type="button" class="ms<?=$row['midx']?> start btn-blue">용돈을 받았어요!</button></div>
+                        <div class="bottom-popup " value="<?=$row['midx']?>"><a href="/Main2/savings" class="box-shadow:0;"><button type="button" class="ms<?=$row['midx']?> start btn-gray" style="color:gray;box-shadow:0px;">저금했어요!</button></a></div>
                         <input type="hidden"  value="<?=$row['midx']?>" class="bp<?=$row['midx']?>">
                     <?}?>
                 </form>
@@ -255,40 +325,15 @@ var evtMCS2 = new EventSource('/Sse/missionCheckState2');
                     let count = data.length;
                     
                     for(let i =0; i<count;i++){
-                        $(".ms"+data[i]['midx']).css('background-color','red').html("용돈을 받았어요!");
+                        $(".ms"+data[i]['midx']).css('background-color','#3F51B5').css('color','white').css('box-shadow','0 5px 5px -3px rgba(0, 0, 0, 0.3), 0 3px 5px 2px rgba(0, 0, 0, 0.12)').css('border','1px solid white').html("저금해보아요!").click(function(){
+                            document.location.href='/Main2/savings';
+                        });
                     }
                 });
                 
               </script>
 
-              <!-- <table align="center" id="mtb">
-                <tr>
-                  <td><?=$i++?></td>
-                  <td class="date"><?=$row['regdate']?></td>
-                </tr>
-                <tr>
-                  <td class="contents">미션 내용</td>
-                  <td ><?=$row['contents']?></td>
-                </tr>
-                <tr>
-                  <td class="contents">받을 용돈</td>
-                  <td><?=$row['price']?></td>            
-                </tr>
-                <tr>
-                <form action="/Main2/missionState" method="get">
-                  <input type="hidden" name="midx" value="<?=$row['midx']?>">
-                  <input type="hidden" name="mprice" value="<?=$row['price']?>">
-                  <?if($row['state']==0){?>
-                    <td colspan=3><button type="submit" name="state" value="<?=$row['state']?>" class="btn-primary btn-sm plusbtn">다했어요!</button></td>
-                  <?}else if($row['state']==1){?>
-                    <td colspan=3><button type="button" class="btn-default btn-sm plusbtn">기다려요!</button></td>
-                  <?}else if($row['state']==2){?>
-                    <td colspan=3><button type="button" class="btn-success btn-sm plusbtn">용돈을 받았어요!</button></td>
-                  <?}?>
-                </form>
-                </tr>
-                <br>
-              </table>   -->
+              
             <?}?>
           </div>
 
@@ -305,7 +350,15 @@ var evtMCS2 = new EventSource('/Sse/missionCheckState2');
   <input type="hidden" id="page" value="<?=$page?>">
   <script>
 
+    // evtMissionAlarm.onmessage = function(e) {
+    //         console.log(e.data+"mission2");
+            
+    //         if(e.data!=0){
+    //             $("#childmission").prepend('<div class="bottom-popup "><button type="button"  class="ms mission_ing start btn-gray"name="state">미션 수행 중</button></div>');
+                
+    //         }
 
+    //     };
 
 
 
@@ -314,16 +367,16 @@ var evtMCS2 = new EventSource('/Sse/missionCheckState2');
     var nidx = $('#nidx').val();
     console.log(nidx);
     if(!nidx){
-      swal('아이가 사고 싶은 물건을 등록하지 않았아요!');
+      swal('아이가 필요한 물건을 등록하지 않았아요!');
       return false;
     }
   }
   </script>
    <script>
    $(document).ready(function(){
-
+    
     if($('button').html()=="용돈을 받았어요!"){
-        $('')
+        
     }
 
 
@@ -332,7 +385,7 @@ var evtMCS2 = new EventSource('/Sse/missionCheckState2');
             // $('#ntab').css('background-color','#7ba434').css('color','white');
         }else if(page==1){
             // $('#mtab').css('background-color','#7ba434').css('color','white');
-            // $('#missiontab').attr('src','/assets/freelancer/img/missionicon_white.png');
+            $('#missiontab').attr('src','/assets/freelancer/img/missionicon_white.png');
         }
 
     // var button = document.querySelector('#ssebtn');

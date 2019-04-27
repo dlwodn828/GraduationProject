@@ -281,6 +281,8 @@
                 transform: translateX(0);
         }
         .mainMenu ul {
+        height: 647px;
+        border-bottom: 2px solid gray;
         display: table-cell;
         vertical-align: middle;
         }
@@ -351,11 +353,13 @@
             text-align: center;
             right: 140px;
             color:white;
+            z-index:1001;
         }
         #sbadge{
             color: white;
             right: 10px;
             text-align: center;
+            
         }
         .badge1:empty {
             display: none;
@@ -368,6 +372,15 @@
         } */
         .tab_white{
             display:none;
+        }
+        .right_nav_li > a{
+            color:#48adbc;
+        }
+        .rNavLi{
+            display:block;
+        }
+        .rNavLi_content{
+
         }
     </style>
 </head>
@@ -391,26 +404,20 @@
                             <img class="text-center title1" src="/assets/freelancer/img/logo.png" style="max-width:30%;height:auto;"alt="">
                             <a href="#" class="menuBtn">
                                 <img src="/assets/freelancer/img/usericon.png" id="hbg" class="fa fa-bars" aria-hidden="true" style="margin-top:5px;">
-                                <!-- <svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
-                                x="0px" y="0px" width="10px" height="10px" viewBox="215.186 215.671 80.802 80.8"
-                                enable-background="new 215.186 215.671 80.802 80.8" xml:space="preserve">
-                                <polygon fill="#FFFFFF" points="280.486,296.466 255.586,271.566 230.686,296.471 215.19,280.964 240.086,256.066 215.186,231.17 
-                                230.69,215.674 255.586,240.566 280.475,215.671 295.985,231.169 271.089,256.064 295.987,280.96 "/>
-                                </svg>-->
                             </a>
                             <nav class="mainMenu">
                                 <ul style="padding-left:0px;">
-                                    <li><h3><?=$this->session->userdata('AdminId')?></h3></li>
-                                    <li><h4>전체 저금 금액 : <span id="totalbalance"><?=$this->session->userdata('TotalBalance')?></span> 원</h4></li>
+                                    <li style="font-size:1.4rem;"><span class="rNavLi">아이디</span>  <span class="rNavLi_content"><?=$this->session->userdata('AdminId')?></span></li>
+                                    <li><span class="rNavLi">이름</span>  <span class="rNavLi_content"><?=$this->session->userdata('AdminName')?></span></li>
+                                    <li><span class="rNavLi">저금통 이름</span>  <span class="rNavLi_content"><?=$this->session->userdata('AdminBid')?></span></li>
+                                    <li><span class="rNavLi">전체 저금 금액</span>  <span class="rNavLi_content" id="totalbalance"><?=$this->session->userdata('TotalBalance')?></span> 원</li>
+                                    <li><span class="rNavLi">계좌 번호</span>  <span class="rNavLi_content"><?=$this->session->userdata('AdminWallet')?></span></li>
                                     <?php if(($this->session->userdata("AdminType")==0)){?>
-                                        <li><a href="/Main2/needs">필요해요</a></li>
-                                        <li><a href="/Main2/missions">노력해요</a></li>
-                                        <li><a href="/Main2/savings">저금해요</a></li>
+                                        <li><span class="rNavLi">저금 가능한 금액</span>  <span class="rNavLi_content possibleprice"><?=$this->session->userdata('AdminWbalance')?></span>원</li>
                                     <?php }else{?>
-                                        <li><a href="/Main2/needs">필요해요</a></li>
-                                        <li><a href="/Main2/missions">노력해요</a></li>
+                                        <li><span class="rNavLi">용돈 지급 가능 금액</span>  <span class="rNavLi_content possibleprice"><?=$this->session->userdata('AdminWbalance')?></span>원</li>
                                     <?php }?>
-                                    <li><a href="/auth/logoutProc" class="suBtn">로그아웃</a></li>
+                                    <li><a href="/auth/logoutProc" class="suBtn" style="background-color:#48adbc;color:white;">로그아웃</a></li>
                                 </ul>
                             </nav>
                         </header>
@@ -438,7 +445,6 @@
             <a id="ntab" href="/Main2/needs" class="tabs nav_item" data-tab="needs"><img class="nav_img" id="needtab" src="/assets/freelancer/img/nav_need.png"  height="32px"><br>필요해요</a>
             <a id="mtab" href="/Main2/missions" class="tabs nav_item" data-tab="missions"><img class="nav_img" id="missiontab" src="/assets/freelancer/img/nav_mission.png" height="32px"><br>노력해요</a>
             <a id="stab" href="/Main2/savings" class="tabs nav_item" data-tab="savings"><img class="nav_img" id="savingtab" src="/assets/freelancer/img/nav_saving.png" height="32px"><br>저금해요</a>
-            
         </nav>
         <div id="mbadge" class="badge2"></div>
         <div id="sbadge" class="badge1"></div>
@@ -451,7 +457,8 @@
         // menu click event
         var totalbalance = $("#totalbalance").html();
         $("#totalbalance").html(AddComma(totalbalance));
-        
+        var possibleprice = $(".possibleprice").html();
+        $(".possibleprice").html(AddComma(possibleprice));
         $('.menuBtn').click(function() {
             $(this).toggleClass('act');
                 if($(this).hasClass('act')) {
@@ -488,7 +495,7 @@
         var evtSaving = new EventSource('/Sse/saving');
 
         evtSaving.addEventListener("message", function(event) {
-            
+            console.log("saving: "+event.data);
             let data = JSON.parse(event.data);
             let count = data.length;
             if(count!=0){
@@ -500,20 +507,43 @@
         evtSaving.onerror = function() {
             // console.log("EventSource failed.");
         };
+
         var newMissionCnt=0;
 
-
         var evtMissionAlarm = new EventSource('/Sse/mission');
-        evtMissionAlarm.onmessage = function(e) {
-            console.log(e.data+"mission");
+        evtMissionAlarm.addEventListener("message", function(event) {
             
-            if(e.data!=0){
-                newMissionCnt++;
-                $('.badge2:empty').css('display','block');
-                $('#mbadge').html(newMissionCnt);
-            }
 
-        };
+            let data = JSON.parse(event.data);
+            
+            
+            if(data.length!=0){
+                console.log("mission: "+event.data);
+                newMissionCnt++;
+                $('#mbadge').html(newMissionCnt);
+                $('.badge2:empty').css('display','block');
+
+                
+            }
+        });
+
+
+        // var newMissionCnt=0;
+
+
+        // var evtMissionAlarm = new EventSource('/Sse/mission');
+        // evtMissionAlarm.onmessage = function(e) {
+        //     console.log(e.data+"mission1");
+            
+        //     if(e.data!=0){
+        //         newMissionCnt++;
+        //         $('.badge2:empty').css('display','block');
+        //         $('#mbadge').html(newMissionCnt);
+
+                
+        //     }
+
+        // };
 
         
         // evtMCS.onmessage = function(e) {

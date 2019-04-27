@@ -36,17 +36,19 @@
 	<script src="/assets/bootstrap/js/apps.min.js"></script>
 	<!-- ================== END PAGE LEVEL JS ================== -->
 	<!-- <script src="/assets/plugins/pace/pace.min.js"></script> -->
+	<style>
+	.swal-footer{
+		text-align:center;
+	}
+	</style>
 </head>
-<body>
-<img src="/assets/freelancer/img/login_pig.png"style="max-width:50%; height:auto;position: fixed;top: 15%;left:25%;z-index: 1000;">
-<img src="/assets/freelancer/img/login_sky.png" style="max-width: 100%;height: auto;position:fixed;bottom: 0px;">
-<img id="login_mount"src="/assets/freelancer/img/login_mount.png" style="max-width:100%; height:auto;position: fixed;
-    bottom: 0px;">
-    <div class="container">
-    <h3 class="text-center">Login</h3>
-    <hr>
+<body id="login_back" style="background-image:url('/assets/freelancer/img/login_back.png');background-size:100%;">
+
+    <!-- <div class="container"> -->
+    <!-- <h3 class="text-center">Login</h3>
+    <hr> -->
     <div class="card" style="top:250px; background-color:rgba( 255, 255, 255, 0 );.; border:0px; width:300px;   margin: 0 auto;">
-        <article class="card-body">
+        <article class="card-body" style="margin-top: 80px;">
         <!-- <h4 class="card-title mb-4 mt-1">Login</h4> -->
             <form id="actForm" action="/auth/loginProc" method="POST">
             <!-- <input type="hidden" name="<?=$this->security->get_csrf_token_name()?>" value="<?=$this->security->get_csrf_hash()?>" /> -->
@@ -54,18 +56,17 @@
                 <div class="form-group">
                     <label></label>
                     <input id="AdminId" name="AdminId" class="form-control" placeholder="아이디" type="id" autocomplete="off">
-                </div> <!-- form-group// -->
-                <div class="form-group">
                     <label></label>
                     <input type="password" id="AdminPwd" name="AdminPwd" class="form-control" placeholder="비밀번호" type="password" autocomplete="off">
-                </div> <!-- form-group// --> 
+                </div> <!-- form-group// -->
+                
                 <br>
                 <div class="form-group">
-                    <button type="submit" class="btn btn-primary btn-block"> 시작하기 </button>
+                    <button type="submit" class="btn btn-block" style="background-color:#48adbc;color:white;"> 시작하기 </button>
 					<!-- <button type="submit" class="btn btn-primary btn-block"> Login  </button> -->
                 </div> <!-- form-group// -->                                                           
                 <div class="form-group"> 
-                    <a href="/auth/signUp" class=" btn btn-outline-primary" style="width:100%;">회원가입</a>
+                    <a href="/auth/signUp" class=" btn " style="color: #48adbc;;border-color: #48adbc;;width:100%;">회원가입</a>
                 </div> <!-- form-group// -->  
             </form>
         </article>
@@ -97,10 +98,6 @@
 			unhighlight: function(element) {
 				$(element).closest('.form-group').removeClass('has-error').addClass('has-success');
 			},
-			messages: {
-				"AdminId": {required : "아이디를 입력해주세요."},
-				"AdminPwd": {required : "비밀번호를 입력해주세요."},
-			},
 			submitHandler:function(form) {
 				if (!sSendFlag) {
 					sSendFlag=true;
@@ -112,12 +109,12 @@
 						data: $(form).serialize(),
 						dataType:"json",
 						success:function(data) {
-							swal("환영합니다!",{button:false});
 							// $("#csrf").val(data.sToken);
 							if (data.sRetCode=="01") { //로그인 성공시
+								swal("환영합니다!",{button:false});
 								document.location.href=data.sRetUrl;
 							} else { //실패시
-								alert(data.sRetCode);
+								swal("아이디 또는 비밀번호를 확인해주세요.");
 							}
 							sSendFlag=false;
 						},

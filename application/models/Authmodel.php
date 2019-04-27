@@ -28,13 +28,58 @@ class Authmodel extends CI_Model{
 					$this->sQuery="SELECT * FROM tbl_user JOIN tbl_needs on userid=writerid or partnerid=writerid where userid='".$this->AdminId."'";
 					$nResult = $this->db->query($this->sQuery)->row();		
 					if($nResult){
-						$this->sQuery="SELECT sum(bbalance) as bb from tbl_user join tbl_piggybank on bankid=bid where usertype=0";
+						$this->sQuery="SELECT bbalance as bb from tbl_user join tbl_piggybank on bankid=bid where usertype=0 and userid";
 						$bResult = $this->db->query($this->sQuery)->row();
-						$newdata = array('AdminLoginYn' =>true,'AdminIdx'=>$oResult->idx,'AdminName'=>$oResult->username, 'AdminId'=>$this->AdminId, 'AdminPwd'=>$this->AdminPwd, 'AdminType'=>$oResult->usertype, 'AdminPtn'=>$oResult->partnerid, 'AdminWallet'=>$oResult->walletid, 'AdminBid'=>$oResult->bankid,'Needs'=>$nResult->nidx, 'TotalBalance'=>$bResult->bb);
+						
+						$newdata = array('AdminLoginYn' =>true,'AdminIdx'=>$oResult->idx,'AdminName'=>$oResult->username, 'AdminId'=>$this->AdminId, 'AdminPwd'=>$this->AdminPwd, 'AdminType'=>$oResult->usertype, 'AdminPtn'=>$oResult->partnerid, 'AdminWallet'=>$oResult->walletid, 'AdminBid'=>$oResult->bankid,'Needs'=>$nResult->nidx,'AdminWbalance'=>$oResult->walletbalance);
 					}else{
-						$newdata = array('AdminLoginYn' =>true,'AdminIdx'=>$oResult->idx,'AdminName'=>$oResult->username, 'AdminId'=>$this->AdminId, 'AdminPwd'=>$this->AdminPwd, 'AdminType'=>$oResult->usertype, 'AdminPtn'=>$oResult->partnerid, 'AdminWallet'=>$oResult->walletid, 'AdminBid'=>$oResult->bankid,'Needs'=>'','TotalBalance'=>'');						
+						$newdata = array('AdminLoginYn' =>true,'AdminIdx'=>$oResult->idx,'AdminName'=>$oResult->username, 'AdminId'=>$this->AdminId, 'AdminPwd'=>$this->AdminPwd, 'AdminType'=>$oResult->usertype, 'AdminPtn'=>$oResult->partnerid, 'AdminWallet'=>$oResult->walletid, 'AdminBid'=>$oResult->bankid,'Needs'=>'','AdminWbalance'=>$oResult->walletbalance);						
 					}
 					$this->session->set_userdata($newdata); // session값으로 위의 배열을 저장.
+					$this->nidx=$this->session->userdata('Needs');
+					if($this->session->userdata('AdminType')==1){
+						$this->pid=$this->session->userdata('AdminId');
+						$this->cid=$this->session->userdata('AdminPtn');
+						$this->sQuery="SELECT midx from tbl_missions where nidx='".$this->nidx."' and state=0 order by regdate DESC limit 1";
+						$m=$this->db->query($this->sQuery)->row();
+						if(empty($m->midx)){
+							$newdata=array('Mission'=>'');
+						}else{
+							$newdata=array('Mission'=>$m->midx);
+						}
+						$this->session->set_userdata($newdata);
+
+						$this->sQuery="SELECT bbalance from tbl_user join tbl_piggybank on bankid=bid where usertype=0 and userid='".$this->cid."'";
+						$bb=$this->db->query($this->sQuery)->row();
+						if(empty($bb->bbalance)){
+							$newdata=array('TotalBalance'=>'');
+						}else{
+							$newdata=array('TotalBalance'=>$bb->bbalance);
+						}
+						$this->session->set_userdata($newdata);
+
+					}else{
+						$this->pid=$this->session->userdata('AdminPtn');
+						$this->cid=$this->session->userdata('AdminId');
+						$this->sQuery="SELECT midx from tbl_missions where nidx='".$this->nidx."' and state=0 order by regdate DESC limit 1";
+						$m=$this->db->query($this->sQuery)->row();
+						if(empty($m->midx)){
+							$newdata=array('Mission'=>'');
+						}else{
+							$newdata=array('Mission'=>$m->midx);
+						}
+						$this->session->set_userdata($newdata);
+
+						$this->sQuery="SELECT bbalance from tbl_user join tbl_piggybank on bankid=bid where usertype=0 and userid='".$this->cid."'";
+						$bb=$this->db->query($this->sQuery)->row();
+						if(empty($bb->bbalance)){
+							$newdata=array('TotalBalance'=>'');
+						}else{
+							$newdata=array('TotalBalance'=>$bb->bbalance);
+						}
+						$this->session->set_userdata($newdata);
+					}
+
 					// $arrRetMessage=array('sRetCode'=>'01','sMessage'=>' 로그인이 완료되었습니다.','sRetUrl'=>'/Auth');
 					$arrRetMessage=array('sRetCode'=>'01','sMessage'=>'로그인이 완료되었습니다.','sRetUrl'=>'/Auth');
 					// redirect('/Auth','refresh');

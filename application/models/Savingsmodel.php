@@ -39,25 +39,33 @@ class Savingsmodel extends CI_Model{
         // $this->sQuery="SELECT sum(p.bbalance) as sum01 from tbl_piggybank as p join tbl_needs as n on p.bid=n.bid where p.bid = '".$this->bid."' and p.regdate > n.regdate";
         // $this->pb= $this->db->query($this->sQuery)->row()->sum01;
         // $savingList['bBalance']=$this->pb; // 저금통에 있는 돈
-        $this->sQuery="SELECT bbalance as pb from tbl_piggybank where bid='".$this->bid."' and nidx='".$this->needs."'";
-        $this->pb=$this->db->query($this->sQuery)->row()->pb;
-        $savingList['bBalance']=$this->pb; // 저금통에 있는 돈
+        if(empty($this->session->userdata('Needs'))){ // needs가 등록되기 전
+            $this->bbalance=0;
+        }else if(!empty($this->session->userdata('Needs'))){
+            $this->sQuery="SELECT bbalance as bb from tbl_piggybank where bid='".$this->bid."' and nidx='".$this->needs."'";
+            $this->bbalance=$this->db->query($this->sQuery)->row()->bb;
+            
+        }
+        $savingList['bBalance']=$this->bbalance;
+        
         /*
         piggybank대신 sTransaction을 이용한다. (두 테이블의 내용이 일치한다.) -> 아니지, 그냥 피기뱅크에서 값만 가져오면된다.
         그리고 위의 쿼리문을 돌리고 난 후 바로 bBalance를 piggybank에 update하기로한다.
         (즉, wallet과 piggybank는 update를 이용해서 무조건 한 값만 가지고 있고, savingTransaction과 pinmoneyTransaction 이 모든 내역을 가지고 있는것으로!)
         */
 
-        if($this->pb==NULL){
-            $savingList['bBalance']=0;
-        }
+        // if(empty($this->bbalacne)){
+        //     $savingList['bBalance']=0;
+        // }else{
+        //     $savingList['bBalance']=$this->bbalance; // 저금통에 있는 돈
+        // }
 
 
         $savingList['isDone']=FALSE;
-        if($this->needsPrice==$this->pb){
+        if($this->needsPrice==$this->bbalance){
             $savingList['isDone']=TRUE;
         }else{
-            $neeedsList['isDone']=FALSE;
+            $savingList['isDone']=FALSE;
         }
         $savingList['page']=2;
         return $savingList;        
@@ -90,6 +98,14 @@ class Savingsmodel extends CI_Model{
           $this->db->query($this->sQuery3);
         // }
         // $this->db->trans_complete();
+        $this->sQuery="SELECT bbalance from tbl_user join tbl_piggybank on bankid=bid where usertype=0 and userid='".$this->cid."'";
+        $bb=$this->db->query($this->sQuery)->row();
+        if(empty($bb->bbalance)){
+            $newdata=array('TotalBalance'=>'');
+        }else{
+            $newdata=array('TotalBalance'=>$bb->bbalance);
+        }
+        $this->session->set_userdata($newdata);
     
         redirect('/Main2/savings','refresh');
     }

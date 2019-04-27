@@ -23,13 +23,39 @@ margin-top:40px;
 }
 .mission_inputment{
     font-size:1.5rem;
-    font-weight:400;
+    font-weight:300;
     padding-bottom:10px;
 }
+.addbox{
+    position: relative;
+    top: 10px;
+    width: 70%;
+    margin: 0 auto;
+    text-align:center;
+    position: sticky;
+}
+.availableprice{
+    position: relative;
+    z-index: 1000;
+    text-align: center;
+    
+}
+.availablepricement{
+    font-size: 1.7rem;
+    margin-bottom: 10px;
+    display:block;
+    
+}
+#missionPrice{
+    font-size:1.5rem;
+}
+.swal-footer{
+    text-align:center;
+}
 </style>
-<img id="missionback" class="missionback" src="/assets/freelancer/img/mission_back.png" style="max-width:100%;height: auto;top:20px;"> 
+<img id="missionback" class="missionback" src="/assets/freelancer/img/mission_back.png" style="position: absolute;z-index:0;max-width:100%;height: auto;top:20px;"> 
 <section class="bg-white primary text-dark mb-0" id="about">
-    <div class="container">
+    <!-- <div class="container" style="position: fixed;z-index: 1000;">
     <form name="addMissionsForm" action="/Main2/addMissions" method="post" id="addMissionsForm" novalidate="novalidate">
         <div class="control-group  text-center "id="inputdiv">
             <div class="form-group mb-0 pb-2" id="inputdiv">
@@ -46,11 +72,11 @@ margin-top:40px;
             </div>
             <br>
             <label class="mission_inputment">미&nbsp&nbsp&nbsp&nbsp&nbsp션</label>
-            <input class="form-control addmissioninput" name="contents" id="contents" type="text" placeholder="ex) 일어나서 이불 개기" required="required" data-validation-required-message="미션 내용을 입력해주세요.">
+            <input class="form-control addmissioninput" name="contents" id="contents" type="text" placeholder="ex) 일어나서 이불 개기" required="required" data-validation-required-message="미션 내용을 입력해주세요." autocomplete="off">
             <p class="help-block text-danger"></p>
             <div class="form-group controls mb-0 pb-2">
             <label class="mission_inputment">가&nbsp&nbsp&nbsp&nbsp&nbsp격</label>
-            <input class="form-control addmissioninput" name="price" id="price" type="text" placeholder="ex) 1000" required="required" data-validation-required-message="미션 완료시 지급할 용돈을 입력해주세요." value="">
+            <input class="form-control addmissioninput" name="price" id="price" type="text" placeholder="ex) 1000" required="required" data-validation-required-message="미션 완료시 지급할 용돈을 입력해주세요." value="" autocomplete="off">
             <p class="help-block text-danger"></p>
             </div>
         </div>
@@ -59,6 +85,34 @@ margin-top:40px;
             <input type="submit" class="btn btn-primary btn-md" id="addMissionBtn" value="등 록" onClick="return missionalert();">
         </div>
         </form>
+    </div> -->
+    <div class="availableprice">
+        <span class="availablepricement">지급 가능한 용돈</span>
+        <input type="hidden" name="missionPrice" value="<?=$missionPrice?>">
+        <input type="hidden" class="mp" value="<?=$needsPrice-$missionPrice?>">
+        <span id="missionPrice"><?=$needsPrice-$missionPrice?></span><span> 원</span>
+    </div>
+    <div class="addbox">
+        <article class="card-body" style="margin-top: 80px;">
+
+        <form name="addMissionsForm" action="/Main2/addMissions" method="post" id="addMissionsForm" novalidate="novalidate">
+
+                <div class="form-group">
+                    <label class="mission_inputment">미&nbsp&nbsp션&nbsp&nbsp&nbsp내&nbsp&nbsp&nbsp용</label>
+                    <input class="form-control" name="contents"type="text" placeholder="ex) 일어나서 이불 개기" required="required" data-validation-required-message="미션 내용을 입력해주세요." autocomplete="off">
+                    <br><br>
+                    <label class="mission_inputment">용&nbsp&nbsp&nbsp&nbsp&nbsp돈</label>
+                    <input id="price"class="form-control" name="price"type="text" placeholder="ex) 1000" required="required" data-validation-required-message="미션 완료시 지급할 용돈을 입력해주세요." value="" autocomplete="off">
+                </div> <!-- form-group// -->
+                
+                <br>
+                <br>
+                <div class="form-group">
+                    <button type="submit" class="btn btn-block" onClick="return missionalert();"style="background-color:#48adbc;color:white;"> 미션 추가 </button>
+					<!-- <button type="submit" class="btn btn-primary btn-block"> Login  </button> -->
+                </div> <!-- form-group// -->                                                           
+            </form>
+        </article>
     </div>
 </section>
 <script>
@@ -73,17 +127,17 @@ margin-top:40px;
 $(document).ready(function(){
     var price = $('#price').val();
     var missionPrice = $('#missionPrice').html();
-    console.log(price);
-    console.log(missionPrice);
+    $('#missionPrice').html(AddComma(missionPrice));
 });
 function missionalert(){
+    var mp = $('.mp').val();
     var price = $('#price').val();
-    var missionPrice = $('#missionPrice').html();
-    missionPrice = parseInt(missionPrice);
+    
+    mp = parseInt(mp);
     price = parseInt(price);
     // missionPrice=$()
     console.log(price);
-    if(price>missionPrice){
+    if(price>mp){
         swal("지급 가능한 용돈을 초과하였습니다!");
         return false;
     }

@@ -2,7 +2,7 @@
     margin-top:10rem;
 }
 .popup {
-    
+    box-shadow: 0 5px 5px -3px rgba(0, 0, 0, 0.4), 0 3px 5px 2px rgba(0, 0, 0, 0.3);
     position: relative;
     left: 50%;
     top: -1rem;
@@ -11,7 +11,7 @@
     height: 153px;
     width: 330px;
     border-radius: 10px;
-    border: 3px solid #e5e5e5;
+    border: 1px solid #e5e5e5;
     font-family: 'jua';
     margin-top: 30px;
 }
@@ -19,10 +19,14 @@
     background:#27bbcc;
 }
 .btn-gray{
-    background:gray;
+    background-color:white;
+    color:black;
+    font-weight: 400;
 }
 .btn-blue{
-    background:#007bff;
+    background-color: white;
+    color: gray;
+    font-weight: 400;
 }
 /* .popup:hover{zoom:1.3;} */
 .valid {
@@ -61,6 +65,7 @@
 }
 
 .start {
+    /* box-shadow:0 5px 5px -3px rgba(0, 0, 0, 0.3), 0 3px 5px 2px rgba(0, 0, 0, 0.12); */
     border:0px solid white;
     position: absolute;
     width: 200px;

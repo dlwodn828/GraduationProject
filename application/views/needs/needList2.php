@@ -138,7 +138,9 @@ img {
   }
   #contents{
     /* background-color:white; */
-    color:gray;
+    text-shadow: 0 0 5px #ffffff;
+    color: #fe9898;
+
     font-size:2rem;
     margin:0px;
     font-weight:500;
@@ -536,6 +538,7 @@ html {
     margin-bottom:0px;
 }
 #needsPrice{
+    font-weight:400;
     float:right;
     color:white;
 }
@@ -567,7 +570,7 @@ html {
 #need_inputment{
     display: block;
 
-    font-size: 2rem;
+    font-size: 1.4rem;
     font-weight: 400;
     color:gray;
     margin-bottom:20px;
@@ -602,6 +605,12 @@ html {
     width:100%;
     height:100%;
 }
+.onlydate{
+  font-size: 1.4rem;
+    font-weight: 300;
+    margin-bottom: 20px;
+    display: block;
+}
 </style>
 <div class="keyboard"></div>
 <section id="section section_tabs">
@@ -619,7 +628,7 @@ html {
               <form name="addNeedsForm" action="/Main2/addNeeds" method="post" id="contactForm" novalidate="novalidate">
                 
                 <div class="control-group  text-center "id="inputdiv">
-                    <label class="need_input">사고 싶은 물건</label>
+                    <label class="need_input">필요한 물건</label>
                   <div class="form-group mb-0 pb-2" id="inputdiv">
                     <input class=" underline" name="contents" id="input_contents" type="text" placeholder="ex) 타요 장난감" required="required" data-validation-required-message="필요한 물건을 입력해주세요." autocomplete="off">
                     <p class="help-block text-danger"></p>
@@ -641,10 +650,13 @@ html {
           </div> 
         </div> 
         <?}else{?>
-          <h3 class="text-center text-secondary mb-0">아이가 원하는 물건을 등록할 수 있게 해주세요!</h3>
-
-          <br>
-          <br>
+            <img id="needback"  class="needback" src="/assets/freelancer/img/need_newback_470.png" style="max-width:100%;height: auto;"> 
+            <div id="tab" class="tab container">
+                <div class="need_mentbox" style="margin-top:70px">
+                    <h3 id="need_inputment"class="text-center text-secondary mb-0">아이가 필요한 물건을 등록하게 해주세요!</h3>
+                </div>
+                <img src="/assets/freelancer/img/blank_pig.png" style="max-width: 45%;position: relative;top: 315px;">
+            </div>
       <?}?>
       <?} else {?>
 
@@ -654,142 +666,60 @@ html {
         <!-- <img id="char" src="/assets/freelancer/img/needs_bicycle.png" style=" height: auto;"> -->
         
         <div class="needs_pigmong">
-            <span id="piggy_ment">저금통</span>
-            <div><span id="piggy_balance"><?=$bBalance?></span><span style="display:inline-block; font-size:1.3rem;"> 원</span></div>
-            <img id="pigmongicon"src="/assets/freelancer/img/newpig.png" onclick="$('body,html').animate({scrollTop:$('body').height()-180},1000);" style="max-width:30%;height:auto;">
+            <span id="piggy_ment" style="box-shadow:0 5px 5px -3px rgba(0, 0, 0, 0.3), 0 3px 5px 2px rgba(0, 0, 0, 0.12)">저금통</span>
+            <div><span id="piggy_balance"><?=$bBalance->bbalance?></span><span style="display:inline-block; font-size:1.3rem;"> 원</span></div>
+            <img id="pigmongicon"src="/assets/freelancer/img/newpig.png"  style="max-width:30%;height:auto;">
         </div>
-        <div class="header" id="top">
+        <div class="header" id="top" onclick="$('body,html').animate({scrollTop:$('body').height()-100},1000);" >
             <p class="scroll_ment">저금 기록을 확인해보아요!</p>
             <!-- <br> -->
             <!-- <p class="scroll_ment">저금 기록을 확인해보아요!</p> -->
-            <i class="fa fa-angle-down animated bounce"></i>
+            <i class="fa fa-angle-down animated bounce" ></i>
         </div>
-        <!-- <div class="top-section-wrapper">
-            <span class="budget-alert" data-line="$167"> still needed for this project</span>
-        </div> -->
-        <!-- <div class="main-container container" role="main">
-        <section class="component-section" role="section">
-            <div class="top-section-wrapper">
-                <span class="budget-alert" data-line="$167"> still needed for this project</span>
-                </div>
-                <div class="middle-section-wrapper">
-                <div class="progress">
-            <div class="progress-bar" role="progressbar" aria-valuenow="<?=$bBalance/$price*100?>" aria-valuemin="0" aria-valuemax="100" style="max-width: <?=$bBalance/$price*100?>%">
-            <span id="progressPrice" class="title"><?=$bBalance?></span>
-            </div>
-          </div>
-                    <div class="content-section">
-
-
-                    
-                    </div>
-                    
-                </div>
-            </div>
-            
-        </section>
-        </div> -->
+     
         <script src="//use.typekit.net/rzv2mwh.js"></script>
         <script>try{Typekit.load();}catch(e){}</script>
-        <!-- <span class="ment">받은 용돈을 저금해보아요!</span>
-
-        <div align="center" class="savingInfo">
-          <div id="w"class="savingInfo_1">
-            <span class="wp_wording">받은 용돈</span>
-            <a href="/Main2/savings"><img class="wp"src="/assets/freelancer/img/wallet.png" style="max-width: 50%; height: auto;"></a>
-            <span id="walletBalance" class="wp_wording"><?=$wBalance?></span>원
-          </div>
-          <div id="p"class="savingInfo_1">
-          <span class="wp_wording">저금통</span>
-            <a href="/Main2/savings"><img class="wp" src="/assets/freelancer/img/pig.png" style="max-width: 50%; height: auto;"></a>
-            <span id="bankBalance"class="wp_wording"><?=$bBalance?></span>원
-          </div>
-          <div class="actionbutton">+</div>
-        </div>
-      </div> -->
 
 
 
-
-      <!-- <section class="block-content toggleTimeline t-block-teal l-block-spacing">
-        <div class="l-contained">
-          <header class="heading-group">
-            <h2>저금 기록</h2>
-            <p class="subtitle">
-            </p>
-          </header>
-          <ul class="timeline-list">
-            <?foreach($savingInfo as $index=>$row){?>
-            <li>
-                <div class="content">
-                    <h3><?=$row['amount']?></h3>
-                </div>
-            </li>
-            <?}?>
-          </ul>
-        </div>
-      </section> -->
-      <!-- <link href='https://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,400,300,600,700' rel='stylesheet'>
-<ol class="timeline toggleTimeline">
-<h2>저금 기록</h2>
-  <li class="event rit">
-    <p class="title_tl">Student</p>
-    <p class="dates">Sept 2011 - Present</p>
-    <p class="company">Rochester Institute of Technology (RIT)</p>
-    <ul class="description">
-      <li>B.S. in Management Information Systems</li>
-      <li>Minor in Computer Science</li>
-      <li>Expected Graduation: Dec 2013</li>
-      <li>GPA: 3.32</li>
-    </ul>
-    <p class="details">
-      In my time out of class, I'm an active member of <a href='https://csh.rit.edu'>Computer Science House </a> (CSH). My first year I was elected Freshman Project President and my second year I was elected as Social Director. My second year I also became webmaster for CSH, creating and maintaing the current website with a friend.
-    </p>
-    <span class="button more">View Details</span>
-  </li>
-  <li class="event csh">
-    <p class="title_tl">Web Master</p>
-    <p class="dates">March 2013 - Present</p>
-    <p class="company">Computer Science House</p>
-    <p class="description">
-      An organization that I am an active participant of, this is the largest website project that I have created to date. The website can be viewed at <a href="https://csh.rit.edu">csh.rit.edu</a>.
-    </p>
-    <p class="details">
-      A lot of time has been invested by a partner and I in making this website work flawlessly on any device. In our testing, the site is fully responsive spanning all resolutions and pixel densities as well as it is fully functional on every major, modern (IE9+) desktop and mobile browser. Progress can be monitored on <a href="https://github.com/myasonik/CSHPublicSite">GitHub</a>.
-    </p>
-    <span class="button more">View Details</span>
-  </li>
-
-
-</ol> -->
 
 <div class="tl_box toggleTimeline">
-    <h1 style="margin-bottom:30px;">저금 기록</h1>
-    <?foreach($savingInfo as $index=>$row){?>
-    <div class="card ">
-        <ul class="timeline">
-            <li class="timeline__item">
-                <div class="timeline__step">
-                    <div class="timeline__step__marker timeline__step__marker--red"></div>
-                </div>
-                <div class="timeline__time">
-                    <?=date("y년 m월 d일\n h시 i분", strtotime($row['date']))?>
-                </div>
-                <div class="timeline__content">
-                    <div class="timeline__title">
-                        + <span class="amount<?=$row['tidx']?>"><?=$row['amount']?></span>원
-                    </div>
-                    <!-- <ul class="timeline__points">
-                    <li></li>
-                    </ul> -->
-                </div>
-            </li>
-        </ul>
-    </div>
-    <script>
-        var amount = $(".amount<?=$row['tidx']?>").html();
-        $(".amount<?=$row['tidx']?>").html(AddComma(amount));    
-    </script>
+    <h1 style="margin-bottom:30px; display:none;">저금 기록</h1>
+    <?if(!empty($savingInfo)){?>
+      <?$date = $savingInfo[0]['onlydate'];?>
+      <span class="onlydate"><?=$savingInfo[0]['onlydate']?></span>
+      <?foreach($savingInfo as $index=>$row){?>
+      <?if($date!=$row['onlydate']){?>
+          <hr><h3 class="onlydate"><?=$row['onlydate']?></h3>
+      <?$date=$row['onlydate']?>
+      <?}?>
+      <div class="card ">
+          <ul class="timeline">
+              <li class="timeline__item">
+                  <div class="timeline__step">
+                      <div class="timeline__step__marker timeline__step__marker--red"></div>
+                  </div>
+                  <div class="timeline__time">
+                      <?=$row['onlytime']?>
+                  </div>
+                  <div class="timeline__content">
+                      <div class="timeline__title">
+                          <span class="amount<?=$row['tidx']?>" style="font-weight:400;"><?=$row['amount']?></span><span style="font-weight:400;">원</span>을 저금했어요!
+                      </div>
+                      <!-- <ul class="timeline__points">
+                      <li></li>
+                      </ul> -->
+                  </div>
+              </li>
+          </ul>
+      </div>
+      <script>
+          var amount = $(".amount<?=$row['tidx']?>").html();
+          $(".amount<?=$row['tidx']?>").html(AddComma(amount));    
+      </script>
+      <?}?><!--End foreach -->
+    <?}else{?><!--End if -->
+      <span>아직 저금된 돈이 없어요!</span>
     <?}?>
 </div>
 
@@ -804,9 +734,11 @@ html {
                   <?foreach($needsList as $index=>$row){?>
                   <?$price=$row['price'];?>
 
-                    
-                    <h3 class="contents"><b><span id="contents"><?=$row['contents']?></span></b></h3>
-
+                <?if ($bBalance->bbalance != $price){?>
+                    <h3 class="contents"><b><span id="contents"><?=$row['contents']?></span ></b><span style="font-size:1.2rem;font-weight:100;"> 이(가) 필요해요!</span></h3>
+                <?}else{?>
+                    <h3 class="contents"><b><span id="contents"><?=$row['contents']?></span ></b><span style="font-size:1.2rem;font-weight:100;"> 을(를) 살 수 있어요!</span></h3>
+                <?}?>
                     <!-- <img src="/uploads/needpic.jpg" alt=""> -->
 
                     <?}?>
@@ -814,10 +746,11 @@ html {
                         <?foreach($needsList as $index=>$row){?>
                         <?$price=$row['price'];?>
                         <div class="progress">
-                            <div class="progress-bar" role="progressbar" aria-valuenow="<?=$bBalance/$price*100?>" aria-valuemin="0" aria-valuemax="100" style="max-width: <?=$bBalance/$price*100?>%">
+                            <div class="progress-bar" role="progressbar" aria-valuenow="<?=$bBalance->bbalance/$price*100?>" aria-valuemin="0" aria-valuemax="100" style="max-width: <?=$bBalance->bbalance/$price*100?>%">
                             </div>
                         </div>
-                        <span id="progressPrice" class="title"><?=$bBalance?></span>
+                        
+                        <span id="progressPrice" class="title"><?=$bBalance->bbalance?></span>
                         <span id="needsPrice" class="title"><?=$price?></span>
                         <?}?>
                     </div>
@@ -836,11 +769,8 @@ html {
                 <?}?>
               <?}?>
           </div>
-          
         </div>
-        
       </div>
-      
       <?}?>
 
   </section>
@@ -877,7 +807,7 @@ $(document).ready(function(){
     var page = $('#page').val();
         if(page==0){
             // $('#ntab').css('background-color','#7ba434').css('color','white');
-            // $('#needtab').attr('src','/assets/freelancer/img/needicon_white.png');
+            $('#needtab').attr('src','/assets/freelancer/img/needicon_white.png');
         }else if(page==1){
             // $('#mtab').css('background-color','#7ba434').css('color','white');
         }else{
@@ -911,13 +841,13 @@ $(document).ready(function(){
 //   $('.block-content *').attr('height','0px');
   
   
-  $('#pigmongicon').click(function(){
+  $('#top').click(function(){
     // $('.timeline').removeClass('toggleTimeline');
     $('.tl_box').removeClass('toggleTimeline');
     // $('.block-content *').attr('height','');
   });
 
-  var run = <?=$bBalance/$price*100?> *3;
+  var run = <?=$bBalance->bbalance/$price*100?> *3;
   if(run>290){
     run=290;
   }
