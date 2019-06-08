@@ -87,6 +87,7 @@ class Savingsmodel extends CI_Model{
  
         $this->sQuery1="UPDATE tbl_user SET walletbalance = walletbalance-'".$this->pinmoney."' where userid='".$this->cid."' and walletbalance='".$this->pinmoney."'";
         $this->sQuery2="UPDATE tbl_piggybank SET bbalance = bbalance+'".$this->pinmoney."' where bid='".$this->bid."' and nidx='".$this->nidx."'";
+        $this->sQuery="UPDATE tbl_totalsavings SET bbalance = bbalance+'".$this->pinmoney."' where bid='".$this->bid."'";
         $this->sQuery3="INSERT INTO tbl_transactions(cid,pid,bid,amount,types,nidx) values ('".$this->cid."', '".$this->pid."', '".$this->bid."', '".$this->pinmoney."', 1, '".$this->nidx."')";
         // $this->sQuery1="UPDATE tbl_user set walletbalance='".$this->cwalletBalance."' where userid='".$this->cid."'";
         // $this->sQuery2="INSERT INTO tbl_piggybank(bid,bbalance) values('".$this->bid."', '".$this->pinmoney."')";
@@ -95,15 +96,18 @@ class Savingsmodel extends CI_Model{
         // if($this->cwalletBalance >= 0){
           $this->db->query($this->sQuery1);
           $this->db->query($this->sQuery2);
+          $this->db->query($this->sQuery);
           $this->db->query($this->sQuery3);
         // }
         // $this->db->trans_complete();
+        $this->sQuery="SELECT bbalance from tbl_totalsavings where bid='".$this->bid."'";
+        $ts=$this->db->query($this->sQuery)->row();
         $this->sQuery="SELECT bbalance from tbl_user join tbl_piggybank on bankid=bid where usertype=0 and userid='".$this->cid."'";
         $bb=$this->db->query($this->sQuery)->row();
         if(empty($bb->bbalance)){
-            $newdata=array('TotalBalance'=>'');
+            $newdata=array('TotalSavings'=>$ts->bbalance,'TotalBalance'=>'');
         }else{
-            $newdata=array('TotalBalance'=>$bb->bbalance);
+            $newdata=array('TotalSavings'=>$ts->bbalance,'TotalBalance'=>$bb->bbalance);
         }
         $this->session->set_userdata($newdata);
     
@@ -117,5 +121,17 @@ class Savingsmodel extends CI_Model{
         return $this->savingCount;
     }
     
-
+    function updateNeedsInPiggy(){
+        $this->nidx=$this->session->userdata('Needs');
+        $this->bid=$this->session->userdata('AdminBid');
+        $this->sQuery="UPDATE tbl_piggybank set nidx=0, bbalance=0 where bid='".$this->bid."'";
+        $this->db->query($this->sQuery);
+        // $this->ts=$this->session->userdata('TotalBalance');
+        // $this->sQuery="UPDATE tbl_totalsavings set bbalance+='".$this->ts."' where bid='".$this->bid."'";
+        // $this->db->query($this->sQuery);
+        $this->sQuery="SELECT bbalance from tbl_totalsavings where bid='".$this->bid."'";
+        $ts=$this->db->query($this->sQuery)->row();
+        $newdata=array('TotalSavings'=>$ts->bbalance, 'TotalBalance'=>0);
+        $this->session->set_userdata($newdata);
+    }
 }

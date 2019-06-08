@@ -5,11 +5,12 @@
 
   }
   .bbal{
+      color:#404040;
     display: block;
     font-weight: 300;
     position: relative;
-    font-family: 'jua';
-    top: 150px;
+    font-family: 'KOMACON';
+    top: 180px;
     text-align: center;
     font-size:3rem;
   }
@@ -130,10 +131,12 @@
     display: block;
     position: relative;
     text-align: center;
-    width: 50px;
+    width: 90px;
     line-height: 20px;
     font-size: 1.5rem;
     margin: auto;
+    margin-top: 30px;
+    color:#404040;
 
   }
   @keyframes glow {
@@ -160,10 +163,12 @@
           opacity: 1;
       }
   }
-  
+  .swal-footer{
+    text-align:center;
+}
 #saving_cloud{
     position: absolute;
-    top: 50px;
+    top: 80px;
     left:20px;
 }
 body{
@@ -194,7 +199,7 @@ body{
 
 #won{
     display: inline-block;
-    margin-top: 15px;
+    /* margin-top: 15px; */
 }
 </style>
 <div id="saving">
@@ -207,7 +212,7 @@ body{
         <span class="bbal"><?=$bBalance?></span> 
         <!-- <h4>원을 모았어요!</h4> -->
     </div>
-    <button id="coinbtn"><div id="coin"><span id="won">₩</span><br><span id="coinprice"><?=$wBalance?></span></div></button>
+    <button id="coinbtn"><div id="coin"><span id="coinprice"><?=$wBalance?></span><span id="won">원</span></div></button>
     <div id="ments">
         <h5 class="saving_ment">Touch!</h5>
         <!-- <h5 class="saving_ment">저금해보아요!</h5> -->
@@ -245,6 +250,18 @@ body{
 </div>
 <input type="hidden" id="page" value="<?=$page?>">
 <script>
+var doubleSubmitFlag = false;
+
+function fncSubmit(){
+    if(doubleSubmitFlag){
+        alert('제출 중입니다.');
+        return false;
+    }else {
+        doubleSubmitFlag = true;
+        $('#addMissionsForm').submit();
+    }
+}
+
     function savemoney(){
     
     var b = false;
@@ -260,6 +277,7 @@ body{
 }
 
 $(document).ready(function(){
+
     var page = $('#page').val();
         if(page==0){
             // $('#ntab').css('background-color','#7ba434').css('color','white');
@@ -271,14 +289,19 @@ $(document).ready(function(){
         }
     var bbal = $('.bbal').html();
     if(bbal=='0'){
-        $('.bbal').html("저금해주세요!").css('font-size','2rem').css('top','150px');
+        $('.bbal').html("저금해주세요!").css('font-size','2rem').css('top','180px');
     }else{
         $('.bbal').html(AddComma(bbal)+"원");
         console.log(bbal);
     }
+    if(Number($('#coinprice').html())>99999){
+        $("#coinprice").css('font-size','1.1rem');
+    }else if(Number($('#coinprice').html())>999999){
+        $("#coinprice").css('font-size','0.8rem');
+    }
 
-
-
+    var cp = $('#coinprice').html();
+    $('#coinprice').html(AddComma(cp));
 
 
 // function AddComma(data_value) {
@@ -306,50 +329,57 @@ $(document).ready(function(){
 
 
     $('#coin').click(function() {
-        
+            
             if($('#coinprice').html()=='0'){
                 swal('받은 용돈이 없습니다!');
                 $('.saving_ment').css('animation','');
                 return false;
             }else{
-            
-            var pm = $('#pinmoney1').val();
-            $(this).addClass('active');
-            console.log(pm);
-            $('#coincover').css('display','');
-            // $('h1').fadeOut('slow');
-            
-            $(this).animate({
-                bottom: "140px"
-            }, 1300);
-            
-            
-            setTimeout(function() {
-                // $('#blush1').fadeIn('slow');
-                // $('.blushs').removeClass('togglePiggy');
-            }, 1000);
-            // setTimeout(function() {
-            // // $('#blush2').fadeIn('slow');
-            // }, 1000);
-            
-            setTimeout(function() {
-                $('#pg1').removeClass('togglePiggy');
-                $('#pg').addClass('togglePiggy');
-            
-            }, 1100);
-            
-            setTimeout(function() {
-                var a= 10;
-                // alert(pm+"저금이 완료되었어요");
+                if(doubleSubmitFlag){
+                swal("저금 중입니다.");
+                return false;
+            }else{
+                doubleSubmitFlag = true;
+                var pm = $('#pinmoney1').val();
+                $(this).addClass('active');
+                console.log(pm);
+                $('#coincover').css('display','');
+                // $('h1').fadeOut('slow');
                 
-                // swal(pm+"원이 저금되었어요!");
-                $('#savingMoney').submit();
+                $(this).animate({
+                    bottom: "140px"
+                }, 1300);
                 
-            }, 2000);
+                
+                setTimeout(function() {
+                    // $('#blush1').fadeIn('slow');
+                    // $('.blushs').removeClass('togglePiggy');
+                }, 1000);
+                // setTimeout(function() {
+                // // $('#blush2').fadeIn('slow');
+                // }, 1000);
+                
+                setTimeout(function() {
+                    $('#pg1').removeClass('togglePiggy');
+                    $('#pg').addClass('togglePiggy');
+                
+                }, 1100);
+                
+                setTimeout(function() {
+                    var a= 10;
+                    // alert(pm+"저금이 완료되었어요");
+                    
+                    // swal(pm+"원이 저금되었어요!");
+                    $('#savingMoney').submit();
+                    
+                }, 2000);
+            }
         // }
         // event.preventDefault();
 
         }
+
+            
     });
       
 

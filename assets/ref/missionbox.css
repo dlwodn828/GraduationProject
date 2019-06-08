@@ -7,13 +7,15 @@
     left: 50%;
     top: -1rem;
     transform: translate(-50%, -50%);
-    background: #f19495;
+    /* background: #f19495; */
+    background:#ffb4b4b8;
     height: 153px;
     width: 330px;
-    border-radius: 10px;
-    border: 1px solid #e5e5e5;
-    font-family: 'jua';
+    border-radius: 0px;
+    border: 1px solid white;
+    font-family: 'KOMACON';
     margin-top: 30px;
+
 }
 .btn-green{
     background:#27bbcc;
@@ -32,14 +34,14 @@
 .valid {
     height:30px;
     width:30px;
-    background:#fff;
+    /* background:#fff; */
     /* margin:0 auto; */
-    margin-top:30px;
+    margin-top:25px;
     border-radius:5px;
     float:left;
     /* margin:20px 20px -5px 20px; */
     margin-left:20px;
-    margin-left:20px;
+
 }
 #Layer_2 {
     /* width:40px; */
@@ -50,7 +52,7 @@
 .bottom-popup {
 
     width: 100%;
-    height: 58px;
+    height: 50px;
     background: #fff;
     -webkit-border-bottom-right-radius: 7px;
     -webkit-border-bottom-left-radius: 7px;
@@ -74,7 +76,7 @@
     border-radius: 40px;
     /* background: #FF7391; */
     padding: 6px 20px 6px 20px;
-    font-family: 'helvetica';
+    font-family: 'KOMACON';
     color: white;
     font-weight: bold;
     text-decoration: none;
@@ -84,7 +86,7 @@
     -ms-transition: all .4s ease-out;
     -o-transition: all .4s ease-out;
     transition: all .4s ease-out;
-    font-family: 'jua';
+    font-family: 'KOMACON';
     font-weight: lighter;
 
 }
@@ -98,20 +100,30 @@
     float:right;
     bottom:50px;
     right:10px; */
-    width:70px;
-    margin-top:10px;
+    /* width:70px;
+    margin-top:5px; */
+    width: 74px;
+    position: relative;
+    top: 25px;
+    left: 10px;
 }
 #mp{
-    width: 70px;
+    /* width: 70px;
     margin-left: 190px;
     height: 100%;
     position: relative;
-    bottom: 25px;
+    bottom: 25px; */
+    width: 80px;
+    margin-left: 230px;
+    height: 100%;
+    position: relative;
+    bottom: 30px;
+    color: black;
 }
 .mission{
-    color: white;
-    font-family: jua;
-    font-size: 1.2rem;
+    color:#666666;
+    font-family: 'KOMACON';
+    font-size: 1rem;
     text-align: center;
     font-weight: 500;
     line-height: 20px;
@@ -119,7 +131,7 @@
     word-break: break-all;
     width: 50%;
     float: left;
-    margin-top: 36px;
+    margin-top: 30px;
     margin-left:10px;
 
 }

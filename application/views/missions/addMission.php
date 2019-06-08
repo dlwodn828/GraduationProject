@@ -95,11 +95,11 @@ margin-top:40px;
     <div class="addbox">
         <article class="card-body" style="margin-top: 80px;">
 
-        <form name="addMissionsForm" action="/Main2/addMissions" method="post" id="addMissionsForm" novalidate="novalidate">
+        <form name="addMissionsForm" onsubmit="return fncSubmit();"action="/Main2/addMissions" method="post" id="addMissionsForm" novalidate="novalidate">
 
                 <div class="form-group">
                     <label class="mission_inputment">미&nbsp&nbsp션&nbsp&nbsp&nbsp내&nbsp&nbsp&nbsp용</label>
-                    <input class="form-control" name="contents"type="text" placeholder="ex) 일어나서 이불 개기" required="required" data-validation-required-message="미션 내용을 입력해주세요." autocomplete="off">
+                    <input class="form-control" id="input_contents"name="contents"type="text" placeholder="ex) 일어나서 이불 개기" required="required" data-validation-required-message="미션 내용을 입력해주세요." autocomplete="off">
                     <br><br>
                     <label class="mission_inputment">용&nbsp&nbsp&nbsp&nbsp&nbsp돈</label>
                     <input id="price"class="form-control" name="price"type="text" placeholder="ex) 1000" required="required" data-validation-required-message="미션 완료시 지급할 용돈을 입력해주세요." value="" autocomplete="off">
@@ -108,7 +108,7 @@ margin-top:40px;
                 <br>
                 <br>
                 <div class="form-group">
-                    <button type="submit" class="btn btn-block" onClick="return missionalert();"style="background-color:#48adbc;color:white;"> 미션 추가 </button>
+                    <button class="btn btn-block" style="background-color:#48adbc;color:white;"> 미션 추가 </button>
 					<!-- <button type="submit" class="btn btn-primary btn-block"> Login  </button> -->
                 </div> <!-- form-group// -->                                                           
             </form>
@@ -125,20 +125,83 @@ margin-top:40px;
 
 // });
 $(document).ready(function(){
+    $('#missiontab').attr('src','/assets/freelancer/img/missionicon_white.png');
     var price = $('#price').val();
     var missionPrice = $('#missionPrice').html();
     $('#missionPrice').html(AddComma(missionPrice));
 });
+
+var doubleSubmitFlag = false;
+
+
+function fncSubmit(){
+    if(doubleSubmitFlag){
+        swal('등록 중입니다!');
+        return false;
+    }else {
+        var c = $('#input_contents').val();
+        var p = $('#price').val();
+
+        if(c==''){
+            swal('미션 내용을 입력해주세요!');
+            return false;
+        }else if(p==''){
+            swal('용돈을 입력해주세요!');
+            return false;
+        }else if(isNaN(p)){
+            swal('용돈은 숫자만 입력해주세요!');
+            return false;
+        }else if(c.length> 30){
+            swal('미션은 30자 이내로 입력해주세요!');
+            return false;
+        }
+        var mp = $('.mp').val();
+        var price = $('#price').val();
+        
+
+        
+        mp = Number(mp);
+        price =  Number(price);
+        // missionPrice=$()
+        console.log(price);
+        if(mp==0){
+            swal("지급 가능한 용돈이 없습니다!");
+            return false;
+        }
+        if(price>mp){
+            swal("지급 가능한 용돈을 초과하였습니다!");
+            return false;
+        }else if(empty(price)){
+            swal("용돈을 입력하세요!");
+            return false;
+        }
+        doubleSubmitFlag = true;
+        $('#addNeedsForm').submit();
+    }
+}
+
+
+
+
+
 function missionalert(){
+
     var mp = $('.mp').val();
     var price = $('#price').val();
     
-    mp = parseInt(mp);
-    price = parseInt(price);
+    mp = Number(mp);
+    price =  Number(price);
     // missionPrice=$()
     console.log(price);
+    if(mp==0){
+        swal("지급 가능한 용돈이 없습니다!");
+        return false;
+    }
     if(price>mp){
         swal("지급 가능한 용돈을 초과하였습니다!");
+        return false;
+    }else if(empty(price)){
+        swal("용돈을 입력하세요!");
         return false;
     }
 }

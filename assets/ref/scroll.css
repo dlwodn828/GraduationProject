@@ -7,7 +7,7 @@ body {
 
   color: #2e2e2e;
   /* padding: 10px; */
-  margin-top:20px;
+  margin-top:10px;
   text-align: center;
 }
 .header a, .footer a {
@@ -24,7 +24,7 @@ body {
 }
 .header i.fa, .footer i.fa {
   font-size: 2em;
-  margin-top: 20px;
+  margin-top: 10px;
 }
 .header .bounce, .footer .bounce {
   -webkit-animation-name: bounce;
@@ -189,10 +189,10 @@ body {
     -webkit-transform: translateY(0);
   }
   40% {
-    -webkit-transform: translateY(-20px);
+    -webkit-transform: translateY(-10px);
   }
   60% {
-    -webkit-transform: translateY(-10px);
+    -webkit-transform: translateY(-5px);
   }
 }
 @keyframes bounce {
@@ -200,9 +200,9 @@ body {
     transform: translateY(0);
   }
   40% {
-    transform: translateY(-20px);
+    transform: translateY(-10px);
   }
   60% {
-    transform: translateY(-10px);
+    transform: translateY(-5px);
   }
 }

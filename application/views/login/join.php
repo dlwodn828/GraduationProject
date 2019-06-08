@@ -44,7 +44,7 @@
     }
     .join_box{
         position:relative;
-        top:130px;
+        top:160px;
     }
     </style>
 </head>
@@ -54,7 +54,7 @@
     <div class="join_box">
         <article class="card-body">
             <h4 class="text-center card-title mb-4 mt-1">부모님</h4>
-            <form id="joinForm" action="/Auth/join" method="post">
+            <form id="joinForm" onsubmit="fncSumbit();"action="/Auth/join" method="post">
                 <div class="form-group">
                     <label>이름</label>
                     <input class="form-control" name="pname" type="text" autocomplete="off">
@@ -66,7 +66,11 @@
                 
                 <div class="form-group">
                     <label>비밀번호</label>
-                    <input class="form-control" name="ppwd" type="password" placeholder="6자리 이상 입력하세요"autocomplete="off">
+                    <input class="form-control pwd_p" name="ppwd" type="password" placeholder="6자리 이상 입력하세요"autocomplete="off">
+                </div> <!-- form-group// --> 
+                <div class="form-group">
+                    <label>비밀번호 확인</label>
+                    <input class="form-control checkpwd_p" name="ppwd1" type="password" placeholder=""autocomplete="off">
                 </div> <!-- form-group// --> 
                 <div class="form-group">
                     <label>계좌 번호</label>
@@ -93,7 +97,11 @@
                 </div> <!-- form-group// -->
                 <div class="form-group">
                     <label>비밀번호</label>
-                    <input class="form-control" name="cpwd" type="password"  placeholder="6자리 이상 입력하세요" autocomplete="off">
+                    <input class="form-control pwd_c" name="cpwd" type="password"  placeholder="6자리 이상 입력하세요" autocomplete="off">
+                </div> <!-- form-group// --> 
+                <div class="form-group">
+                    <label>비밀번호 확인</label>
+                    <input class="form-control checkpwd_c" name="cpwd1" type="password" placeholder=""autocomplete="off">
                 </div> <!-- form-group// --> 
                 <div class="form-group">
                     <label>계좌 번호</label>
@@ -119,7 +127,65 @@
     </div>
     </div>
     <script>
+    var doubleSubmitFlag = false;
+var pwdcheck1=false;
+var pwdcheck2=true;
 
+function fncSubmit(){
+    if(doubleSubmitFlag){
+        swal('등록 중입니다!');
+        return false;
+    }else {
+        doubleSubmitFlag = true;
+        if(pwdcheck1 && pwdcheck2){
+            $('#addMissionsForm').submit();
+        }else{
+            swal('비밀번호를 확인해주세요.');
+            return false;
+        }
+    }
+}
+$('.pwd_p').change(function(){
+    var pwd_p=$('.pwd_p').val();
+    if(pwd_p.length<6){
+        $('.pwd_p').val('').css('border','1px solid red');
+    }else{
+        $('.pwd_p').css('border','1px solid #ced4da');
+    }
+});
+$('.pwd_c').change(function(){
+    var pwd_p=$('.pwd_c').val();
+    if(pwd_p.length<6){
+        $('.pwd_c').val('').css('border','1px solid red');
+    }else{
+        $('.pwd_c').css('border','1px solid #ced4da');
+    }
+});
+
+$('.checkpwd_p').change(function(){
+
+    var pw = $('.pwd_p').val();
+    var ch = $('.checkpwd_p').val();
+    if(pw!=ch){
+        pwdcheck1=false;
+        $('.checkpwd_p').val('').css('border','1px solid red').attr('placeholder','비밀번호를 다시 입력해주세요');
+    }else{
+        pwdcheck1=true;
+        $('.checkpwd_p').css('border','1px solid #ced4da');
+    }
+});
+$('.checkpwd_c').change(function(){
+
+var pw = $('.pwd_c').val();
+var ch = $('.checkpwd_c').val();
+if(pw!=ch){
+    pwdcheck2=false;
+    $('.checkpwd_c').val('').css('border','1px solid red').attr('placeholder','비밀번호를 다시 입력해주세요');
+}else{
+    pwdcheck2=true;
+    $('.checkpwd_c').css('border','1px solid #ced4da');
+}
+});
     </script>
 </body>
 </html>

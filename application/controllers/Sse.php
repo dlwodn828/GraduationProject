@@ -73,9 +73,13 @@ public function saving(){
             $this->sQuery="SELECT midx from tbl_transactions where  bid='".$this->bid."' and types=0 and date > (SELECT date from tbl_transactions where nidx='".$this->nidx."' and types=1 order by date DESC limit 1)";
             $this->sCount=$this->db->query($this->sQuery)->result_array();
         }
-
-        $sCount=json_encode($this->sCount);    
-        echo "data: {$sCount}\n\n";
+        $this->sQuery="SELECT nidx from tbl_needs where  bid='".$this->bid."'";
+        $this->n=$this->db->query($this->sQuery)->row()->nidx;
+        $sCount=json_encode($this->sCount);
+        if(!empty($this->n)) {
+            echo "data: {$sCount}\n\n";
+        }
+        
         flush();
         // while (ob_get_level() > 0) {
         //     ob_end_flush();
@@ -115,8 +119,13 @@ public function saving(){
                     $newdata=array('Mission'=>$this->rec_midx);
                     $this->session->set_userdata($newdata);
 
+                    $this->sQuery="SELECT nidx from tbl_needs where  bid='".$this->bid."'";
+                     $this->n=$this->db->query($this->sQuery)->row()->nidx;
+
                     $rec_midx=json_encode($newdata);
-                    echo "data: {$rec_midx}\n\n";
+                    if(!empty($this->n)){
+                        echo "data: {$rec_midx}\n\n";
+                    }
                     
                     flush();
                 }else{
@@ -128,18 +137,21 @@ public function saving(){
     public function missionCheckState(){
         header("Content-Type: text/event-stream");
         header('Cache-Control: no-cache');
+        header("Connection", "keep-alive");
         $this->nidx=$this->session->userdata("Needs");
         $this->bid=$this->session->userdata('AdminBid');
         $this->sQuery="SELECT midx from tbl_missions where nidx='".$this->nidx."' and state=1";
-        $this->midx=$this->db->query($this->sQuery)->result_array();
-        $midx=json_encode($this->midx);
+        $midx1=$this->db->query($this->sQuery)->result_array();
+        $midx=json_encode($midx1);
         echo "data: {$midx}\n\n";
+        
         flush();
 
     }
     public function missionCheckState2(){
         header("Content-Type: text/event-stream");
         header('Cache-Control: no-cache');
+        header("Connection", "keep-alive");
         $this->nidx=$this->session->userdata("Needs");
         $this->bid=$this->session->userdata('AdminBid');
         $this->sQuery="SELECT midx from tbl_missions where nidx='".$this->nidx."' and state=2";

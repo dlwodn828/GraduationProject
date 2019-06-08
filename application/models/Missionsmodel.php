@@ -11,15 +11,20 @@ class Missionsmodel extends CI_Model{
     }
 
     function showMissionsList(){
-        
+      $this->bid=$this->session->userdata('AdminBid');
       if($this->session->userdata('AdminType')){ // 부모일 때
         $this->writerid=$this->session->userdata('AdminId');
         $this->ptn=$this->session->userdata('AdminPtn');
+        $this->sQuery="SELECT walletbalance as wb from tbl_user where bankid='".$this->bid."' and usertype=1";
+          $this->wBalance=$this->db->query($this->sQuery)->row()->wb;
+
       }else{ // 아이일 때
           $this->writerid=$this->session->userdata('AdminPtn');
           $this->ptn=$this->session->userdata('AdminId');
+          $this->sQuery="SELECT walletbalance as wb from tbl_user where bankid='".$this->bid."' and usertype=0";
+          $this->wBalance=$this->db->query($this->sQuery)->row()->wb;
       }
-      
+      $this->bid=$this->session->userdata("AdminBid");
       // $this->sQuery="SELECT regdate as rd from tbl_needs where writerid='".$this->writerid."'";
       // $this->nregdate=$this->db->query($this->sQuery)->row()->rd;
       //and regdate > ".$this->nregdate." 
@@ -39,14 +44,15 @@ class Missionsmodel extends CI_Model{
       // $missionsList['missionsList']=$this->missionsList;
       //상대방이 처음으로 미션을 등록했을 때
       if(empty($this->session->userdata('Needs'))){
-        $this->sQuery="SELECT nidx as n from tbl_needs where writerid='".$this->writerid."'";
-        $idx=$this->db->query($this->sQuery)->row();
+        $this->sQuery="SELECT nidx as n from tbl_needs where bid='".$this->bid."'";
+        $nidx=$this->db->query($this->sQuery)->row();
         if(!empty($this->nidx)){
-            $newdata=array('Needs'=>$nidx)->n;
+            $newdata=array('Needs'=>$nidx->n);
             $this->session->set_userdata($newdata);
         }
       }
-
+      $newdata=array('AdminWbalance'=>$this->wBalance);
+      $this->session->set_userdata($newdata);
       $missionsList['missionsList']=$this->mList;      
       $missionsList['missionsList_p']=$this->mList_p;      
       $this->sQuery="SELECT * from tbl_needs where writerid='".$this->ptn."'";
@@ -57,7 +63,7 @@ class Missionsmodel extends CI_Model{
     }
 
     function addMissions(){
-        $this->nidx=$this->session->userdata('Needs');
+        
         $this->contents=$this->input->post('contents');
         $this->price=$this->input->post('price');
         $this->writerid=$this->session->userdata('AdminId');
@@ -69,7 +75,8 @@ class Missionsmodel extends CI_Model{
         // } else {
         //   $arrRetMessage=array('sRetCode'=>'02','sMessage'=>'지급 가능한 용돈을 초과했습니다.');
         // }
-
+        $this->sQuery="SELECT nidx as n from tbl_needs where writerid='".$this->ptn."'";
+        $this->nidx=$this->db->query($this->sQuery)->row()->n;
         if($this->writerid){
           // $this->sQuery="SELECT nidx as n from tbl_needs where writerid='".$this->ptn."'";
           // $this->nidx=$this->db->query($this->sQuery)->row()->n;
@@ -107,6 +114,9 @@ class Missionsmodel extends CI_Model{
         $this->db->query($this->sQuery1);
         $this->db->query($this->sQuery2);
         $this->db->query($this->sQuery3);
+        $this->sQuery="SELECT walletbalance from tbl_user where userid='".$this->userid."'";
+        $wb=$this->db->query($this->sQuery)->row();
+        $newdata=array('AdminWbalance'=>$wb->walletbalance);
       }else if($this->state==2){
       }
 
@@ -137,5 +147,13 @@ class Missionsmodel extends CI_Model{
       redirect('/Main2/missions','refresh');
     }
     
+    function deleteAllMissions(){
+        $this->nidx=$this->session->userdata('Needs');
+        $this->sQuery="DELETE from tbl_missions where nidx='".$this->nidx."'";
+        $this->db->query($this->sQuery);
+        $this->sQuery="DELETE from tbl_transactions where nidx='".$this->nidx."'";
+        $this->db->query($this->sQuery);
+
+    }
 
 }

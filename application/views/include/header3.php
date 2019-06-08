@@ -41,14 +41,36 @@
     <link href="/assets/ref/missionbox.css" rel="stylesheet">
     <link href="/assets/ref/piggybank.css" rel="stylesheet">
     <link href="/assets/ref/scroll.css" rel="stylesheet">
+    <link href="/assets/ref/fireworks.css" rel="stylesheet">
     <script src="/assets/ref/piggybank.js"></script>
     <script src="/assets/ref/addcomma.js"></script>
     <script src="/assets/ref/timeline/timeline.js"></script>
+    
     <!-- <script src='http://code.jquery.com/jquery-3.3.1.slim.min.js'></script>
     <script src='/assets/jquerykeyframes/jquery.keyframes.js'></script> -->
     <title>Pigmong</title>
     <style>
-    
+    @font-face { font-family: 'designhouseOTFLight00'; src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_three@1.0/designhouseOTFLight00.woff') format('woff'); font-weight: normal; font-style: normal; }
+    @font-face { font-family: '777Balsamtint'; src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_nine_@1.1/777Balsamtint.woff') format('woff'); font-weight: normal; font-style: normal; }
+    @font-face { font-family: 'YanoljaYacheR'; src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_two@1.0/YanoljaYacheR.woff') format('woff'); font-weight: normal; font-style: normal; }
+    @font-face { font-family: 'S-CoreDream-1Thin'; src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_six@1.2/S-CoreDream-1Thin.woff') format('woff'); font-weight: normal; font-style: normal; }
+    @font-face { font-family: 'S-CoreDream-3Light'; src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_six@1.2/S-CoreDream-3Light.woff') format('woff'); font-weight: normal; font-style: normal; }
+    @font-face { font-family: 'NIXGONL-Vb'; src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_six@1.2/NIXGONL-Vb.woff') format('woff'); font-weight: normal; font-style: normal; }
+    @font-face { font-family: 'Goyang'; src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_one@1.0/Goyang.woff') format('woff'); font-weight: normal; font-style: normal; }
+    @font-face { font-family: '777Balsamtint'; src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_nine_@1.1/777Balsamtint.woff') format('woff'); font-weight: normal; font-style: normal; }
+    @font-face { font-family: '777Kidbutterfly'; src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_nine_@1.1/777Kidbutterfly.woff') format('woff'); font-weight: normal; font-style: normal; }
+    @font-face { font-family: '777Flowerbear'; src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_nine_@1.1/777Flowerbear.woff') format('woff'); font-weight: normal; font-style: normal; }
+    @font-face { font-family: 'BBTreeGR'; src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_nine_@1.1/BBTreeGR.woff') format('woff'); font-weight: normal; font-style: normal; }
+    @font-face { font-family: 'Godo'; font-style: normal; font-weight: 400; src: url('//cdn.jsdelivr.net/korean-webfonts/1/corps/godo/Godo/GodoM.woff2') format('woff2'), url('//cdn.jsdelivr.net/korean-webfonts/1/corps/godo/Godo/GodoM.woff') format('woff'); } @font-face { font-family: 'Godo'; font-style: normal; font-weight: 700; src: url('//cdn.jsdelivr.net/korean-webfonts/1/corps/godo/Godo/GodoB.woff2') format('woff2'), url('//cdn.jsdelivr.net/korean-webfonts/1/corps/godo/Godo/GodoB.woff') format('woff'); } .godo * { font-family: 'Godo', sans-serif; }
+    @font-face { font-family: '777Littlebear'; src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_nine_@1.1/777Littlebear.woff') format('woff'); font-weight: normal; font-style: normal; }
+    @font-face { font-family: 'MOF_M'; src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_six@1.2/MOF_M.woff') format('woff'); font-weight: normal; font-style: normal; }
+    @font-face { font-family: 'KOMACON'; src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_seven@1.2/KOMACON.woff') format('woff'); font-weight: normal; font-style: normal; }
+    body>*{font-family: 'KOMACON'; }
+    *{font-family: 'KOMACON';}
+    h1, h2, h3, h4, h5, h6, span {
+    font-family: 'KOMACON';
+    }
+    /* span{font-family: '777Kidbutterfly'; } */
     @import url(https://fonts.googleapis.com/css?family=Bitter:400,400italic,700);
         button:focus { outline:none; }
         * {
@@ -256,6 +278,7 @@
         }
         /* main menu block */
         .mainMenu {
+        border-bottom:5px solid #a4d7dc;
         background-color: #fff;
         position: absolute;
         left: 0;
@@ -276,13 +299,14 @@
                 transform: scale(1);
         }
         .mainMenu.act ul li {
+            height:232px;
         opacity: 1;
         -webkit-transform: translateX(0);
                 transform: translateX(0);
         }
         .mainMenu ul {
-        height: 647px;
-        border-bottom: 2px solid gray;
+        height: 696px;
+        /* border-bottom: 2px solid gray; */
         display: table-cell;
         vertical-align: middle;
         }
@@ -322,7 +346,7 @@
         }
         .title1{
             color:#e39897;
-            font-family:jua;
+            font-family:'KOMACON';
             margin-left:150px;
             margin-top:-5px;
         }
@@ -382,6 +406,11 @@
         .rNavLi_content{
 
         }
+        /* .rNav_1{
+            display: inline-block;
+    margin-top: 50px;
+    margin-bottom: 10px;
+        } */
     </style>
 </head>
 <body>
@@ -403,21 +432,14 @@
                             <!-- <h3 class="text-center title1">Pigmong </h3> -->
                             <img class="text-center title1" src="/assets/freelancer/img/logo.png" style="max-width:30%;height:auto;"alt="">
                             <a href="#" class="menuBtn">
-                                <img src="/assets/freelancer/img/usericon.png" id="hbg" class="fa fa-bars" aria-hidden="true" style="margin-top:5px;">
+                                <img src="/assets/freelancer/img/usericon.png" id="hbg" class="fa fa-bars" aria-hidden="true" style="max-width:80%;margin-top:10px;">
                             </a>
                             <nav class="mainMenu">
                                 <ul style="padding-left:0px;">
-                                    <li style="font-size:1.4rem;"><span class="rNavLi">아이디</span>  <span class="rNavLi_content"><?=$this->session->userdata('AdminId')?></span></li>
-                                    <li><span class="rNavLi">이름</span>  <span class="rNavLi_content"><?=$this->session->userdata('AdminName')?></span></li>
-                                    <li><span class="rNavLi">저금통 이름</span>  <span class="rNavLi_content"><?=$this->session->userdata('AdminBid')?></span></li>
-                                    <li><span class="rNavLi">전체 저금 금액</span>  <span class="rNavLi_content" id="totalbalance"><?=$this->session->userdata('TotalBalance')?></span> 원</li>
-                                    <li><span class="rNavLi">계좌 번호</span>  <span class="rNavLi_content"><?=$this->session->userdata('AdminWallet')?></span></li>
-                                    <?php if(($this->session->userdata("AdminType")==0)){?>
-                                        <li><span class="rNavLi">저금 가능한 금액</span>  <span class="rNavLi_content possibleprice"><?=$this->session->userdata('AdminWbalance')?></span>원</li>
-                                    <?php }else{?>
-                                        <li><span class="rNavLi">용돈 지급 가능 금액</span>  <span class="rNavLi_content possibleprice"><?=$this->session->userdata('AdminWbalance')?></span>원</li>
-                                    <?php }?>
-                                    <li><a href="/auth/logoutProc" class="suBtn" style="background-color:#48adbc;color:white;">로그아웃</a></li>
+                                    <li class="rNav_1" style="background-image:url('/assets/freelancer/img/mypage_back.png');    background-size: contain;font-size:1.4rem;"><br><br><br><span class="rNavLi_content"><?=$this->session->userdata('AdminId')?>님,</span><br><span style="font-weight:100;">안녕하세요!</span><br><br><a href="/auth/logoutProc" class="suBtn" style="background-color:#a4d7dc;color:white;">로그아웃</a></li>
+                                    <li style="background:#a4d7dc; "><span class="rNavLi" style="float:left;margin-left:10px;">계좌 정보 ></span> <br><img src="/assets/freelancer/img/mypage_wallet.png" style="max-width:20%;margin-bottom:10px;"><br> <span class="rNavLi_content" style="font-size:1.2rem;display:block;"><?=$this->session->userdata('AdminWallet')?></span><br><span class="rNavLi_content rNaviLi_content_wb1"style="font-size:2.5rem;"><?=$this->session->userdata('AdminWbalance')?></span>원</li>
+                                    <li style="background:white; "><span class="rNavLi" style="float:left;margin-left:10px;">저금통 ></span> <br><img src="/assets/freelancer/img/mypage_bank.png" style="max-width:20%;margin-bottom:10px;"><br> <span class="rNavLi_content" style="font-size:1.2rem;display:block;"><?=$this->session->userdata('AdminBid')?></span><br><span class="rNavLi_content rNaviLi_content_wb2"style="font-size:2.5rem;"><?=$this->session->userdata('TotalSavings')?></span>원</li>
+                                    <li></li>
                                 </ul>
                             </nav>
                         </header>
@@ -454,6 +476,10 @@
         return Number(data_value).toLocaleString('en');
     }
     $(document).ready(function(){
+        var wb = $('.rNaviLi_content_wb1').html();
+        $('.rNaviLi_content_wb1').html(AddComma(wb));
+        var wb = $('.rNaviLi_content_wb2').html();
+        $('.rNaviLi_content_wb2').html(AddComma(wb));
         // menu click event
         var totalbalance = $("#totalbalance").html();
         $("#totalbalance").html(AddComma(totalbalance));

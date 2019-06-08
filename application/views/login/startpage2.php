@@ -28,13 +28,22 @@
   <!-- Custom styles for this template -->
   <link href="/assets/freelancer/css/freelancer.min.css" rel="stylesheet">
   <style>
+  @font-face { font-family: 'KOMACON'; src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_seven@1.2/KOMACON.woff') format('woff'); font-weight: normal; font-style: normal; }
+  body>*{font-family: 'KOMACON'; }
+    *{font-family: 'KOMACON';}
+    h1, h2, h3, h4, h5, h6, span {
+    font-family: 'KOMACON';
+    }
   *{
       text-decoration:none!important
   }
 
   #page-top{
       background-image:url('/assets/freelancer/img/start_back.png');
+      background-repeat: no-repeat;
       background-size:100%;
+      background-color:white;
+
     }
 .startbtn{
     text-decoration-line: none;
@@ -47,23 +56,24 @@
     color: white;
     position: fixed;
     left: 110px;
-    top: 550px;
-    box-shadow: 0px 5px 1px #656668;
+    top: 620px;
+    box-shadow: 0px 2px 1px #909194;
 }
 .ment{
     position: absolute;
-    top: 450px;
+    top: 470px;
     text-align: center;
-    left: 130px;
+    left: 80px;
     color: #3f3f41;
+    font-size: 1.2rem;
 }
   </style>
 </head>
 
 <body id="page-top">
     <div class="ment">
-        <span>피그몽을 통해 </span>
-        <br><span>저축 습관을 길러보아요</span>
+        <span>아이들의 꾸준한 저축 실현을 위한</span>
+        <br><span style="color:#00b0bf;">디지털 저금통</span>
     </div>
     <a href="/Auth"class="startbtn" sytle="text-decoration-line: none;!important">시작하기</a>
 

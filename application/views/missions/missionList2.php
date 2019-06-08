@@ -1,8 +1,16 @@
 <style>
+ h1, h2, h3, h4, h5, h6 {
+    /* font-weight: 700; */
+    font-family: 'KOMACON';
+}
+span{
+    font-family: 'KOMACON';
+}
 #mtb *{
   border:1px solid gray;
   text-align:center;
 }
+
 #mt{
 
 }
@@ -20,7 +28,7 @@
   position: fixed;
   left: 25px;
   z-index: 998;
-  top: 270px;
+  top: 160px;
 
 }
 .plusbtn{
@@ -56,20 +64,32 @@ display:none;
 
 }
 #mp{
-    width: 70px;
+    /* width: 70px;
     margin-left: 190px;
     height: 100%;
     position: relative;
     bottom: 25px;
-    color:white;
+    color:white; */
+    width: 80px;
+    margin-left: 230px;
+    height: 100%;
+    position: relative;
+    bottom: 25px;
+    color: black;
 }
 #mp2{
-    width: 70px;
+    /* width: 70px;
     margin-left: 220px;
     height: 100%;
     position: relative;
     bottom: 25px;
-    color:white;
+    color:white; */
+    width: 80px;
+    margin-left: 240px;
+    height: 100%;
+    position: relative;
+    bottom: 30px;
+    color: black;
 }
 #missionback{
     top:20px;
@@ -102,7 +122,8 @@ display:none;
 .mission_blank_p{
     font-size: 1.8rem;
     position: relative;
-    top: 120px;
+    top: 0px;
+    z-index: 100;
 }
 .blank_pig{
     max-width: 45%;
@@ -133,14 +154,17 @@ display:none;
     left: 50%;
     top: -1rem;
     transform: translate(-50%, -50%);
-    background: #f19495;
-    height: 153px;
+    /* background: #f19495; */
+    background:#ffb4b4b8;
+    height: 130px;
     width: 330px;
     border-radius: 10px;
-    border: 1px solid #e5e5e5;
-    font-family: 'jua';
+    border: 1px solid white;
+    font-family:'KOMACON';
     margin-top: 30px;
+    
 }
+
 
 </style>
 <script>
@@ -150,7 +174,7 @@ var evtSaving = new EventSource('/Sse/saving');
 </script>
 <!-- About Section -->
 <img id="missionback" class="" src="/assets/freelancer/img/mission_back.png" style="max-width:100%;height: auto;z-index:1;"> 
-<section id="section section_tabs" >
+<section id="section section_tabs">
     
     
     <!-- 부모 -->
@@ -164,7 +188,7 @@ var evtSaving = new EventSource('/Sse/saving');
       <!-- </div> -->
       <?if(!$missionsList){?>
       <div class="blank_box">
-        <span class="text-center mission_blank_p">아이가 미션을 기다리고 있어요!</span>
+        <span class="text-center mission_blank_p">미션을 추가해주세요!</span>
         <a href="/Main2/goToAddMissions" onClick="return missionalert();" class="btn-primary btn-lg plusbtn1" >+</a>
         <img class="blank_pig" src="/assets/freelancer/img/blank_pig.png" alt="">
     </div> 
@@ -180,7 +204,7 @@ var evtSaving = new EventSource('/Sse/saving');
               <?foreach($missionsList_p as $index=>$row){?>
                   <div class="popup"> 
                     <form action="/Main2/deleteMissions" method="post" >
-                      <button type="submit" name="midx" value="<?=$row['midx']?>" class="close">
+                      <button name="midx" value="<?=$row['midx']?>" class="close" onclick="return missiondelete();">
                           <svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
                           x="0px" y="0px" width="10px" height="10px" viewBox="215.186 215.671 80.802 80.8"
                           enable-background="new 215.186 215.671 80.802 80.8" xml:space="preserve">
@@ -190,54 +214,90 @@ var evtSaving = new EventSource('/Sse/saving');
                       </button>
                     </form>
                     <div class="valid">
-                    <!-- <svg version="1.1" id="Layer_2" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
-                        x="0px" y="0px" width="15px" height="15px" viewBox="222.744 227.408 67.744 58.526"
+                    <!-- <svg version="1.1" class="check checkicon<?=$row['midx']?> check<?=$row['state']?>" style="display:none;"xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
+                        x="0px" y="0px" width="30px" height="30px" viewBox="222.744 227.408 67.744 58.526"
                         enable-background="new 222.744 227.408 67.744 58.526" xml:space="preserve">
                         <path fill="#39BA6F" d="M250.062,285.934c-9.435-11.111-15.731-18.195-27.318-28.935l5.793-5.357
                         c6.778,3.28,11.076,5.774,18.693,11.204c14.32-16.25,23.783-24.495,41.372-35.438l1.886,4.335
                         C275.983,244.402,265.359,258.502,250.062,285.934z" />
                       </svg> -->
+                      <div class="timeline__step__marker timeline__step__marker--red" style="top:10px;left:10px;"></div>
                     </div>
-                    <h1 class="mission"><?=$row['contents']?></h1>
+                    <h1 class="mission mission<?=$row['midx']?>" style="font-family:'KOMACON'"><?=$row['contents']?></h1>
                     <div class="mpbox">
-                      <img class="missionprice" src="/assets/freelancer/img/missionprice.png" style="max-width:40%;height: auto;">
-                      <span id="mp"><?=$row['price']?></span>
+                      <img class="missionprice" src="/assets/freelancer/img/moneybox.png" style="max-width:40%;height: auto;">
+                      <span id="mp" class="mp<?=$row['midx']?>"><?=$row['price']?></span>
                       <!-- <span style=""><?=date("y년 m월 d일\n h시 i분", strtotime($row['regdate']))?></span> -->
                     </div>
-                    <!-- <img src="/assets/freelancer/img/missionprice.png" style="max-width:60%;height: auto;"> -->
-                    <input id="#state" type="hidden" value="<?=$row['state']?>">
+                    <!-- <img src="/assets/freelancer/img/moneybox.png" style="max-width:60%;height: auto;"> -->
+                    <input id="state" type="hidden" value="<?=$row['state']?>">
                     <!-- <p>You've successfully signed into iAnswer 2.0!</p> -->
-                    <form action="/Main2/missionState" method="get">
+                    <form action="/Main2/missionState" onsubmit="return fncSubmit1();" method="get">
                       <input type="hidden" name="midx" value="<?=$row['midx']?>">
                       <input type="hidden" name="mprice" value="<?=$row['price']?>">
-                      <?if($row['state']==0){?>
-                        <div class="bottom-popup "><button type="button"  class="ms<?=$row['midx']?>  mission_ing start btn-gray"name="state"style="color:#00b0bf; font-weight:400;">미션 수행 중</button></div>
-                        <input type="hidden"  value="<?=$row['midx']?>" class="bp<?=$row['midx']?>">
-                        <?}else if($row['state']==1){?>
-                        <div class="bottom-popup" value="<?=$row['midx']?>"><button type="submit" name="state" value="<?=$row['state']?>" class="ms<?=$row['midx']?> mission_com start btn-green" style="border:1px solid white;box-shadow:0 5px 5px -3px rgba(0, 0, 0, 0.3), 0 3px 5px 2px rgba(0, 0, 0, 0.12); color:white;">용돈 지급하기</button></div>
+                      <?if($row['state']==0 || $row['state']==1){?>
+                        <div class="bottom-popup "><span  class="ms ms<?=$row['midx']?>  mission_ing start btn-gray"name="state"style="color:#00b0bf; font-weight:400;">미션 수행 중</span></div>
                         <input type="hidden"  value="<?=$row['midx']?>" class="bp<?=$row['midx']?>">
                         <?}else if($row['state']==2){?>
-                        <div class="bottom-popup " value="<?=$row['midx']?>"><button type="" class="ms<?=$row['midx']?> start btn-gray"name="state" style="color:gray;">용돈 지급 완료</button></div>
+                        <div class="bottom-popup " value="<?=$row['midx']?>"><span class="ms ms<?=$row['midx']?> start btn-gray"name="state" style="color:gray;">용돈 지급 완료</span></div>
                         <input type="hidden"  value="<?=$row['midx']?>" class="bp<?=$row['midx']?>">
                         <?}?>
                     </form>
-                  <!-- <div class="bottom-popup"><a class="start" href="#">START</a></div> -->
+                    <script>
+                    var ml = $(".mission<?=$row['midx']?>").html();
+                    // console.log(ml);
+                    if(ml.length>=0 && ml.length<10){
+                        $(".mission<?=$row['midx']?>").css('font-size','1.2rem');
+                    }else if(ml.length>=10 && ml.length <15){
+                        $(".mission<?=$row['midx']?>").css('font-size','0.8rem');
+                    }else if(ml.length>=15 && ml.length <25) {
+                        $(".mission<?=$row['midx']?>").css('font-size','0.8rem').css('margin-top','20px');
+                        $(".mp<?=$row['midx']?>").css('bottom','35px');
+                    }else{
+                        $(".mission<?=$row['midx']?>").css('font-size','0.5rem').css('margin-top','20px');
+                        $(".mp<?=$row['midx']?>").css('bottom','35px');
+                    }
+                    var ml = $('.mp<?=$row['midx']?>').html().length;
+
+                    if(ml>0 && ml<5){
+                        $(".mp<?=$row['midx']?>").css('font-size','1rem');
+                    }else if(ml>=5 && ml <7){
+                        $(".mp<?=$row['midx']?>").css('font-size','0.8rem');
+                    }else if(ml>=7) {
+                        $(".mp<?=$row['midx']?>").css('font-size','0.5rem')
+                    }
+                    var mp = $('.mp<?=$row['midx']?>').html();
+                    $('.mp<?=$row['midx']?>').html(AddComma(mp));
+                        </script>
+                    <!-- <div class="bottom-popup"><a class="start" href="#">START</a></div> -->
                 </div>
                 <script>
-                
+                const renameTag = function ($obj, new_tag) {
+                    let obj = $obj.get(0);
+                    let tag = obj.tagName.toLowerCase();
+                    let tag_start = new RegExp('^<' + tag);
+                    let tag_end = new RegExp('<\\/' + tag + '>$');
+                    let new_html = obj.outerHTML.replace(tag_start, "<" + new_tag).replace(tag_end, '</' + new_tag + '>');
+                    $obj.replaceWith(new_html);
+                };
+            //    $(document).ready(function(){
                 evtMCS.addEventListener("message", function(event) {
+                    /**
+                    지금 여기서는 전체를 다 훑어서 state가 1인 것
+                     */
                     let data = JSON.parse(event.data);
-                    // console.log(data.length);
-                    let midx = $(".bp<?=$row['midx']?>").val();
+                    // console.log("MCS"+data[0]['midx']);
+                    // console.log("MCS!");
+                    // let midx = $(".bp<?=$row['midx']?>").val();
                     // console.log(midx);
                     // let missions = $('.ms');
-
                     for (let i = 0; i < data.length; i++) {
-                        if(data[i]['midx']==midx){
-                            $(".ms<?=$row['midx']?>").css('background-color','#27bbcc').css('color','white').css('box-shadow','0 5px 5px -3px rgba(0, 0, 0, 0.3), 0 3px 5px 2px rgba(0, 0, 0, 0.12)').css('border','1px solid white').html("용돈 지급하기").attr('type','submit').attr('value','1');
-                        }
+                        console.log(data[i]['midx']);
+                        renameTag($(".ms"+data[i]['midx']),'button')
+                        $(".ms"+data[i]['midx']).css('background-color','#27bbcc').css('color','white').css('box-shadow','0 5px 5px -3px rgba(0, 0, 0, 0.3), 0 3px 5px 2px rgba(0, 0, 0, 0.12)').css('border','1px solid white').html("용돈 지급하기").attr('type','submit').attr('value','1');
                     }
                 });
+            //    });
               </script>
                 
                 
@@ -285,52 +345,108 @@ var evtSaving = new EventSource('/Sse/saving');
                   </svg> -->
                 </a>
                 <div class="valid">
-                  <!-- <svg version="1.1" id="Layer_2" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
+                  <!-- <svg version="1.1" class="check checkicon<?=$row['midx']?> check<?=$row['state']?>" style="display:none;" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
                     x="0px" y="0px" width="30px" height="30px" viewBox="222.744 227.408 67.744 58.526"
                     enable-background="new 222.744 227.408 67.744 58.526" xml:space="preserve">
                     <path fill="#39BA6F" d="M250.062,285.934c-9.435-11.111-15.731-18.195-27.318-28.935l5.793-5.357
                     c6.778,3.28,11.076,5.774,18.693,11.204c14.32-16.25,23.783-24.495,41.372-35.438l1.886,4.335
                     C275.983,244.402,265.359,258.502,250.062,285.934z" />
                   </svg> -->
+                  <div class="timeline__step__marker timeline__step__marker--red" style="top:10px;left:10px;"></div>
                 </div>
-                <h1 class="mission"><?=$row['contents']?></h1>
+                <!-- <div class="timeline__step__marker timeline__step__marker--red"></div> -->
+                <h1 class="mission mission<?=$row['midx']?>" style="margin-top:35px;font-family:'KOMACON'"><?=$row['contents']?></h1>
                   <div class="mpbox">
-                    <img class="missionprice" src="/assets/freelancer/img/missionprice.png" style="max-width:40%;height: auto;">
-                    <span id="mp2"><?=$row['price']?></span>
+                    <img class="missionprice" src="/assets/freelancer/img/moneybox.png" style="max-width:40%;height: auto;left:0px;">
+                    <span id="mp2" class="mp2<?=$row['midx']?>"><?=$row['price']?></span>
                     <!-- <span style=""><?=date("m월 d일\n h시 i분", strtotime($row['regdate']))?></span> -->
                     <!-- <span class="mp"><?=$row['price']?></span> -->
                   </div>
-                <input id="#state" type="hidden" value="<?=$row['state']?>">
                 <!-- <p>You've successfully signed into iAnswer 2.0!</p> -->
-                <form action="/Main2/missionState" method="get">
+                <form class="msForm" action="/Main2/missionState" onsubmit="return fncSubmit1();"method="get">
+                  <input id="state" type="hidden" value="<?=$row['state']?>">
                   <input type="hidden" name="midx" value="<?=$row['midx']?>">
                   <input type="hidden" name="mprice" value="<?=$row['price']?>">
                     <?if($row['state']==0){?>
-                        <div class="bottom-popup " value="<?=$row['midx']?>"><button type="submit" name="state" value="<?=$row['state']?>" class="ms<?=$row['midx']?> start btn-green" style="border:1px solid white;box-shadow:0 5px 5px -3px rgba(0, 0, 0, 0.3), 0 3px 5px 2px rgba(0, 0, 0, 0.12);">다했어요!</button></div>
+                        <div class="bottom-popup " value="<?=$row['midx']?>"><button type="submit" name="state" value="<?=$row['state']?>" class="ms ms<?=$row['midx']?> start btn-green" style="border:1px solid white;box-shadow:0 5px 5px -3px rgba(0, 0, 0, 0.3), 0 3px 5px 2px rgba(0, 0, 0, 0.12);">다했어요!</button></div>
                         <input type="hidden"  value="<?=$row['midx']?>" class="bp<?=$row['midx']?>">
                     <?}else if($row['state']==1){?>
-                        <div class="bottom-popup " value="<?=$row['midx']?>"><button type="button" class="ms<?=$row['midx']?> start btn-gray">용돈 기다리는 중...</button></div>
+                        <div class="bottom-popup " value="<?=$row['midx']?>"><span  class="ms ms<?=$row['midx']?> start btn-gray">용돈 기다리는 중...</span></div>
                         <input type="hidden"  value="<?=$row['midx']?>" class="bp<?=$row['midx']?>">
                     <?}else if($row['state']==2){?>
-                        <div class="bottom-popup " value="<?=$row['midx']?>"><a href="/Main2/savings" class="box-shadow:0;"><button type="button" class="ms<?=$row['midx']?> start btn-gray" style="color:gray;box-shadow:0px;">저금했어요!</button></a></div>
+                        <div class="bottom-popup " value="<?=$row['midx']?>"><span  onclick="$('.msForm').doNotSubmit();" class="ms ms<?=$row['midx']?> start btn-gray" style="color:gray;box-shadow:0px;">저금했어요!</span></div>
                         <input type="hidden"  value="<?=$row['midx']?>" class="bp<?=$row['midx']?>">
                     <?}?>
                 </form>
+                <script>
+                    var ml = $(".mission<?=$row['midx']?>").html();
+                    // console.log(ml);
+                    if(ml.length>=0 && ml.length<10){
+                        $(".mission<?=$row['midx']?>").css('font-size','1rem');
+                    }else if(ml.length>=10 && ml.length <15){
+                        $(".mission<?=$row['midx']?>").css('font-size','0.8rem');
+                    }else if(ml.length>=15 && ml.length <25) {
+                        $(".mission<?=$row['midx']?>").css('font-size','0.8rem').css('margin-top','20px');
+                        $(".mp2<?=$row['midx']?>").css('bottom','35px');
+                    }else{
+                        $(".mission<?=$row['midx']?>").css('font-size','0.5rem').css('margin-top','20px');
+                        $(".mp2<?=$row['midx']?>").css('bottom','35px');
+                    }
+                    var ml = $('.mp2<?=$row['midx']?>').html().length;
+
+                    if(ml>0 && ml<5){
+                        $(".mp2<?=$row['midx']?>").css('font-size','1rem');
+                    }else if(ml>=5 && ml <7){
+                        $(".mp2<?=$row['midx']?>").css('font-size','0.8rem');
+                    }else if(ml>=7) {
+                        $(".mp2<?=$row['midx']?>").css('font-size','0.5rem')
+                    }
+                    var mp = $('.mp2<?=$row['midx']?>').html();
+                    $('.mp2<?=$row['midx']?>').html(AddComma(mp));
+
+                </script>
                 <!-- <div class="bottom-popup"><a class="start" href="#">START</a></div> -->
               </div>
               <script>
+
+                // var state = $('#state').val();
+                
+                // if(state==0){
+                //   $(".check"+state).css('display','block');
+                // }
                 evtSaving.addEventListener("message", function(event) {
             
                     let data = JSON.parse(event.data);
                     let count = data.length;
-                    
+                    // .contents()css('background-color','#3F51B5')
                     for(let i =0; i<count;i++){
                         $(".ms"+data[i]['midx']).css('background-color','#3F51B5').css('color','white').css('box-shadow','0 5px 5px -3px rgba(0, 0, 0, 0.3), 0 3px 5px 2px rgba(0, 0, 0, 0.12)').css('border','1px solid white').html("저금해보아요!").click(function(){
-                            document.location.href='/Main2/savings';
+                            // if($(".ms"+data[i]['midx']).html()=='저금해보아요!'){
+                                document.location.href='/Main2/savings';
+                            // }
                         });
                     }
                 });
-                
+                // var ml = $('.mission<?=$row['midx']?>').html().length;
+                // // console.log(ml);
+                // if(ml>0 && ml<12){
+                //     $(".mission<?=$row['midx']?>").css('font-size','1rem');
+                // }else if(ml>=12 && ml <18){
+                //     $(".mission<?=$row['midx']?>").css('font-size','0.8rem');
+                // }else if(ml>=18) {
+                //     $(".mission<?=$row['midx']?>").css('font-size','0.5rem')
+                // }
+                // var ml = $('.mp2<?=$row['midx']?>').html().length;
+
+                // if(ml>0 && ml<5){
+                //     $(".mp2<?=$row['midx']?>").css('font-size','1rem');
+                // }else if(ml>=5 && ml <7){
+                //     $(".mp2<?=$row['midx']?>").css('font-size','0.8rem');
+                // }else if(ml>=7) {
+                //     $(".mp2<?=$row['midx']?>").css('font-size','0.5rem')
+                // }
+                // var mp2 = $('.mp2<?=$row['midx']?>').html();
+                // $('.mp2<?=$row['midx']?>').html(AddComma(mp2));
               </script>
 
               
@@ -349,7 +465,17 @@ var evtSaving = new EventSource('/Sse/saving');
   <?}?>
   <input type="hidden" id="page" value="<?=$page?>">
   <script>
+  var doubleSubmitFlag1 = false;
 
+    function fncSubmit1(){
+        if(doubleSubmitFlag1){
+            swal('처리 중입니다!');
+            return false;
+        }else {
+            doubleSubmitFlag1 = true;
+            $('#addNeedsForm').submit();
+        }
+    }
     // evtMissionAlarm.onmessage = function(e) {
     //         console.log(e.data+"mission2");
             
@@ -359,13 +485,39 @@ var evtSaving = new EventSource('/Sse/saving');
     //         }
 
     //     };
+    var doubleSubmitFlag=false;
 
+    function missiondelete(){
+        if(doubleSubmitFlag){
+            swal('삭제 중입니다!');
+            return false;
+        }else {
 
+            swal("삭제하시겠습니까?");
+            doubleSubmitFlag = true;
+            $('#addNeedsForm').submit();
+        }
+    }
+//    function missiondelete(){
+//     swal({
+//       title: "미션을 삭제하시겠어요?",
+//       icon: "warning",
+//       buttons: true,
+//       dangerMode: true,
+//     })
+//     .then((willDelete) => {
+//       if (willDelete) {
+//         swal("미션이 삭제되었어요. 새로운 미션을 등록해주세요!", {
+//           icon: "success",
+//         });
+//       }
+//     });
+//    }
 
 
   function missionalert(){
     var nidx = $('#nidx').val();
-    console.log(nidx);
+    // console.log(nidx);
     if(!nidx){
       swal('아이가 필요한 물건을 등록하지 않았아요!');
       return false;
@@ -374,13 +526,24 @@ var evtSaving = new EventSource('/Sse/saving');
   </script>
    <script>
    $(document).ready(function(){
+    // console.log("MCS!");
     
-    if($('button').html()=="용돈을 받았어요!"){
-        
-    }
+        var doubleSubmitFlagMs = false;
+        $('button').click(function(){
+            if(doubleSubmitFlagMs){
+                swal("처리 중입니다!");
+                return false;
+            }else{
+                doubleSubmitFlagMs = true;
+            }
+            
+        });
+        if($('button').html()=="용돈을 받았어요!"){
+            
+        }
 
 
-    var page = $('#page').val();
+        var page = $('#page').val();
         if(page==0){
             // $('#ntab').css('background-color','#7ba434').css('color','white');
         }else if(page==1){
@@ -388,34 +551,17 @@ var evtSaving = new EventSource('/Sse/saving');
             $('#missiontab').attr('src','/assets/freelancer/img/missionicon_white.png');
         }
 
-    // var button = document.querySelector('#ssebtn');
-    //         var evtSource = new EventSource('/Sse');
+        // if(Number($('#mp').html())>99999){
+        //     $("#mp").css('font-size','0.8rem');
+        // }
+        // if(Number($('#mp2').html())>99999){
+        //     $("#mp2").css('font-size','0.8rem');
+        // }
 
-    //         console.log(evtSource.withCredentials);
-    //         console.log(evtSource.readyState);
-    //         console.log(evtSource.url);
-    //         // console.log(evtSource.data+"hihi");
-
-    //         var eventList = document.querySelector('#sseul');
-
-    //         evtSource.onopen = function() {
-    //             console.log("Connection to server opened.");
-    //         };
-
-    //         evtSource.onmessage = function(e) {
-    //             var newElement = document.createElement("li");
-    //             newElement.textContent = "message: " + e.data;
-    //             eventList.appendChild(newElement);
-    //         };
-
-    //         evtSource.onerror = function() {
-    //             console.log("EventSource failed.");
-    //         };
-
-    //         button.onclick = function() {
-    //             console.log('Connection closed');
-    //             evtSource.close();
-    //         };
+        // var cp = $('#mp').html();
+        // $('#mp').html(AddComma(cp));
+        // var cp2 = $('#mp2').html();
+        // $('#mp2').html(AddComma(cp2));
    });
             
 

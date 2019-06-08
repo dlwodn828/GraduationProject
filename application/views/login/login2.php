@@ -42,13 +42,13 @@
 	}
 	</style>
 </head>
-<body id="login_back" style="background-image:url('/assets/freelancer/img/login_back.png');background-size:100%;">
+<body id="login_back" style="background-image:url('/assets/freelancer/img/login_back.png');background-size:100%;background-color:white;background-repeat:no-repeat;">
 
     <!-- <div class="container"> -->
     <!-- <h3 class="text-center">Login</h3>
     <hr> -->
     <div class="card" style="top:250px; background-color:rgba( 255, 255, 255, 0 );.; border:0px; width:300px;   margin: 0 auto;">
-        <article class="card-body" style="margin-top: 80px;">
+        <article class="card-body" style="margin-top: 120px;">
         <!-- <h4 class="card-title mb-4 mt-1">Login</h4> -->
             <form id="actForm" action="/auth/loginProc" method="POST">
             <!-- <input type="hidden" name="<?=$this->security->get_csrf_token_name()?>" value="<?=$this->security->get_csrf_hash()?>" /> -->

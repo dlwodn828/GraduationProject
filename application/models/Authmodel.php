@@ -78,8 +78,12 @@ class Authmodel extends CI_Model{
 							$newdata=array('TotalBalance'=>$bb->bbalance);
 						}
 						$this->session->set_userdata($newdata);
-					}
-
+                    }
+                    $this->bid=$this->session->userdata('AdminBid');
+                    $this->sQuery="SELECT * from tbl_totalsavings where bid='".$this->bid."'";
+                    $ts=$this->db->query($this->sQuery)->row();
+                    $newdata=array('TotalSavings'=>$ts->bbalance);
+                    $this->session->set_userdata($newdata);
 					// $arrRetMessage=array('sRetCode'=>'01','sMessage'=>' 로그인이 완료되었습니다.','sRetUrl'=>'/Auth');
 					$arrRetMessage=array('sRetCode'=>'01','sMessage'=>'로그인이 완료되었습니다.','sRetUrl'=>'/Auth');
 					// redirect('/Auth','refresh');
@@ -111,10 +115,12 @@ class Authmodel extends CI_Model{
 
 		$this->pQuery="INSERT INTO tbl_user(username, userid, userpwd, usertype, partnerid, walletid, walletbalance, bankid) values ('".$this->pname."', '".$this->pid."', '".$this->ppwd."', 1, '".$this->cid."', '".$this->pwid."', '".$this->pwbalance."', '".$this->pbid."')";
 		$this->cQuery="INSERT INTO tbl_user(username, userid, userpwd, usertype, partnerid, walletid, bankid) values ('".$this->cname."', '".$this->cid."', '".$this->cpwd."', 0, '".$this->pid."', '".$this->cwid."', '".$this->pbid."')";
-		$this->bQuery="INSERT INTO tbl_piggybank(bid) values ('".$this->pbid."')";
+        $this->bQuery="INSERT INTO tbl_piggybank(bid) values ('".$this->pbid."')";
+        $this->tsQuery="INSERT INTO tbl_totalsavings(bid,bbalance) values ('".$this->pbid."',0)";
 		$this->db->query($this->pQuery);
 		$this->db->query($this->cQuery);
-		$this->db->query($this->bQuery);
+        $this->db->query($this->bQuery);
+        $this->db->query($this->tsQuery);
 		redirect('/auth','refresh');
 
 	}

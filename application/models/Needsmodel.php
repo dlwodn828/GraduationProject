@@ -19,10 +19,14 @@ class Needsmodel extends CI_Model{
 
         if(!$this->session->userdata('AdminType')){ //아이일 때
             $this->writerid=$this->session->userdata('AdminId');
+            $this->sQuery="SELECT walletbalance as wb from tbl_user where bankid='".$this->bid."' and usertype=0";
+            $this->wBalance=$this->db->query($this->sQuery)->row()->wb;
         }else{ // 부모일 때
             $this->writerid=$this->session->userdata('AdminPtn');
+            $this->sQuery="SELECT walletbalance as wb from tbl_user where bankid='".$this->bid."' and usertype=1";
+            $this->wBalance=$this->db->query($this->sQuery)->row()->wb;
         }
-        $this->bid=$this->session->userdata('AdminBid');
+
         
         $this->sQuery="SELECT distinct * from tbl_needs where writerid='".$this->writerid."'";
         $this->needsList=$this->db->query($this->sQuery)->result_array();
@@ -35,9 +39,10 @@ class Needsmodel extends CI_Model{
             $this->needsPrice=$this->db->query($this->sQuery)->row()->p;
         }
 
-        $this->sQuery="SELECT walletbalance as wb from tbl_user where userid='".$this->writerid."'";
-        $this->wBalance=$this->db->query($this->sQuery)->row()->wb;
+        
         $needsList['wBalance']=$this->wBalance;
+        $newdata=array('AdminWbalance'=>$this->wBalance);
+        $this->session->set_userdata($newdata);
         
         //저금통에 있는 돈
         // $this->sQuery="SELECT sum(p.bbalance) as sum01 from tbl_piggybank as p join tbl_needs as n on p.bid=n.bid where p.bid = '".$this->bid."' and p.regdate > n.regdate";
@@ -53,8 +58,10 @@ class Needsmodel extends CI_Model{
             }
             $this->sQuery="SELECT bbalance from tbl_user join tbl_piggybank on bankid=bid where usertype=0 and userid='".$this->writerid."'";
             $bb=$this->db->query($this->sQuery)->row();
+            $this->sQuery="SELECT bbalance from tbl_totalsavings where bid='".$this->bid."'";
+            $ts=$this->db->query($this->sQuery)->row();
             if(!empty($bb)){
-                $newdata=array('TotalBalance'=>$bb->bbalance);
+                $newdata=array('TotalSavings'=>$ts->bbalance, 'TotalBalance'=>$bb->bbalance);
                 $this->session->set_userdata($newdata);
             }
         }
@@ -121,12 +128,11 @@ class Needsmodel extends CI_Model{
     }
 
     function deleteNeeds(){
-        $this->nidx=$this->input->post('nidx');
+        $this->nidx=$this->session->userdata('Needs');
         $this->sQuery="DELETE from tbl_needs where nidx='".$this->nidx."'";
         $this->db->query($this->sQuery);
-        //미션 지우기
 
-        //pinmoneyT 지우기 
-        redirect('/Main2/needs','refresh');
+        $newdata=array('Needs'=>'', 'Mission'=>'', 'TotalBalance'=>'');
+        $this->session->set_userdata($newdata);
     }
 }

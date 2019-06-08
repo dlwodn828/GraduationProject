@@ -25,8 +25,8 @@ class Main2 extends CI_Controller {
 
 	public function needs(){
 		$topBar=$this->authmodel->checkLogin();
-		$this->load->view('include/header3',$topBar);
 		$arrData=$this->needsmodel->showNeedsList();
+		$this->load->view('include/header3',$topBar);
 		$this->load->view('needs/needList2',$arrData);
 		$this->load->view('include/footer2');
 	}
@@ -41,8 +41,8 @@ class Main2 extends CI_Controller {
 
 	public function missions(){
 		$topBar=$this->authmodel->checkLogin();
-		$this->load->view('include/header3',$topBar);
 		$arrData=$this->missionsmodel->showMissionsList();
+		$this->load->view('include/header3',$topBar);
 		$this->load->view('missions/missionList2',$arrData);
 		$this->load->view('include/footer2');
 	}
@@ -59,8 +59,8 @@ class Main2 extends CI_Controller {
 			redirect('/Main2/missions','refresh');
 		}else{
 			$topBar=$this->authmodel->checkLogin();
-			$this->load->view('include/header3',$topBar);
 			$arrData=$this->missionsmodel->missionPrice();
+			$this->load->view('include/header3',$topBar);
 			$this->load->view('missions/addMission',$arrData);
 			$this->load->view('include/footer2');
 		}
@@ -72,8 +72,8 @@ class Main2 extends CI_Controller {
 	}
 	public function savings(){
 		$topBar=$this->authmodel->checkLogin();
-		$this->load->view('include/header3',$topBar);
 		$arrData=$this->savingsmodel->showSavingsList();
+		$this->load->view('include/header3',$topBar);
 		$this->load->view('saving/SaveMoney2',$arrData);
 		$this->load->view('include/footer2');
 	}
@@ -83,5 +83,14 @@ class Main2 extends CI_Controller {
 	}
 	public function deleteMissions(){
 		$this->missionsmodel->deleteMissions();
-	}
+    }
+    
+    public function clearAll(){
+        $this->missionsmodel->deleteAllMissions();
+        $this->savingsmodel->updateNeedsInPiggy();
+        $this->needsmodel->deleteNeeds();
+        
+        redirect('/Main2/needs','refresh');
+
+    }
 }
